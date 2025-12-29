@@ -6,14 +6,14 @@ Pantry is a dinner planning app that helps households assemble trustworthy weekl
 
 ### Key Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| iOS Framework | SwiftUI | Native iCloud/CloudKit sync, Foundation Models API |
-| Backend Runtime | Bun + TypeScript | Fast, TypeScript-native, Vercel AI compatible |
-| AI Strategy | Hybrid | Server for draft generation, on-device for swaps |
-| Meal Database | SQLite | Lightweight, perfect for ~150 meals |
-| User Data | iCloud/CloudKit | Privacy-first, offline-capable, no auth needed |
-| Deployment | Vercel Functions | Zero-ops, integrates with `ai` package |
+| Decision        | Choice           | Rationale                                          |
+| --------------- | ---------------- | -------------------------------------------------- |
+| iOS Framework   | SwiftUI          | Native iCloud/CloudKit sync, Foundation Models API |
+| Backend Runtime | Bun + TypeScript | Fast, TypeScript-native, Vercel AI compatible      |
+| AI Strategy     | Hybrid           | Server for draft generation, on-device for swaps   |
+| Meal Database   | SQLite           | Lightweight, perfect for ~150 meals                |
+| User Data       | iCloud/CloudKit  | Privacy-first, offline-capable, no auth needed     |
+| Deployment      | Vercel Functions | Zero-ops, integrates with `ai` package             |
 
 ### System Architecture
 
@@ -201,6 +201,7 @@ class UserPreferences {
 SwiftData syncs automatically with CloudKit when configured correctly.
 
 **Requirements**:
+
 1. Enable iCloud capability in Xcode
 2. Enable CloudKit in Signing & Capabilities
 3. Create CloudKit container: `iCloud.com.yourteam.pantry`
@@ -226,6 +227,7 @@ struct PantryApp: App {
 ```
 
 **CloudKit Constraints** (important):
+
 - No `@Attribute(.unique)` - CloudKit doesn't support unique constraints
 - Relationships must be optional
 - All properties must be Codable
@@ -280,6 +282,7 @@ struct SwapContext {
 ```
 
 **Fallback**: If Foundation Models unavailable (older iOS), use simple heuristics:
+
 - Filter by prep risk for busy days
 - Avoid duplicates in same week
 - Prioritize high-survival-rate meals
@@ -522,15 +525,15 @@ CREATE INDEX idx_meals_curation ON meals(curation_status);
 
 ```typescript
 // backend/src/db/client.ts
-import { Database } from "bun:sqlite";
-import { join } from "path";
+import { Database } from 'bun:sqlite';
+import { join } from 'path';
 
-const db = new Database(join(import.meta.dir, "../../data/meals.db"));
+const db = new Database(join(import.meta.dir, '../../data/meals.db'));
 
 export interface DBMeal {
   id: string;
   name: string;
-  prep_risk: "fast" | "normal" | "effortful";
+  prep_risk: 'fast' | 'normal' | 'effortful';
   batch_friendly: number;
   contains_gluten: number;
   contains_dairy: number;
@@ -575,10 +578,8 @@ export function getMealById(id: string): DBMeal | null {
 }
 
 export function getMealsByIds(ids: string[]): DBMeal[] {
-  const placeholders = ids.map(() => "?").join(",");
-  return db
-    .prepare(`SELECT * FROM meals WHERE id IN (${placeholders})`)
-    .all(...ids) as DBMeal[];
+  const placeholders = ids.map(() => '?').join(',');
+  return db.prepare(`SELECT * FROM meals WHERE id IN (${placeholders})`).all(...ids) as DBMeal[];
 }
 ```
 
@@ -586,36 +587,36 @@ export function getMealsByIds(ids: string[]): DBMeal[] {
 
 ```typescript
 // backend/src/index.ts
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import { mealsRoute } from "./api/meals";
-import { draftRoute } from "./api/draft";
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { mealsRoute } from './api/meals';
+import { draftRoute } from './api/draft';
 
 const app = new Hono();
 
-app.use("/*", cors());
+app.use('/*', cors());
 
-app.route("/api/meals", mealsRoute);
-app.route("/api/draft", draftRoute);
+app.route('/api/meals', mealsRoute);
+app.route('/api/draft', draftRoute);
 
-app.get("/health", (c) => c.json({ status: "ok" }));
+app.get('/health', (c) => c.json({ status: 'ok' }));
 
 export default app;
 ```
 
 ```typescript
 // backend/src/api/meals.ts
-import { Hono } from "hono";
-import { getMeals } from "../db/client";
-import type { Meal } from "../types";
+import { Hono } from 'hono';
+import { getMeals } from '../db/client';
+import type { Meal } from '../types';
 
 export const mealsRoute = new Hono();
 
-mealsRoute.get("/", (c) => {
-  const since = c.req.query("since");
-  const glutenFree = c.req.query("gluten_free") === "true";
-  const dairyFree = c.req.query("dairy_free") === "true";
-  const nutFree = c.req.query("nut_free") === "true";
+mealsRoute.get('/', (c) => {
+  const since = c.req.query('since');
+  const glutenFree = c.req.query('gluten_free') === 'true';
+  const dairyFree = c.req.query('dairy_free') === 'true';
+  const nutFree = c.req.query('nut_free') === 'true';
 
   const dbMeals = getMeals({ since, glutenFree, dairyFree, nutFree });
 
@@ -641,13 +642,13 @@ mealsRoute.get("/", (c) => {
 
 ```typescript
 // backend/src/api/draft.ts
-import { Hono } from "hono";
-import { generateDraft } from "../ai/draft-generator";
-import type { DraftRequest, DraftResponse } from "../types";
+import { Hono } from 'hono';
+import { generateDraft } from '../ai/draft-generator';
+import type { DraftRequest, DraftResponse } from '../types';
 
 export const draftRoute = new Hono();
 
-draftRoute.post("/", async (c) => {
+draftRoute.post('/', async (c) => {
   const request = await c.req.json<DraftRequest>();
 
   const draft = await generateDraft(request);
@@ -660,11 +661,11 @@ draftRoute.post("/", async (c) => {
 
 ```typescript
 // backend/src/ai/draft-generator.ts
-import { generateObject } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
-import { z } from "zod";
-import { getMeals, getMealsByIds } from "../db/client";
-import type { DraftRequest, DraftResponse, DraftMeal } from "../types";
+import { generateObject } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { z } from 'zod';
+import { getMeals, getMealsByIds } from '../db/client';
+import type { DraftRequest, DraftResponse, DraftMeal } from '../types';
 
 const DraftSchema = z.object({
   meals: z.array(
@@ -688,29 +689,32 @@ export async function generateDraft(request: DraftRequest): Promise<DraftRespons
 
   // Build context for the LLM
   const mealList = availableMeals
-    .map((m) => `- ${m.name} (${m.prep_risk}, ${m.batch_friendly ? "batch-friendly" : "single"})`)
-    .join("\n");
+    .map((m) => `- ${m.name} (${m.prep_risk}, ${m.batch_friendly ? 'batch-friendly' : 'single'})`)
+    .join('\n');
 
   const historyContext = request.mealHistory
     .map((h) => `- ${h.mealName}: ${h.outcome} (${h.weeksAgo} weeks ago)`)
-    .join("\n");
+    .join('\n');
 
-  const busyDaysContext = request.busyDays.length > 0
-    ? `Busy days (prefer easy meals): ${request.busyDays.map(d => dayName(d)).join(", ")}`
-    : "No particularly busy days this week.";
+  const busyDaysContext =
+    request.busyDays.length > 0
+      ? `Busy days (prefer easy meals): ${request.busyDays.map((d) => dayName(d)).join(', ')}`
+      : 'No particularly busy days this week.';
 
   const prompt = `
-You are a meal planning assistant for a household. Generate a dinner plan for ${request.dinnerCount} nights.
+You are a meal planning assistant for a household. Generate a dinner plan for ${
+    request.dinnerCount
+  } nights.
 
 ## Available Meals
 ${mealList}
 
 ## Recent History
-${historyContext || "No recent history."}
+${historyContext || 'No recent history.'}
 
 ## This Week's Context
 ${busyDaysContext}
-${request.constraints ? `User mentioned: "${request.constraints}"` : ""}
+${request.constraints ? `User mentioned: "${request.constraints}"` : ''}
 
 ## Rules
 1. 60% should be "staple" meals (meals that were kept in history, not swapped)
@@ -724,7 +728,7 @@ Generate a plan for days 1-${request.dinnerCount} (Monday=1, Sunday=7).
 `;
 
   const { object } = await generateObject({
-    model: anthropic("claude-sonnet-4-20250514"),
+    model: anthropic('claude-sonnet-4-20250514'),
     schema: DraftSchema,
     prompt,
   });
@@ -745,8 +749,8 @@ Generate a plan for days 1-${request.dinnerCount} (Monday=1, Sunday=7).
 }
 
 function dayName(day: number): string {
-  const days = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  return days[day] || "";
+  const days = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  return days[day] || '';
 }
 ```
 
@@ -758,7 +762,7 @@ function dayName(day: number): string {
 export interface Meal {
   id: string;
   name: string;
-  prepRisk: "fast" | "normal" | "effortful";
+  prepRisk: 'fast' | 'normal' | 'effortful';
   batchFriendly: boolean;
   containsGluten: boolean;
   containsDairy: boolean;
@@ -775,7 +779,7 @@ export interface DietaryFilters {
 
 export interface MealHistoryItem {
   mealName: string;
-  outcome: "kept" | "swapped" | "skipped";
+  outcome: 'kept' | 'swapped' | 'skipped';
   weeksAgo: number;
 }
 
@@ -900,12 +904,13 @@ No network required. Works offline.
 
 Types are maintained manually. Keep these files in sync:
 
-| Swift | TypeScript |
-|-------|------------|
-| `ios/Pantry/Models/Meal.swift` | `backend/src/types/index.ts` |
+| Swift                                  | TypeScript                   |
+| -------------------------------------- | ---------------------------- |
+| `ios/Pantry/Models/Meal.swift`         | `backend/src/types/index.ts` |
 | `ios/Pantry/Services/APIService.swift` | `backend/src/types/index.ts` |
 
 **Sync checklist when changing types**:
+
 1. Update Swift model
 2. Update TypeScript type
 3. Update API request/response structs in both
@@ -924,9 +929,11 @@ vercel deploy --prod
 ```
 
 **Environment Variables**:
+
 - `ANTHROPIC_API_KEY` - For Vercel AI SDK
 
 **Vercel Configuration**:
+
 ```json
 // backend/vercel.json
 {
@@ -950,6 +957,7 @@ vercel deploy --prod
 Standard Xcode archive → App Store Connect workflow.
 
 **Required Capabilities**:
+
 - iCloud (CloudKit)
 - Background Modes (Background fetch)
 - Push Notifications (local only)
@@ -957,6 +965,7 @@ Standard Xcode archive → App Store Connect workflow.
 ### Meal Database Updates
 
 Weekly curation workflow:
+
 1. Review/add meals in `shared/meals-seed.json`
 2. Run `bun run seed` to update SQLite
 3. Deploy backend (`vercel deploy --prod`)
@@ -967,42 +976,51 @@ Weekly curation workflow:
 ## Implementation Order
 
 1. **Backend: SQLite schema + seed data**
+
    - Create schema.sql
    - Create initial 150 meals in meals-seed.json
    - Implement seed script
 
 2. **Backend: Bun server with `/api/meals`**
+
    - Set up Hono
    - Implement meals endpoint with filtering
    - Deploy to Vercel
 
 3. **iOS: Xcode project + SwiftData models**
+
    - Create project structure
    - Implement data models
    - Set up model container
 
 4. **iOS: CloudKit configuration**
+
    - Enable capabilities
    - Test sync between devices
 
 5. **iOS: Basic UI (weekly draft screen)**
+
    - WeeklyDraftView
    - Day cards with meal display
 
 6. **Backend: Vercel AI draft generation**
+
    - Implement `/api/draft` endpoint
    - Test with various inputs
 
 7. **iOS: API integration + meal sync**
+
    - APIService implementation
    - Local meal cache
    - Weekly sync logic
 
 8. **iOS: Foundation Models for swap suggestions**
+
    - FoundationModelsService
    - SwapSheet with alternatives
 
 9. **iOS: Calendar + notifications**
+
    - CalendarService for busy day detection
    - NotificationService for Saturday reminder
 
@@ -1017,17 +1035,18 @@ Weekly curation workflow:
 
 For the initial 150-meal database, target this distribution:
 
-| Category | Count | Examples |
-|----------|-------|----------|
-| Mexican | 20 | Tacos, enchiladas, burrito bowls, quesadillas |
-| Italian | 25 | Pasta varieties, pizza, risotto, chicken parm |
-| Asian | 25 | Stir fry, rice bowls, noodles, curry |
-| American | 30 | Burgers, grilled chicken, meatloaf, chili |
-| Mediterranean | 15 | Greek salads, falafel, kebabs, hummus bowls |
-| Simple/Quick | 25 | Sandwiches, eggs, soup, frozen meal upgrades |
-| Batch-Friendly | 10 | Casseroles, big-batch chili, lasagna |
+| Category       | Count | Examples                                      |
+| -------------- | ----- | --------------------------------------------- |
+| Mexican        | 20    | Tacos, enchiladas, burrito bowls, quesadillas |
+| Italian        | 25    | Pasta varieties, pizza, risotto, chicken parm |
+| Asian          | 25    | Stir fry, rice bowls, noodles, curry          |
+| American       | 30    | Burgers, grilled chicken, meatloaf, chili     |
+| Mediterranean  | 15    | Greek salads, falafel, kebabs, hummus bowls   |
+| Simple/Quick   | 25    | Sandwiches, eggs, soup, frozen meal upgrades  |
+| Batch-Friendly | 10    | Casseroles, big-batch chili, lasagna          |
 
 Each meal should be tagged with:
+
 - `prep_risk`: fast (< 20 min), normal (20-40 min), effortful (> 40 min)
 - Allergen flags: gluten, dairy, nuts
 - `batch_friendly`: generates leftovers
