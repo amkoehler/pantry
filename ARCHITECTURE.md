@@ -11,6 +11,7 @@ Pantry is a dinner planning app that helps households assemble trustworthy weekl
 | iOS Framework   | SwiftUI          | Native iCloud/CloudKit sync, Foundation Models API |
 | Backend Runtime | Bun + TypeScript | Fast, TypeScript-native, Vercel AI compatible      |
 | AI Strategy     | Hybrid           | Server for draft generation, on-device for swaps   |
+| AI Model        | gpt-4o-mini      | Cost-optimized (~$0.001/draft), sufficient for structured meal selection |
 | Meal Database   | SQLite           | Lightweight, perfect for ~150 meals                |
 | User Data       | iCloud/CloudKit  | Privacy-first, offline-capable, no auth needed     |
 | Deployment      | Vercel Functions | Zero-ops, integrates with `ai` package             |
@@ -487,7 +488,8 @@ struct DraftMeal: Codable {
   "dependencies": {
     "hono": "^4.0.0",
     "ai": "^3.0.0",
-    "@ai-sdk/anthropic": "^0.0.0"
+    "@ai-sdk/openai": "^0.0.0",
+    "zod": "^3.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -662,7 +664,7 @@ draftRoute.post('/', async (c) => {
 ```typescript
 // backend/src/ai/draft-generator.ts
 import { generateObject } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { openai } from '@ai-sdk/openai';
 import { z } from 'zod';
 import { getMeals, getMealsByIds } from '../db/client';
 import type { DraftRequest, DraftResponse, DraftMeal } from '../types';
@@ -728,7 +730,7 @@ Generate a plan for days 1-${request.dinnerCount} (Monday=1, Sunday=7).
 `;
 
   const { object } = await generateObject({
-    model: anthropic('claude-sonnet-4-20250514'),
+    model: openai('gpt-4o-mini'),
     schema: DraftSchema,
     prompt,
   });
@@ -930,7 +932,7 @@ vercel deploy --prod
 
 **Environment Variables**:
 
-- `ANTHROPIC_API_KEY` - For Vercel AI SDK
+- `OPENAI_API_KEY` - For Vercel AI SDK
 
 **Vercel Configuration**:
 
