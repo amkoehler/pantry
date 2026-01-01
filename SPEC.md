@@ -1,4 +1,4 @@
-# Pantry - Product Specification v1
+# Pantry - Product Specification v2
 
 ## Working Premise
 
@@ -42,255 +42,266 @@ This is a **support beam**, not a productivity system.
 
 ---
 
-## Platform & Architecture
+## Platform & Technical Requirements
 
 ### Platform
-- iOS native app
-- iCloud sync for data persistence
-- Single-user for v1 (multi-user deferred to v2)
+- iOS native app (SwiftUI)
+- **Minimum iOS 26.0** (Foundation Models hard requirement)
+- iPhone only for v1 (iPad runs scaled version)
+- iCloud sync via SwiftData + CloudKit
+- Single-user for v1 (multi-user deferred)
 
 ### Data Architecture
-- Cloud-first via iCloud
+- iCloud-first via SwiftData with CloudKit sync
 - Works locally if offline with subtle sync warning indicator
-- History kept forever
-- Partial reset available (clear history, keep dietary settings)
+- History kept forever (8-week decay for draft generation relevance)
+- All-or-nothing data reset only (no granular deletion)
 
-### Analytics
-- Deferred decision for v1
-- Build without analytics initially
+### App Size
+- No size constraints for v1
+- Bundle meal database for offline first-launch capability
+
+### Monetization
+- No monetization in v1
+- Revisit before production launch
+
+### Accessibility
+- Standard iOS accessibility: system fonts, Dynamic Type, VoiceOver via standard components
+
+---
+
+## Navigation Structure
+
+**3-tab bottom navigation:**
+1. **This Week** - Primary screen showing current/next week draft
+2. **History** - Past weeks in reverse chronological order
+3. **Settings** - Preferences, dietary restrictions, data management
 
 ---
 
 ## Screen Inventory (v1)
 
-### 1. First Launch / Empty State
+### 1. First Launch / Onboarding
 
-**Purpose**
-Establish trust and scope without onboarding ceremony.
+**Flow:**
+1. **iCloud Permission** (if required by system)
+2. **Value Proposition Screen**
+   - Single sentence: "We help you plan weeknight dinners without starting from scratch every time."
+3. **Dietary Restrictions** (optional, skippable)
+   - Gluten-free toggle
+   - Dairy-free toggle
+   - Nut-free toggle
+   - These are hard filters: non-compliant meals are excluded from all drafts and suggestions
+4. **First Draft Generation**
+   - Loading state (2-5 seconds with spinner)
+   - Show generated draft
 
-**Content**
-- Single sentence:
-  > "We help you plan weeknight dinners without starting from scratch every time."
-- Primary action: **Make a first draft**
+**Defaults:**
+- 5 dinners per week (Monday-Friday)
+- All dietary toggles OFF unless explicitly set
 
-**Dietary Question (Optional)**
-- Appears after tapping "Make a first draft"
-- Skippable - user can proceed without answering
-- Common allergies only:
-  - Gluten-free
-  - Dairy-free
-  - Nut-free
-- Hard filter: non-compliant meals are completely invisible, never suggested
-
-No tutorials, no preference setup, no long forms, no onboarding for gestures.
+No tutorials, no gesture onboarding, no lengthy forms.
 
 ---
 
 ### 2. Weekly Draft (Primary Screen)
 
-**Purpose**
+**Purpose:**
 Present a complete, opinionated weekly plan that can be accepted with minimal effort.
 
-**Structure**
+**Structure:**
 - One week visible at a time
-- Horizontal swipe to navigate between current and next week
-- Monday through Friday by default (adjustable via check-in)
+- Horizontal swipe to navigate between current week and next week
+- Monday through Friday by default (expandable to 7 days)
 - Minimal visual hierarchy
 
-**Each day displays**
-- Day label
-- Meal name (free text)
-- Subtle tag:
-  - Easy (= fast prep risk)
-  - Normal (= normal prep risk)
-  - Leftovers (system-suggested based on previous day's batch-friendly meal)
-- Confidence indicator shown only for staples (meals that have worked well)
+**Each day card displays:**
+- Day label (Monday, Tuesday, etc.)
+- Meal name
+- Prep risk tag: **Easy** (fast) or **Normal** (normal)
+  - Effortful meals exist in database but not shown separately in v1
+- **Staple indicator**: Subtle icon (checkmark or star) for meals with proven household survival rate
 
-**Navigation**
-- Horizontal swipe between current week and next week
-- Can view/plan up to one week ahead
+**Day states:**
+- **Planned**: Shows meal with prep tag
+- **Cleared**: Shows "Not cooking tonight" state (user explicitly cleared)
 
-**Explicitly excluded**
-- Recipes
-- Ingredients
-- Nutrition
-- Prep steps
-- Ratings
-- Checkboxes
-- Timers
+**Interactions:**
+- **Tap meal** → Opens Swap Sheet
+- **Tap cleared day** → Opens Swap Sheet to add meal back
 
-**Primary interactions**
-- Tap meal → Opens swap sheet
-- Swipe day → Clear (shows "not cooking tonight" state)
+**NOT included:**
+- Swipe gestures (all interactions are tap-based)
+- Long-press on day cards (only on meals in swap sheet)
+- Recipes, ingredients, nutrition, prep steps, timers, checkboxes
 
-No long-press distinction. No separate edit screens. No undo/confirmation dialogs.
+**Mid-week behavior:**
+- If user opens app Wednesday, draft shows Wed/Thu/Fri (today onwards)
+- Past days are not shown in mid-week drafts
 
 ---
 
 ### 3. Weekly Check-In (Embedded)
 
-**Purpose**
+**Purpose:**
 Capture only what the system cannot reliably infer.
 
-**Placement**
-- Appears _below_ the weekly draft
+**Placement:**
+- Always visible below the weekly draft
+- User scrolls to see check-in section
 - Framed as corrections, not setup
 
 **Question 1: Scope**
 > "Planning for **5 dinners** this week. Change?"
 
-- Quick tap adjustment (5 = weeknights, can increase for weekends)
+- Quick tap adjustment (1-7 range)
 - Default always starts at 5 (Monday-Friday)
-- Boundary condition, not planning
+- No weekday/weekend distinction - all days treated equally
 
-**Question 2: Disruptions**
-> "We assumed this week is mostly normal. Anything unusually busy?"
+**Question 2: Disruptions (Week Shape)**
+> "What kind of week is it?"
 
-- Days pre-filled by system guess
-- Calendar integration: events between 4-8pm mark day as busy
-- Historical patterns as secondary signal
-- Calendar wins when conflicting with history
-- User only corrects mismatches
-- Binary states only: normal / busy
-- Unchanged answers generate no signal (only explicit changes recorded)
+- Options: **Normal** / **Busy** / **Chaotic**
+- This replaces per-day busy detection when calendar access is unavailable
+- If calendar access granted: individual days shown with busy indicators
 
-**Question 3: Constraints (Optional)**
+**Question 3: Calendar-Based Busy Days** (when calendar access granted)
+- Days with 4-8pm events auto-marked as busy
+- **Full transparency**: Tapping busy indicator shows actual calendar event names
+- User can override system suggestions
+
+**Question 4: Constraints (Optional)**
 > "Anything you want to use up?"
 
 - Free text or quick picks:
   - Frozen meals
-  - Leftovers
   - Produce expiring
   - Nothing special
-- Keyword matching: input like "chicken" boosts meals containing that ingredient
+- Keyword matching boosts meals containing mentioned ingredients
 
-No question is required.
+No question is required. Unchanged answers generate no signal.
 
 ---
 
 ### 4. Swap Sheet
 
-**Purpose**
-Allow targeted correction without reopening planning.
+**Purpose:**
+Allow targeted correction without reopening full planning.
 
-**Trigger**
+**Trigger:**
 - Tap any meal in the weekly draft
+- Tap cleared day to add meal
 
-**Content**
-- Shows 3–5 alternatives
+**Content:**
+- **3 curated alternatives** (exactly 3, no more)
+- **Subtle context hints** beneath each:
+  - "Works well on busy days"
+  - "Haven't had in 3 weeks"
+  - "Household favorite"
 - Text field at bottom: "...or type your own"
-- Alternatives ranked by:
-  - Survivability (high survival rate)
-  - Week balance (no duplicates, effort distribution)
-  - Day context (busy day = easier options prioritized)
-- Includes one safe fallback (emergent from data: high survival rate across busy weeks)
+- **"Not cooking tonight"** option to clear the day
 
-**Behavior**
-- Short list is final (no "show more")
-- Custom entry: any free text accepted
-- System attempts fuzzy match to database; creates new custom meal if no match
+**Ranking factors (handled by Foundation Models):**
+- Survivability (high survival rate in household)
+- Week balance (no duplicates, effort distribution)
+- Day context (busy day = easier options prioritized)
 
-No browsing. No discovery. No infinite lists.
+**Custom meal entry:**
+- Any free text accepted
+- System attempts fuzzy match to database
+- If no match: **silently** creates new custom meal
+- Custom meals use **AI inference** for prep risk (Foundation Models guesses from name)
+
+**Long-press interaction:**
+- Long-press on any meal (in swap sheet or draft) reveals "Hide from future plans"
+- **Purely discoverable** - no onboarding or hints for this feature
+- Hidden meals never appear in drafts or suggestions (user can still type them manually)
+
+**NOT included:**
+- "Show more" or infinite lists
+- Explicit "not tonight" vs "not ever" distinction during swap (swaps default to "not tonight")
+- Browsing the full meal database
 
 ---
 
 ### 5. History
 
-**Purpose**
+**Purpose:**
 Build trust by showing that the system remembers outcomes.
 
-**Content**
-- Past weeks, collapsed
-- Expandable to see full week
+**Content:**
+- **Simple log**: Week-by-week list showing what was planned
+- **Infinite scroll** in reverse chronological order, lazy-loaded
 - Read-only
 - Shows final plan only (not draft vs. changes)
 - Kept forever
 
-Answers:
-> "Does this app remember our life?"
+**NOT included:**
+- Per-meal statistics
+- Pattern insights ("Tuesdays are your most swapped day")
+- Month grouping or search
 
 ---
 
-## Minimum Memory Model (v1)
+### 6. Settings
 
-The system remembers **outcomes**, not intentions.
+**Contents:**
+- **Dietary Preferences**
+  - Gluten-free, Dairy-free, Nut-free toggles
+  - Editable anytime
+  - Per-draft override NOT available in v1
 
-### 1. Meal Entity
+- **Hidden Meals**
+  - List of meals user has permanently hidden via long-press
+  - Can unhide from this list
 
-- Name (free text)
-- Prep risk category (inferred from meal name via NLP/heuristics):
-  - fast (Easy)
-  - normal (Normal)
-  - effortful
-- Allergen tags (from database)
-- Batch-friendly flag (generates leftovers)
+- **Data Management**
+  - "Reset Everything" - wipes all history and preferences
+  - No granular deletion options
 
-No recipes, ingredients, or nutrition data.
-
----
-
-### 2. Meal Outcomes (Critical)
-
-For each meal instance:
-- Date
-- Outcome (inferred from silence):
-  - Kept (no action taken = assumed kept)
-  - Swapped (user selected alternative)
-  - Skipped (user cleared the day)
-- Custom entry flag (not from database)
-
-**Signal Processing**
-- 3 consistent signals to shift confidence on a meal
-- Signals decay after ~8 weeks
-- Signal tolerance is configurable
-- Silent weeks (no app interaction) are skipped in history entirely
-
----
-
-### 3. Week Shape (Inferred)
-
-Each week classified internally as:
-- normal
-- busy
-- chaotic
-- travel-light
-
-Derived from overrides, swaps, and failures.
-
----
-
-### 4. Repetition Rule
-
-Simple rule: **Do not recommend the same meal in consecutive weeks.**
-
-No complex fatigue modeling. Survivability and recency are the only factors.
+- **About / Help**
+  - App version
+  - Link to support
 
 ---
 
 ## Draft Generation
 
-### Timing
-- Auto-generated Saturday morning (before 7am) if user hasn't created one
-- User can manually generate draft anytime via + button
-- Draft is always for current week
-- Mid-week drafts show remaining nights only (smart detection)
+### Timing & Triggers
+
+**Automatic generation:**
+- Server sends silent push notification Saturday at 3am
+- Push wakes the app to generate draft locally
+- If push missed (device offline), draft generates on first app open after Saturday 3am
+- Draft only auto-generates if one doesn't already exist for the week
+
+**Manual generation:**
+- User can tap "+" button anytime to generate draft for current/next week
+- Available starting the week prior
+
+**Week boundary:**
+- Previous week archives automatically at **midnight Sunday**
+- Unviewed drafts get "ghosted" treatment (see below)
 
 ### Composition
-- **60% staples**: meals with proven survival rate in this household
-- **40% novelty**: variations on familiar meals or new suggestions
-  - "Novelty" includes variations (salmon rice bowl → shrimp rice bowl)
-  - Variations are not tracked with relationship to parent meal
-  - Each meal tracked independently
+
+**60/40 split:**
+- **60% staples**: Meals from top ~20 most-kept meals in household (proven survival rate)
+- **40% novelty**: Anything not in recent staples (includes never-tried and infrequently-tried meals)
+
+**Cold start behavior (first 4-6 weeks):**
+- Lean **80%+ novelty** to rapidly build signal
+- Use generic safe defaults filtered by dietary settings
+- Accept higher swap rates initially
 
 ### Draft Assumptions (v1-Safe)
 
-The auto-generated draft may assume:
+The auto-generated draft **may** assume:
 - Reuse beats novelty (60% staples)
 - Busy nights get low-risk meals
-- Leftovers are intentional when previous day had batch-friendly meal
 - One flex night is acceptable
 
-The draft must **not** assume:
+The draft **must not** assume:
 - Desire for complex new recipes
 - Experimental meals on busy nights
 - Evenly distributed energy
@@ -298,39 +309,120 @@ The draft must **not** assume:
 
 ---
 
+## Memory Model
+
+### Meal Outcomes (Critical)
+
+For each meal instance:
+- Date
+- Outcome:
+  - **Kept** (no action taken = assumed kept)
+  - **Swapped** (user selected alternative)
+  - **Skipped** (user cleared the day)
+- Custom entry flag
+
+**Signal processing:**
+- 3 consistent swaps → Meal **removed from auto-generated drafts** (still available in swap suggestions)
+- **Hard cutoff**: Signals older than 8 weeks ignored completely
+- Silent weeks (no app interaction) = "ghosted"
+
+### Ghosted Weeks
+
+When a draft goes untouched through the week:
+- Week expires with no recorded outcomes
+- **Optimistically assume the draft was kept** for next week's recommendations
+- No outcome data stored (we didn't observe actual behavior)
+
+### Repetition Rule
+
+**Do not recommend the same meal in consecutive weeks.**
+
+No complex fatigue modeling. Survivability and recency are the only factors.
+
+---
+
 ## Meal Database
 
 ### Structure
 - LLM-generated, human-curated database
-- Start with ~150 meals, grow over time
-- Focus on common American weeknight meals including:
-  - Mexican (tacos, enchiladas)
-  - Italian (pasta, pizza)
-  - Chinese/Asian (stir fry, rice bowls)
-  - American (burgers, chili, grilled salmon)
+- ~150 meals at launch, grows over time
+- Remote-refreshable (syncs with app)
+
+### Categories
+- Mexican (tacos, enchiladas, burrito bowls)
+- Italian (pasta varieties, pizza, risotto)
+- Asian (stir fry, rice bowls, noodles, curry)
+- American (burgers, grilled chicken, meatloaf, chili)
+- Mediterranean (Greek salads, falafel, kebabs)
+- Simple/Quick (sandwiches, eggs, soup)
 
 ### Tagging
-- Allergen tags (gluten, dairy, nuts) on all meals
-- Batch-friendly flag for leftover-generating meals
-- Prep risk inferred from meal name
+- Allergen flags: gluten, dairy, nuts
+- Batch-friendly flag (not used in v1 for leftovers, but tracked)
+- Prep risk: fast, normal, effortful
+- Cuisine category
+- Keywords for constraint matching
 
-### Updates
-- Remote-refreshable (not baked into app bundle)
-- Syncs weekly with draft generation (Saturday morning)
-- Global database filtered at runtime per user's dietary settings
+### Database Updates
+- **Silent updates** - new meals appear in suggestions without notification
+- Weekly sync with draft generation
+- Filtered at runtime per user's dietary settings
 
-### Meal Context
-- Each meal shows prep tag (Easy/Normal/Effortful)
-- Meal name tappable to open web search (Google, or AI search if available)
-- No in-app recipes or detailed descriptions
+### Meal Recipe Lookup
+- Tap meal name opens **system default browser search**
+- Query format: "[meal name] easy weeknight recipe"
+- Respects user's default search engine (Safari settings)
+
+---
+
+## Calendar Integration
+
+### Purpose
+Detect busy evenings by reading calendar events.
+
+### Logic
+- Events between 4-8pm mark day as busy
+- Busy days get "Easy" (fast) prep risk meals prioritized
+
+### User visibility
+- **Full transparency**: Tapping busy day indicator shows actual calendar event names
+- User can override busy status for any day
+
+### Fallback (no calendar access)
+- Weekly "What kind of week is it?" prompt (Normal/Busy/Chaotic)
+- Applies uniform difficulty adjustment across the week
+
+---
+
+## Export & Sharing
+
+### v1 Scope
+- **Share sheet only** (formatted text)
+- Calendar event export deferred to v2
+
+### Format
+```
+This Week's Dinners
+
+Monday: Tacos
+Tuesday: Pasta Primavera
+Wednesday: Chicken Stir Fry
+Thursday: Grilled Salmon
+Friday: Burgers
+```
+
+### Behavior
+- Available via share sheet
+- "Export" is a soft signal (internal confidence boost)
+- Can paste into iMessage, Notes, etc.
 
 ---
 
 ## Notifications
 
 ### Weekly Nudge
-- Single notification: "Your week is ready"
-- Fixed timing: Saturday 7am
+- Single notification: **"Your week is ready"**
+- Fixed timing: **Saturday 7am**
 - Suppressed if user already opened app since draft was generated
 - Not configurable in v1
 
@@ -338,29 +430,61 @@ No other notifications. No nagging. No daily reminders.
 
 ---
 
-## Export & Sharing
+## Foundation Models (On-Device AI)
 
-### Purpose
-- Signal that plan is "locked in" for the week
-- Share with other household members
+### Usage
+- **Swap suggestions**: Generate 3 contextual alternatives
+- **Fuzzy meal matching**: Match user input to database meals
+- **Custom meal prep risk**: Infer prep risk from meal name (e.g., "frozen pizza" = Easy)
 
-### Format
-- Formatted message (styled text, looks nice in iMessage/Notes)
-- Example:
-  ```
-  This Week's Dinners
+### Requirements
+- iOS 26.0+ required (hard dependency)
+- No fallback for older iOS versions - app won't install
 
-  Monday: Tacos
-  Tuesday: Pasta Primavera
-  Wednesday: Chicken Stir Fry
-  Thursday: Leftovers
-  Friday: Grilled Salmon
-  ```
+### Context for swap suggestions
+- Current meal being swapped
+- Day of week and busy status
+- Other meals planned this week
+- Recent meal history (last 8 weeks)
+- Household survival rates
 
-### Behavior
-- Export is a soft signal (increases confidence in plan but doesn't hard-lock)
-- Available via share sheet
-- v2: Calendar export, widget display
+---
+
+## Error Handling
+
+### Network errors (draft generation)
+- **Clear error + retry button**: "No connection - tap to retry when back online"
+- No offline draft generation fallback
+- User can manually retry when connection available
+
+### iCloud sync issues
+- Subtle sync warning indicator
+- App continues to work locally
+- Data syncs when connection restored
+
+---
+
+## Visual Design
+
+### Aesthetic
+- **Warm, food-adjacent palette**
+- Earthy tones, kitchen-inspired colors
+- Muted, low contrast
+- Generous spacing
+- Fewer UI elements than expected
+
+### Copy
+- Neutral, calm tone
+- No cheerleading ("Great choice!")
+- No guilt language
+- No time estimates or urgency
+
+### Interaction
+- One tap > two taps
+- Defaults are confident
+- No confirmation dialogs
+- No undo system in v1
+- Standard iOS gestures only
 
 ---
 
@@ -375,107 +499,41 @@ Explicit non-goals for v1:
 - Notification engine
 - Family profile manager
 - Multi-user household app
-
-Adding these too early reintroduces ritual.
-
----
-
-## Why This Is Better Than ChatGPT
-
-ChatGPT is great at ideas, but it's weak at:
-
-- Remembering your rotation without you re-explaining it
-- Keeping plans stable when you make one change ("swap Tuesday" shouldn't reshuffle the week)
-- Making repeatable, low-friction weekly workflows
-- Tracking outcomes and learning from them
-
-A purpose-built app beats it by being **deterministic, fast, and consistent**.
+- Meal database browser
+- iPad-optimized app
 
 ---
 
-## Copy, Visual, and Interaction Rules
-
-### Copy
-- Neutral, calm tone
-- No cheerleading
-- No guilt language
-- No time estimates or urgency
-
-### Visual
-- **Unique but calm** aesthetic
-- Muted palette
-- Low contrast
-- Generous spacing
-- Fewer UI elements than expected
-
-### Interaction
-- One tap > two taps
-- Defaults are confident
-- No confirmation dialogs
-- No undo system in v1
-- Standard iOS gestures (trust discoverability)
-
----
-
-## Success Criteria (UX-Level)
+## Success Criteria
 
 The app is succeeding if users say:
-
 - "That was easier than last week."
 - "I didn't have to think as much."
 - "It kind of just knows us now."
-- "Easier than doing this in ChatGPT."
 
 The app is failing if users say:
-
 - "I need to set this up better."
 - "I should spend more time with it."
 - "It's cool, but I forget to use it."
-- "I could do this same thing with ChatGPT."
 
 ---
 
-## Mental Model to Protect
+## Key v1 Decisions Summary
 
-This app is a **quiet weekly decision that closes a mental loop**.
-
-Not a planner.
-Not a coach.
-Not a tracker.
-
----
-
-## Technical Implementation Notes
-
-### Cold Start
-- First draft uses generic safe defaults (pasta, tacos, etc.)
-- Filtered by dietary settings if provided
-- No seed meal collection required
-
-### Confidence Scoring
-- Based on survival rate (kept vs. swapped/skipped)
-- Day-appropriate: busy day survival weighted more heavily
-- Staples visually indicated; other confidence scores internal only
-
-### Calendar Integration
-- Read device calendar
-- Events between 4-8pm mark day as busy
-- Calendar signal overrides historical patterns when conflicting
-
-### iCloud Sync
-- Primary data store
-- Graceful offline: app works locally with subtle sync warning
-- No complex conflict resolution in v1
-
-### Leftovers Logic
-- Meals tagged "batch-friendly" in database
-- System suggests "Leftovers" for day after batch-friendly meal
-- "Leftovers" = generic "eat what's there" (not tracking specific leftover meals)
-
-### Valid Edge States
-- Empty week (all days cleared) is valid
-- System learns from this pattern
-- User can have 0 meals planned
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| iOS minimum | 26.0+ | Foundation Models required |
+| Leftovers feature | Removed for v1 | Simplifies mental model |
+| Week shape inference | Removed for v1 | Just use busy days |
+| Calendar export | v2 | Share sheet sufficient for v1 |
+| Swap gesture | Tap only | No swipe-to-clear, cleaner UX |
+| Cold start strategy | Heavy novelty (80%+) | Build signal quickly |
+| Ghosted weeks | Assume kept | Keep flywheel spinning |
+| Custom meal metadata | Name only | Minimal friction |
+| Meal browsing | None | Purely suggestion-driven |
+| Signal decay | Hard 8-week cutoff | Simple implementation |
+| Dietary filtering | Filter from suggestions | Non-compliant meals excluded from drafts |
+| Navigation | 3 tabs | This Week / History / Settings |
 
 ---
 
@@ -488,4 +546,9 @@ Not a tracker.
 - Recipe links or partnerships
 - Analytics for product learning
 - Configurable notification timing
-- Undo/redo system if needed
+- Undo/redo system
+- iPad-optimized layouts
+- Leftovers auto-suggestion
+- Week shape inference
+- Per-meal statistics in history
+- Granular data deletion
