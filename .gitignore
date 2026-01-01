@@ -1,0 +1,5 @@
+# Xcode user-specific files
+*.xcuserstate
+
+# macOS
+.DS_Store
