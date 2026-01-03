@@ -378,10 +378,10 @@
     "tags": ["family", "comfort food", "stew"]
   },
   {
-    "title": "Beef Burgers with Baked Fries and Grapes",
+    "title": "Beef Burgers with Baked Fries and Lettuce Salad",
     "protein": "ground beef",
     "starch": "russet potatoes",
-    "veg_or_fruit": ["grapes"],
+    "veg_or_fruit": ["lettuce", "tomato"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -666,10 +666,10 @@
     "tags": ["sheet pan", "easy cleanup", "winter"]
   },
   {
-    "title": "Classic Beef Burgers with Macaroni Salad and Watermelon",
+    "title": "Classic Beef Burgers with Macaroni Salad and Coleslaw",
     "protein": "ground beef",
     "starch": "macaroni salad",
-    "veg_or_fruit": ["watermelon"],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -756,10 +756,10 @@
     "tags": ["sheet pan", "bbq", "chicken", "summer"]
   },
   {
-    "title": "Turkey Burgers with Baked Sweet Potato Fries and Sliced Apples",
+    "title": "Turkey Burgers with Baked Sweet Potato Fries and Green Beans",
     "protein": "ground turkey",
     "starch": "sweet potato fries",
-    "veg_or_fruit": ["apple slices"],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -846,10 +846,10 @@
     "tags": ["sheet pan", "roast", "comfort food"]
   },
   {
-    "title": "Beef Burgers with Baked Sweet Potato Rounds and Sliced Strawberries",
+    "title": "Beef Burgers with Baked Sweet Potato Rounds and Steamed Broccoli",
     "protein": "ground beef",
     "starch": "sweet potato rounds",
-    "veg_or_fruit": ["strawberries"],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1332,10 +1332,10 @@
     "tags": ["curry", "hearty", "comfort food"]
   },
   {
-    "title": "Grilled Chicken Sandwiches with Potato Salad and Grapes",
+    "title": "Grilled Chicken Sandwiches with Potato Salad and Pickles",
     "protein": "chicken breast",
     "starch": "potato salad",
-    "veg_or_fruit": ["grapes"],
+    "veg_or_fruit": ["pickles", "lettuce"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1476,10 +1476,10 @@
     "tags": ["sheet pan", "easy cleanup", "family dinner"]
   },
   {
-    "title": "Classic Beef Burgers with Baked Potato Coins and Sliced Pears",
+    "title": "Classic Beef Burgers with Baked Potato Coins and Carrot Sticks",
     "protein": "ground beef",
     "starch": "potato coins",
-    "veg_or_fruit": ["pears"],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1566,10 +1566,10 @@
     "tags": ["sheet pan", "summer", "easy cleanup"]
   },
   {
-    "title": "Turkey Burgers with Roasted Potato Cubes and Sliced Pineapple",
+    "title": "Turkey Burgers with Roasted Potato Cubes and Green Beans",
     "protein": "ground turkey",
     "starch": "roasted potato cubes",
-    "veg_or_fruit": ["pineapple"],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -1602,10 +1602,10 @@
     "tags": ["pasta", "vegetables", "comfort food"]
   },
   {
-    "title": "Classic Beef Burgers with Baked Onion Rings and Sliced Melon",
+    "title": "Classic Beef Burgers with Baked Onion Rings and Coleslaw",
     "protein": "ground beef",
     "starch": "baked onion rings",
-    "veg_or_fruit": ["melon slices"],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -1836,10 +1836,10 @@
     "tags": ["sheet pan", "meatballs", "family", "bbq"]
   },
   {
-    "title": "Turkey Burgers with Roasted Red Potatoes and Sliced Pears",
+    "title": "Turkey Burgers with Roasted Red Potatoes and Steamed Green Beans",
     "protein": "ground turkey",
     "starch": "red potatoes",
-    "veg_or_fruit": ["pears"],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1926,10 +1926,10 @@
     "tags": ["sheet-pan", "family-friendly", "chicken"]
   },
   {
-    "title": "Classic Beef Burgers with Baked Curly Fries and Sliced Apples",
+    "title": "Classic Beef Burgers with Baked Curly Fries and Pickles",
     "protein": "ground beef",
     "starch": "curly fries",
-    "veg_or_fruit": ["apple slices"],
+    "veg_or_fruit": ["pickles", "lettuce"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2016,10 +2016,10 @@
     "tags": ["sheet pan", "kid-friendly", "comfort food"]
   },
   {
-    "title": "Turkey Burgers with Baked Zucchini Fries and Sliced Peaches",
+    "title": "Turkey Burgers with Baked Zucchini Fries",
     "protein": "ground turkey",
     "starch": "burger buns",
-    "veg_or_fruit": ["zucchini", "peach"],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2052,10 +2052,10 @@
     "tags": ["one-pot", "creamy", "easy"]
   },
   {
-    "title": "Classic Beef Burgers with Baked Zucchini Chips and Sliced Plums",
+    "title": "Classic Beef Burgers with Baked Zucchini Chips",
     "protein": "ground beef",
     "starch": "burger buns",
-    "veg_or_fruit": ["zucchini", "plum"],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2106,10 +2106,10 @@
     "tags": ["sheet pan", "fish", "weeknight"]
   },
   {
-    "title": "Classic Beef Burgers with Baked Sweet Potato Fries and Sliced Apples",
+    "title": "Classic Beef Burgers with Baked Sweet Potato Fries and Broccoli",
     "protein": "ground beef",
     "starch": "sweet potato fries",
-    "veg_or_fruit": ["apple slices"],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2286,10 +2286,10 @@
     "tags": ["seafood", "sheet pan", "weeknight"]
   },
   {
-    "title": "BBQ Chicken Sandwiches with Potato Wedges and Grapes",
+    "title": "BBQ Chicken Sandwiches with Potato Wedges and Coleslaw",
     "protein": "shredded chicken",
     "starch": "potato wedges",
-    "veg_or_fruit": ["grapes"],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",

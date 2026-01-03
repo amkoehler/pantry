@@ -77,6 +77,11 @@ Generate ${args.n} weeknight meal records for a family-focused meal planning app
 Hard requirements:
 - No repeats, including near-duplicates.
 - Most meals are protein + starch + veg/fruit (exceptions minority: chili, curry, burgers with sides).
+- veg_or_fruit should usually be vegetables. Fresh fruit (watermelon, grapes, apple slices) is only appropriate for:
+  - Summer grilled meals (burgers, hot dogs, BBQ) with seasonality="summer"
+  - Casual cookout-style meals
+  - Never for pasta dishes, sheet pan meals, soups, or winter meals
+  - When fruit is included, there must also be at least one vegetable in the array
 - Strict title rule:
   - if one_pot_or_pan="one-pot" title MUST start with "One-Pot: "
   - if one_pot_or_pan="one-pan" title MUST start with "One-Pan: "
