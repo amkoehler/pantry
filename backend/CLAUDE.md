@@ -1,4 +1,3 @@
-
 Default to using Bun instead of Node.js.
 
 - Use `bun <file>` instead of `node <file>` or `ts-node <file>`
@@ -29,6 +28,22 @@ import { test, expect } from "bun:test";
 test("hello world", () => {
   expect(1).toBe(1);
 });
+```
+
+## Linting & Formatting
+
+Always run linting and formatting after making code changes:
+
+```sh
+bun run lint:fix   # ESLint - fixes curly braces, unused vars, etc.
+bun run format     # Prettier - single quotes, 2 spaces
+```
+
+For CI/checking without auto-fix:
+
+```sh
+bun run lint
+bun run format:check
 ```
 
 ## Frontend
