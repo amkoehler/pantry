@@ -55,6 +55,8 @@ const MealsEnvelopeSchema = z
   .strict();
 
 // ---- prompt ----
+const PROMPT_TEMPLATE = await Bun.file(new URL('./seed-prompt.md', import.meta.url)).text();
+
 function buildPrompt(args: {
   n: number;
   maxLong: number;
@@ -63,46 +65,21 @@ function buildPrompt(args: {
   nutFree: boolean;
   avoidTitles: string[];
 }) {
-  const avoid =
+  const avoidSection =
     args.avoidTitles.length > 0
-      ? `Avoid producing any meals with these titles (exact match) and avoid near-duplicates:\n${args.avoidTitles
+      ? `## Avoid These Titles\n\nAvoid producing any meals with these titles (exact match) and avoid near-duplicates:\n${args.avoidTitles
           .slice(0, 400)
           .map((t) => `- ${t}`)
-          .join('\n')}\n`
+          .join('\n')}`
       : '';
 
-  return `
-Generate ${args.n} weeknight meal records for a family-focused meal planning app.
-
-Hard requirements:
-- No repeats, including near-duplicates.
-- Most meals are protein + starch + veg/fruit (exceptions minority: chili, curry, burgers with sides).
-- veg_or_fruit should usually be vegetables. Fresh fruit (watermelon, grapes, apple slices) is only appropriate for:
-  - Summer grilled meals (burgers, hot dogs, BBQ) with seasonality="summer"
-  - Casual cookout-style meals
-  - Never for pasta dishes, sheet pan meals, soups, or winter meals
-  - When fruit is included, there must also be at least one vegetable in the array
-- Strict title rule:
-  - if one_pot_or_pan="one-pot" title MUST start with "One-Pot: "
-  - if one_pot_or_pan="one-pan" title MUST start with "One-Pan: "
-  - if one_pot_or_pan="no" title MUST NOT start with either prefix
-- Complexity is total time only:
-  quick 20–30, normal 30–45, long 45–75+
-  Limit "long" meals to at most ${args.maxLong} of ${args.n}.
-- Include common American weeknight meals, including burgers (beef or turkey).
-- Appliances are metadata via method only; do not mention appliances in titles unless one-pot/one-pan prefix.
-- Seasonality must be one of: "year-round", "summer", "winter".
-
-Dietary filters:
-- gluten_free=${args.glutenFree}
-- dairy_free=${args.dairyFree}
-- nut_free=${args.nutFree}
-If a filter is true, the corresponding diet flag must be false.
-
-${avoid}
-
-Return an object: { "meals": [ ... ] } matching the provided schema exactly. No prose.
-`.trim();
+  return PROMPT_TEMPLATE.replace(/{{count}}/g, String(args.n))
+    .replace(/{{maxLong}}/g, String(args.maxLong))
+    .replace(/{{glutenFree}}/g, String(args.glutenFree))
+    .replace(/{{dairyFree}}/g, String(args.dairyFree))
+    .replace(/{{nutFree}}/g, String(args.nutFree))
+    .replace(/{{avoidSection}}/g, avoidSection)
+    .trim();
 }
 
 // ---- business rules (beyond Zod) ----

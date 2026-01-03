@@ -1,3 +1,64 @@
+# Pantry Backend
+
+## Project Structure
+
+```
+backend/
+├── src/
+│   ├── index.ts           # Hono server entry point
+│   ├── api/
+│   │   ├── meals.ts       # GET /api/meals
+│   │   └── draft.ts       # POST /api/draft
+│   ├── db/
+│   │   └── client.ts      # SQLite client + queries
+│   ├── ai/
+│   │   └── draft-generator.ts  # GPT-4.1-mini draft generation
+│   └── types/
+│       └── index.ts
+├── scripts/
+│   ├── seed-meals.ts      # Generate meals JSON via OpenAI
+│   ├── import-meals.ts    # Import JSON to SQLite
+│   └── validate-meals.ts  # Check for duplicates/quality issues
+├── tests/
+│   └── draft.test.ts      # Draft generation tests (calls OpenAI)
+└── pantry.sqlite          # 150 curated meals
+```
+
+## Scripts
+
+```sh
+bun run dev        # Start server with hot reload (port 3000)
+bun run start      # Start server
+bun run seed       # Generate meals JSON (costs $)
+bun run import     # Import meals JSON to SQLite
+bun run validate   # Check meal quality
+bun test tests/draft.test.ts  # Test draft generation (costs $)
+```
+
+## API Endpoints
+
+- `GET /api/meals` - Returns meal database
+  - Query params: `gluten_free`, `dairy_free`, `nut_free` (all boolean)
+- `POST /api/draft` - Generate weekly meal plan
+  - Body: `{ dinnerCount, busyDays, constraints, mealHistory, dietaryFilters }`
+- `GET /health` - Health check
+
+## Database
+
+SQLite with 150 meals. Schema fields:
+
+- `id`, `title`, `protein`, `starch`, `veg_or_fruit` (JSON)
+- `cuisine`, `method`, `one_pot_or_pan`, `complexity`, `seasonality`
+- `estimated_total_minutes`
+- `contains_gluten`, `contains_dairy`, `contains_nuts` (0/1)
+- `tags` (JSON)
+
+## AI
+
+Uses `gpt-4.1-mini` via Vercel AI SDK for draft generation. Prompt in `src/ai/draft-generator.ts`.
+
+---
+
 Default to using Bun instead of Node.js.
 
 - Use `bun <file>` instead of `node <file>` or `ts-node <file>`

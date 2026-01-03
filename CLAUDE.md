@@ -14,7 +14,7 @@ Monorepo with iOS app (`ios/`) and Bun backend (`backend/`).
 
 **iOS**: SwiftUI + SwiftData + CloudKit. Requires iOS 26.0+ for Foundation Models.
 
-**Backend**: Bun + Hono + SQLite. Uses Vercel AI SDK (gpt-4o-mini) for draft generation.
+**Backend**: Bun + Hono + SQLite. Uses Vercel AI SDK (gpt-4.1-mini) for draft generation.
 
 **AI Strategy**: Server-side for weekly drafts, on-device Foundation Models for swap suggestions.
 
@@ -33,11 +33,10 @@ Monorepo with iOS app (`ios/`) and Bun backend (`backend/`).
 cd backend
 bun install          # Install dependencies
 bun run dev          # Start dev server (hot reload)
-bun run seed         # Seed meal database
-bun test             # Run tests
-
-# Deploy
-vercel deploy --prod
+bun run seed         # Generate meals JSON (calls OpenAI)
+bun run import       # Import meals JSON to SQLite
+bun run validate     # Check meal quality/duplicates
+bun test tests/draft.test.ts  # Test draft generation
 ```
 
 ## Backend Notes

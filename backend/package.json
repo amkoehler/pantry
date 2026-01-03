@@ -1,9 +1,14 @@
 {
   "name": "backend",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun src/index.ts",
+    "seed": "bun scripts/seed-meals.ts",
+    "import": "bun scripts/import-meals.ts",
+    "validate": "bun scripts/validate-meals.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

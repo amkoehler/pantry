@@ -11,10 +11,9 @@ Pantry is a dinner planning app that helps households assemble trustworthy weekl
 | iOS Framework   | SwiftUI          | Native iCloud/CloudKit sync, Foundation Models API |
 | Backend Runtime | Bun + TypeScript | Fast, TypeScript-native, Vercel AI compatible      |
 | AI Strategy     | Hybrid           | Server for draft generation, on-device for swaps   |
-| AI Model        | gpt-4o-mini      | Cost-optimized (~$0.001/draft), sufficient for structured meal selection |
+| AI Model        | gpt-4.1-mini     | Cost-optimized, sufficient for structured meal selection |
 | Meal Database   | SQLite           | Lightweight, perfect for ~150 meals                |
 | User Data       | iCloud/CloudKit  | Privacy-first, offline-capable, no auth needed     |
-| Deployment      | Vercel Functions | Zero-ops, integrates with `ai` package             |
 
 ### System Architecture
 
@@ -39,7 +38,7 @@ Pantry is a dinner planning app that helps households assemble trustworthy weekl
 │                 Bun + TypeScript Backend                    │
 │                                                             │
 │  ┌─────────────────┐          ┌─────────────────────────┐  │
-│  │     SQLite      │          │      Vercel AI          │  │
+│  │     SQLite      │          │    OpenAI gpt-4.1-mini  │  │
 │  │  (Meal Database)│          │   (Draft Generation)    │  │
 │  └─────────────────┘          └─────────────────────────┘  │
 │                                                             │
@@ -91,25 +90,26 @@ pantry/
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── bun.lock
+│   ├── pantry.sqlite          # SQLite database (150 meals)
+│   ├── meals_seed_v1_3.json   # Generated meal data
 │   ├── src/
 │   │   ├── index.ts           # Entry point, Hono server
 │   │   ├── api/
 │   │   │   ├── meals.ts       # GET /api/meals
 │   │   │   └── draft.ts       # POST /api/draft
 │   │   ├── db/
-│   │   │   ├── schema.sql
-│   │   │   ├── client.ts      # SQLite client
-│   │   │   └── seed.ts        # Seed script
+│   │   │   └── client.ts      # SQLite client + queries
 │   │   ├── ai/
 │   │   │   └── draft-generator.ts
 │   │   └── types/
 │   │       └── index.ts
-│   ├── data/
-│   │   └── meals.db           # SQLite database file
+│   ├── scripts/
+│   │   ├── seed-meals.ts      # Generate meals JSON via OpenAI
+│   │   ├── seed-prompt.md     # Prompt template for meal generation
+│   │   ├── import-meals.ts    # Import JSON to SQLite
+│   │   └── validate-meals.ts  # Check for duplicates/quality
 │   └── tests/
-│
-└── shared/
-    └── meals-seed.json        # Initial meal data (LLM-generated, human-curated)
+│       └── draft.test.ts      # Draft generation tests
 ```
 
 ---
@@ -468,8 +468,7 @@ struct DraftMeal: Codable {
 - **Runtime**: Bun
 - **Framework**: Hono (lightweight, fast, TypeScript-native)
 - **Database**: SQLite via `bun:sqlite`
-- **AI**: Vercel AI SDK (`ai` package)
-- **Deployment**: Vercel Functions
+- **AI**: Vercel AI SDK (`ai` package) with OpenAI gpt-4.1-mini
 
 ### Package Setup
 
@@ -501,26 +500,23 @@ struct DraftMeal: Codable {
 ### SQLite Schema
 
 ```sql
--- backend/src/db/schema.sql
-
 CREATE TABLE IF NOT EXISTS meals (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    prep_risk TEXT NOT NULL CHECK (prep_risk IN ('fast', 'normal', 'effortful')),
-    batch_friendly INTEGER NOT NULL DEFAULT 0,
-    contains_gluten INTEGER NOT NULL DEFAULT 0,
-    contains_dairy INTEGER NOT NULL DEFAULT 0,
-    contains_nuts INTEGER NOT NULL DEFAULT 0,
-    cuisine TEXT,                              -- 'mexican', 'italian', 'asian', 'american'
-    keywords TEXT,                             -- JSON array for search: ["chicken", "quick"]
-    curation_status TEXT DEFAULT 'published',  -- 'draft', 'published', 'deprecated'
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL UNIQUE,
+    protein TEXT NOT NULL,
+    starch TEXT NULL,
+    veg_or_fruit TEXT NOT NULL,              -- JSON array
+    cuisine TEXT NOT NULL,                    -- 'American', 'Mexican/Tex-Mex', 'Italian', 'Asian', 'Mediterranean', 'Other'
+    method TEXT NOT NULL,                     -- 'stovetop', 'oven', 'grill', 'air-fryer', 'slow-cooker', 'instant-pot', 'mixed'
+    one_pot_or_pan TEXT NOT NULL,             -- 'one-pot', 'one-pan', 'no'
+    complexity TEXT NOT NULL,                 -- 'quick' (20-30min), 'normal' (30-45min), 'long' (45-75min)
+    estimated_total_minutes INTEGER NOT NULL,
+    seasonality TEXT NOT NULL,                -- 'year-round', 'summer', 'winter'
+    contains_gluten INTEGER NOT NULL,
+    contains_dairy INTEGER NOT NULL,
+    contains_nuts INTEGER NOT NULL,
+    tags TEXT NOT NULL                        -- JSON array
 );
-
-CREATE INDEX idx_meals_updated ON meals(updated_at);
-CREATE INDEX idx_meals_prep_risk ON meals(prep_risk);
-CREATE INDEX idx_meals_curation ON meals(curation_status);
 ```
 
 ### Database Client
@@ -528,60 +524,47 @@ CREATE INDEX idx_meals_curation ON meals(curation_status);
 ```typescript
 // backend/src/db/client.ts
 import { Database } from 'bun:sqlite';
-import { join } from 'path';
+import type { Meal, MealRow, DietaryFilters } from '../types';
 
-const db = new Database(join(import.meta.dir, '../../data/meals.db'));
+const DB_PATH = join(import.meta.dir, '../../pantry.sqlite');
+let db: Database | null = null;
 
-export interface DBMeal {
-  id: string;
-  name: string;
-  prep_risk: 'fast' | 'normal' | 'effortful';
-  batch_friendly: number;
-  contains_gluten: number;
-  contains_dairy: number;
-  contains_nuts: number;
-  cuisine: string | null;
-  keywords: string | null;
-  curation_status: string;
-  created_at: string;
-  updated_at: string;
+export function getDb(): Database {
+  if (!db) db = new Database(DB_PATH);
+  return db;
 }
 
-export function getMeals(filters: {
-  since?: string;
-  glutenFree?: boolean;
-  dairyFree?: boolean;
-  nutFree?: boolean;
-}): DBMeal[] {
-  let query = `SELECT * FROM meals WHERE curation_status = 'published'`;
-  const params: any[] = [];
-
-  if (filters.glutenFree) {
-    query += ` AND contains_gluten = 0`;
-  }
-  if (filters.dairyFree) {
-    query += ` AND contains_dairy = 0`;
-  }
-  if (filters.nutFree) {
-    query += ` AND contains_nuts = 0`;
-  }
-  if (filters.since) {
-    query += ` AND updated_at > ?`;
-    params.push(filters.since);
-  }
-
-  query += ` ORDER BY updated_at DESC`;
-
-  return db.prepare(query).all(...params) as DBMeal[];
+export function rowToMeal(row: MealRow): Meal {
+  return {
+    id: row.id,
+    title: row.title,
+    protein: row.protein,
+    starch: row.starch,
+    vegOrFruit: JSON.parse(row.veg_or_fruit),
+    cuisine: row.cuisine,
+    method: row.method,
+    onePotOrPan: row.one_pot_or_pan,
+    complexity: row.complexity,
+    estimatedTotalMinutes: row.estimated_total_minutes,
+    seasonality: row.seasonality,
+    containsGluten: row.contains_gluten === 1,
+    containsDairy: row.contains_dairy === 1,
+    containsNuts: row.contains_nuts === 1,
+    tags: JSON.parse(row.tags),
+  };
 }
 
-export function getMealById(id: string): DBMeal | null {
-  return db.prepare(`SELECT * FROM meals WHERE id = ?`).get(id) as DBMeal | null;
-}
+export function getMeals(filters: DietaryFilters): Meal[] {
+  const db = getDb();
+  let query = 'SELECT * FROM meals WHERE 1=1';
 
-export function getMealsByIds(ids: string[]): DBMeal[] {
-  const placeholders = ids.map(() => '?').join(',');
-  return db.prepare(`SELECT * FROM meals WHERE id IN (${placeholders})`).all(...ids) as DBMeal[];
+  if (filters.glutenFree) query += ' AND contains_gluten = 0';
+  if (filters.dairyFree) query += ' AND contains_dairy = 0';
+  if (filters.nutFree) query += ' AND contains_nuts = 0';
+  query += ' ORDER BY title';
+
+  const rows = db.query<MealRow, []>(query).all();
+  return rows.map(rowToMeal);
 }
 ```
 
@@ -762,15 +745,21 @@ function dayName(day: number): string {
 // backend/src/types/index.ts
 
 export interface Meal {
-  id: string;
-  name: string;
-  prepRisk: 'fast' | 'normal' | 'effortful';
-  batchFriendly: boolean;
+  id: number;
+  title: string;
+  protein: string;
+  starch: string | null;
+  vegOrFruit: string[];
+  cuisine: string;
+  method: string;
+  onePotOrPan: string;
+  complexity: 'quick' | 'normal' | 'long';
+  estimatedTotalMinutes: number;
+  seasonality: string;
   containsGluten: boolean;
   containsDairy: boolean;
   containsNuts: boolean;
-  cuisine: string | null;
-  keywords: string[];
+  tags: string[];
 }
 
 export interface DietaryFilters {
@@ -780,14 +769,14 @@ export interface DietaryFilters {
 }
 
 export interface MealHistoryItem {
-  mealName: string;
+  mealTitle: string;
   outcome: 'kept' | 'swapped' | 'skipped';
   weeksAgo: number;
 }
 
 export interface DraftRequest {
   dinnerCount: number;
-  busyDays: number[];
+  busyDays: number[];         // 1=Monday, 7=Sunday
   constraints: string | null;
   mealHistory: MealHistoryItem[];
   dietaryFilters: DietaryFilters;
@@ -795,20 +784,13 @@ export interface DraftRequest {
 
 export interface DraftMeal {
   dayOfWeek: number;
-  mealId: string | null;
-  mealName: string;
-  isLeftovers: boolean;
+  mealId: number | null;
+  mealTitle: string;
   reasoning: string | null;
 }
 
 export interface DraftResponse {
   meals: DraftMeal[];
-}
-
-export interface MealsResponse {
-  version: string;
-  meals: Meal[];
-  count: number;
 }
 ```
 
@@ -820,8 +802,8 @@ export interface MealsResponse {
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  iOS App    │────▶│   Backend   │────▶│  Vercel AI  │
-│             │     │             │     │  (Claude)   │
+│  iOS App    │────▶│   Backend   │────▶│   OpenAI    │
+│             │     │             │     │ gpt-4.1-mini│
 └─────────────┘     └─────────────┘     └─────────────┘
        │                   │                   │
        │ DraftRequest      │ getMeals()        │ generateObject()
@@ -922,37 +904,10 @@ Types are maintained manually. Keep these files in sync:
 
 ## Deployment
 
-### Backend (Vercel)
+Deployment platform TBD. Backend requires:
 
-```bash
-# Deploy to Vercel
-cd backend
-vercel deploy --prod
-```
-
-**Environment Variables**:
-
-- `OPENAI_API_KEY` - For Vercel AI SDK
-
-**Vercel Configuration**:
-
-```json
-// backend/vercel.json
-{
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/bun"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.ts"
-    }
-  ]
-}
-```
+- **Environment Variables**: `OPENAI_API_KEY`
+- **Runtime**: Bun-compatible hosting
 
 ### iOS App (App Store)
 
@@ -966,91 +921,53 @@ Standard Xcode archive → App Store Connect workflow.
 
 ### Meal Database Updates
 
-Weekly curation workflow:
+Curation workflow:
 
-1. Review/add meals in `shared/meals-seed.json`
-2. Run `bun run seed` to update SQLite
-3. Deploy backend (`vercel deploy --prod`)
-4. iOS clients fetch updated meals on next sync
-
----
-
-## Implementation Order
-
-1. **Backend: SQLite schema + seed data**
-
-   - Create schema.sql
-   - Create initial 150 meals in meals-seed.json
-   - Implement seed script
-
-2. **Backend: Bun server with `/api/meals`**
-
-   - Set up Hono
-   - Implement meals endpoint with filtering
-   - Deploy to Vercel
-
-3. **iOS: Xcode project + SwiftData models**
-
-   - Create project structure
-   - Implement data models
-   - Set up model container
-
-4. **iOS: CloudKit configuration**
-
-   - Enable capabilities
-   - Test sync between devices
-
-5. **iOS: Basic UI (weekly draft screen)**
-
-   - WeeklyDraftView
-   - Day cards with meal display
-
-6. **Backend: Vercel AI draft generation**
-
-   - Implement `/api/draft` endpoint
-   - Test with various inputs
-
-7. **iOS: API integration + meal sync**
-
-   - APIService implementation
-   - Local meal cache
-   - Weekly sync logic
-
-8. **iOS: Foundation Models for swap suggestions**
-
-   - FoundationModelsService
-   - SwapSheet with alternatives
-
-9. **iOS: Calendar + notifications**
-
-   - CalendarService for busy day detection
-   - NotificationService for Saturday reminder
-
-10. **Integration testing**
-    - End-to-end draft generation flow
-    - Offline behavior
-    - iCloud sync across devices
+1. Run `bun run seed` to generate meals JSON (calls OpenAI)
+2. Run `bun run import` to load into SQLite
+3. Run `bun run validate` to check quality
+4. Deploy backend
 
 ---
 
-## Appendix: Initial Meal Categories
+## Implementation Status
 
-For the initial 150-meal database, target this distribution:
+### Backend (Complete)
 
-| Category       | Count | Examples                                      |
-| -------------- | ----- | --------------------------------------------- |
-| Mexican        | 20    | Tacos, enchiladas, burrito bowls, quesadillas |
-| Italian        | 25    | Pasta varieties, pizza, risotto, chicken parm |
-| Asian          | 25    | Stir fry, rice bowls, noodles, curry          |
-| American       | 30    | Burgers, grilled chicken, meatloaf, chili     |
-| Mediterranean  | 15    | Greek salads, falafel, kebabs, hummus bowls   |
-| Simple/Quick   | 25    | Sandwiches, eggs, soup, frozen meal upgrades  |
-| Batch-Friendly | 10    | Casseroles, big-batch chili, lasagna          |
+- [x] SQLite schema + 150 curated meals
+- [x] Hono server with `/api/meals` and `/api/draft`
+- [x] Draft generation with gpt-4.1-mini
+- [x] Meal seeding scripts (seed, import, validate)
+- [x] Basic test coverage
 
-Each meal should be tagged with:
+### iOS (Pending)
 
-- `prep_risk`: fast (< 20 min), normal (20-40 min), effortful (> 40 min)
+- [ ] Xcode project + SwiftData models
+- [ ] CloudKit configuration
+- [ ] Basic UI (weekly draft screen)
+- [ ] API integration + meal sync
+- [ ] Foundation Models for swap suggestions
+- [ ] Calendar + notifications
+
+---
+
+## Appendix: Meal Database Stats
+
+Current distribution (150 meals):
+
+| Cuisine        | Count |
+| -------------- | ----- |
+| American       | 107   |
+| Italian        | 23    |
+| Mexican/Tex-Mex| 9     |
+| Mediterranean  | 7     |
+| Asian          | 5     |
+
+Each meal is tagged with:
+
+- `complexity`: quick (20-30min), normal (30-45min), long (45-75min)
+- `method`: stovetop, oven, grill, air-fryer, slow-cooker, instant-pot, mixed
+- `one_pot_or_pan`: one-pot, one-pan, no
 - Allergen flags: gluten, dairy, nuts
-- `batch_friendly`: generates leftovers
-- `cuisine`: category for variety tracking
-- `keywords`: ingredient hints for constraint matching
+- `seasonality`: year-round, summer, winter
+- `tags`: array of keywords for search
