@@ -37,6 +37,10 @@ bun run seed         # Generate meals JSON (calls OpenAI)
 bun run import       # Import meals JSON to SQLite
 bun run validate     # Check meal quality/duplicates
 bun test tests/draft.test.ts  # Test draft generation
+
+# iOS
+cd ios/pantry
+xcodebuild -scheme pantry -destination 'platform=iOS Simulator,name=iPhone 17' build
 ```
 
 ## Backend Notes

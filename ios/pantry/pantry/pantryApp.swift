@@ -12,12 +12,11 @@ import SwiftData
 struct PantryApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            // Models will be added here as they're implemented:
-            // Meal.self,
-            // WeeklyPlan.self,
-            // PlannedMeal.self,
-            // MealOutcome.self,
-            // UserPreferences.self,
+            Meal.self,
+            WeeklyPlan.self,
+            PlannedMeal.self,
+            MealOutcome.self,
+            UserPreferences.self,
         ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,
