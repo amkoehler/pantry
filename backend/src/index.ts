@@ -20,6 +20,9 @@ const port = Number(process.env.PORT) || 3000;
 
 console.log(`Server running on http://localhost:${port}`);
 
+// Export app for testing
+export { app };
+
 export default {
   port,
   fetch: app.fetch,
