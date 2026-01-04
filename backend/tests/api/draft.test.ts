@@ -1,5 +1,15 @@
-import { describe, test, expect } from 'bun:test';
-import { app } from '../../src/index';
+import { describe, test, expect, mock } from 'bun:test';
+
+// Mock generateDraft BEFORE importing app to prevent real OpenAI calls
+mock.module('../../src/ai/draft-generator', () => ({
+  generateDraft: async () => ({
+    meals: [{ dayOfWeek: 1, mealId: 1, mealTitle: 'Mock Meal', reasoning: 'Mocked for testing' }],
+  }),
+  buildPrompt: () => 'mock prompt',
+}));
+
+// Import app AFTER mock is set up
+const { app } = await import('../../src/index');
 
 // Helper to make POST request with JSON body
 async function postDraft(body: unknown) {
@@ -104,9 +114,8 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
 
-    // Should either succeed (200) or fail with 500 due to API call
-    // The validation should pass, so we shouldn't get 400
-    expect(res.status).not.toBe(400);
+    // With mock, should succeed with 200
+    expect(res.status).toBe(200);
   });
 
   test('accepts dinnerCount of 7 (maximum)', async () => {
@@ -118,8 +127,7 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
 
-    // Validation should pass (not 400)
-    expect(res.status).not.toBe(400);
+    expect(res.status).toBe(200);
   });
 
   test('accepts all valid dinnerCount values 1-7', async () => {
@@ -132,8 +140,7 @@ describe('POST /api/draft validation', () => {
         dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
       });
 
-      // Validation passes if not 400
-      expect(res.status).not.toBe(400);
+      expect(res.status).toBe(200);
     }
   });
 
@@ -146,7 +153,7 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: true, dairyFree: true, nutFree: true },
     });
 
-    expect(res.status).not.toBe(400);
+    expect(res.status).toBe(200);
   });
 
   test('accepts request with busy days', async () => {
@@ -158,7 +165,7 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
 
-    expect(res.status).not.toBe(400);
+    expect(res.status).toBe(200);
   });
 
   test('accepts request with constraints', async () => {
@@ -170,7 +177,7 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
 
-    expect(res.status).not.toBe(400);
+    expect(res.status).toBe(200);
   });
 
   test('accepts request with meal history', async () => {
@@ -185,7 +192,22 @@ describe('POST /api/draft validation', () => {
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
 
-    expect(res.status).not.toBe(400);
+    expect(res.status).toBe(200);
+  });
+
+  test('returns mocked draft response structure', async () => {
+    const res = await postDraft({
+      dinnerCount: 3,
+      busyDays: [],
+      constraints: null,
+      mealHistory: [],
+      dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
+    });
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json).toHaveProperty('meals');
+    expect(Array.isArray(json.meals)).toBe(true);
   });
 });
 
