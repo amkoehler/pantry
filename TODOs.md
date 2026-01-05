@@ -10,14 +10,14 @@
 - [x] Seed → Import → Validate data pipeline
 - [x] Unit tests for prompt building
 
-### iOS (Foundation Complete - 25%)
+### iOS (Core Features Complete - 75%)
 
 - [x] 3-tab navigation (This Week, History, Settings)
 - [x] SwiftData container with CloudKit configured
 - [x] Background fetch enabled in Info.plist
 - [x] SwiftData models (5 models implemented)
-- [ ] Services (5 services, not implemented)
-- [ ] Actual UI (all views are stubs)
+- [x] Services (APIService, FoundationModelsService, ServiceErrors)
+- [x] Core UI (ThisWeekView, SwapSheetView, CheckInView, DayCardView)
 
 ---
 
@@ -34,60 +34,60 @@
 - [x] `MealOutcome.swift` - outcome enum (kept/swapped/skipped), recordedAt
 - [x] Register all models in pantryApp.swift schema
 
-### B. API Integration
+### B. API Integration ✅
 
 `ios/pantry/pantry/Services/APIService.swift`
 
-- [ ] Create APIService class with configurable baseURL
-- [ ] Implement `fetchMeals(dietaryFilters:)` → GET /api/meals
-- [ ] Implement `generateDraft(request:)` → POST /api/draft
-- [ ] Define Codable structs matching backend types
-- [ ] Add custom error types (network, decode, server)
-- [ ] Cache fetched meals in SwiftData
+- [x] Create APIService class with configurable baseURL
+- [x] Implement `fetchMeals(dietaryFilters:)` → GET /api/meals
+- [x] Implement `generateDraft(request:)` → POST /api/draft
+- [x] Define Codable structs matching backend types
+- [x] Add custom error types (network, decode, server)
+- [x] Cache fetched meals in SwiftData
 
-### C. Weekly Draft View (Primary Screen)
+### C. Weekly Draft View (Primary Screen) ✅
 
 `ios/pantry/pantry/Views/ThisWeekView.swift`, `ViewModels/WeeklyPlanViewModel.swift`
 
-- [ ] Create WeeklyPlanViewModel with @Observable
-- [ ] Build DayCardView component (meal name, prep tag, staple indicator)
-- [ ] Implement 5-day vertical scroll (Mon-Fri default)
-- [ ] Add loading state during draft generation
-- [ ] Horizontal swipe for current/next week
-- [ ] Mid-week behavior: show today onwards only
-- [ ] "Cleared" day state ("Not cooking tonight")
+- [x] Create WeeklyPlanViewModel with @Observable
+- [x] Build DayCardView component (meal name, prep tag, staple indicator)
+- [x] Implement 5-day vertical scroll (Mon-Fri default)
+- [x] Add loading state during draft generation
+- [x] Horizontal swipe for current/next week
+- [x] Mid-week behavior: show today onwards only
+- [x] "Cleared" day state ("Not cooking tonight")
 
-### D. Swap Sheet
+### D. Swap Sheet ✅
 
 `ios/pantry/pantry/Views/SwapSheetView.swift`
 
-- [ ] Modal sheet triggered by tapping meal card
-- [ ] Display exactly 3 curated alternatives
-- [ ] Show context hints ("Works well on busy days", etc.)
-- [ ] "Not cooking tonight" clear option
-- [ ] Free text field for custom meal entry
-- [ ] Long-press to hide meal from future plans
-- [ ] Wire selection to update WeeklyPlan
+- [x] Modal sheet triggered by tapping meal card
+- [x] Display exactly 3 curated alternatives
+- [x] Show context hints ("Works well on busy days", etc.)
+- [x] "Not cooking tonight" clear option
+- [x] Free text field for custom meal entry
+- [x] Long-press to hide meal from future plans
+- [x] Wire selection to update WeeklyPlan
 
-### E. Check-In Section
+### E. Check-In Section ✅
 
 `ios/pantry/pantry/Views/CheckInView.swift`
 
-- [ ] Scrollable section below weekly draft
-- [ ] Dinner count picker (1-7, default 5)
-- [ ] Week shape selector (Normal/Busy/Chaotic)
-- [ ] Optional "Anything to use up?" text field
-- [ ] Connect answers to draft regeneration
+- [x] Scrollable section below weekly draft
+- [x] Dinner count picker (1-7, default 5)
+- [x] Week shape selector (Normal/Busy/Chaotic)
+- [x] Optional "Anything to use up?" text field
+- [x] Connect answers to draft regeneration
 
-### F. Foundation Models (On-Device AI)
+### F. Foundation Models (On-Device AI) ✅
 
 `ios/pantry/pantry/Services/FoundationModelsService.swift`
 
-- [ ] FoundationModelsService with iOS 26.0+ requirement
-- [ ] `suggestSwaps(for:context:availableMeals:)` → 3 alternatives
-- [ ] `matchMeal(userInput:availableMeals:)` → fuzzy matching
-- [ ] SwapContext struct (day, busy status, week meals, history)
-- [ ] Fallback heuristics when FM unavailable
+- [x] FoundationModelsService with iOS 26.0+ requirement
+- [x] `suggestSwaps(for:context:availableMeals:)` → 3 alternatives
+- [x] `matchMeal(userInput:availableMeals:)` → fuzzy matching
+- [x] SwapContext struct (day, busy status, week meals, history)
+- [x] Fallback heuristics when FM unavailable
 
 ### G. History View
 
@@ -139,15 +139,6 @@
 
 ## UI Enhancements (Future)
 
-### Interactions
-
-- [ ] Drag and drop days to reorder via long press (with haptic feedback)
-- [ ] Haptic feedback on draft generation (# of taps = # of days in plan)
-
-### Bugs
-
-- [ ] Tab indicator (This Week / Next Week) overlaps "Anything to use up?" text field - hard to tap
-
 ---
 
 ## Parallelization Strategy
@@ -156,13 +147,9 @@
 
 ~~Complete Workstream A first - all other work depends on SwiftData models.~~
 
-### Phase 2: Core Features (3 Parallel Agents)
+### Phase 2: Core Features ✅
 
-| Agent | Workstreams | Focus                                |
-| ----- | ----------- | ------------------------------------ |
-| 1     | B + F       | Services (API + Foundation Models)   |
-| 2     | C           | Primary UI (Weekly Draft View)       |
-| 3     | D + E       | Interactions (Swap Sheet + Check-In) |
+~~Services (API + Foundation Models), Primary UI (Weekly Draft View), Interactions (Swap Sheet + Check-In)~~
 
 ### Phase 3: Secondary Features (2 Parallel Agents)
 
@@ -173,30 +160,31 @@
 
 ---
 
-## Files to Create
+## Files Created / Remaining
 
 ```
 ios/pantry/pantry/
-├── Models/
-│   ├── Meal.swift
-│   ├── WeeklyPlan.swift
-│   ├── PlannedMeal.swift
-│   ├── MealOutcome.swift
-│   └── UserPreferences.swift
+├── Models/                          ✅ Complete
+│   ├── Meal.swift                   ✅
+│   ├── WeeklyPlan.swift             ✅
+│   ├── PlannedMeal.swift            ✅
+│   ├── MealOutcome.swift            ✅
+│   └── UserPreferences.swift        ✅
 ├── Services/
-│   ├── APIService.swift
-│   ├── FoundationModelsService.swift
-│   ├── CalendarService.swift
-│   └── NotificationService.swift
+│   ├── APIService.swift             ✅
+│   ├── FoundationModelsService.swift ✅
+│   ├── ServiceErrors.swift          ✅
+│   ├── CalendarService.swift        ☐ TODO
+│   └── NotificationService.swift    ☐ TODO
 ├── ViewModels/
-│   └── WeeklyPlanViewModel.swift
+│   └── WeeklyPlanViewModel.swift    ✅
 └── Views/
-    ├── ThisWeekView.swift (rewrite)
-    ├── HistoryView.swift (rewrite)
-    ├── SettingsView.swift (rewrite)
-    ├── SwapSheetView.swift (new)
-    ├── CheckInView.swift (new)
-    ├── OnboardingView.swift (new)
-    └── Components/
-        └── DayCardView.swift (new)
+    ├── ThisWeekView.swift           ✅
+    ├── DayCardView.swift            ✅
+    ├── DragPreviewCard.swift        ✅
+    ├── SwapSheetView.swift          ✅
+    ├── CheckInView.swift            ✅
+    ├── HistoryView.swift            ☐ TODO (stub)
+    ├── SettingsView.swift           ☐ TODO (stub)
+    └── OnboardingView.swift         ☐ TODO (stub)
 ```

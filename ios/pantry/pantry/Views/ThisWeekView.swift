@@ -30,7 +30,10 @@ struct ThisWeekView: View {
                     }
                 }
             }
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
         }
+        .background(PantryTheme.Colors.background.ignoresSafeArea())
         .task {
             let vm = WeeklyPlanViewModel(modelContext: modelContext)
             viewModel = vm
@@ -144,6 +147,7 @@ private struct WeekPageView: View {
     let onRegenerate: (WeeklyPlan) -> Void
 
     @State private var draggedMeal: PlannedMeal?
+    @State private var hasAppeared = false
 
     var body: some View {
         ScrollView {
@@ -157,6 +161,9 @@ private struct WeekPageView: View {
                         onDrop: { source in onMealSwap(source, plannedMeal) }
                     )
                 }
+                // Fade + gentle rise animation on the cards
+                .opacity(hasAppeared ? 1 : 0)
+                .offset(y: hasAppeared ? 0 : 12)
 
                 // Check-in section (only show if we have a plan)
                 if let plan = weekPlan {
@@ -169,9 +176,20 @@ private struct WeekPageView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .padding(.top, 8)
+            // Extra bottom padding to prevent overlap with page indicator dots
+            .padding(.bottom, 40)
         }
-        .background(PantryTheme.Colors.background)
+        .task(id: plannedMeals.count) {
+            // Reset and animate when meals appear/change
+            guard !plannedMeals.isEmpty else { return }
+            hasAppeared = false
+            // Small delay ensures the "before" state renders first
+            try? await Task.sleep(for: .milliseconds(50))
+            withAnimation(.easeOut(duration: 0.35)) {
+                hasAppeared = true
+            }
+        }
     }
 }
 
@@ -188,7 +206,6 @@ struct LoadingStateView: View {
                 .foregroundStyle(PantryTheme.Colors.secondaryText)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(PantryTheme.Colors.background)
     }
 }
 
@@ -213,7 +230,7 @@ struct EmptyStateView: View {
                     .foregroundStyle(PantryTheme.Colors.tertiaryText)
 
                 Text("No plan yet")
-                    .font(PantryTheme.Typography.headline)
+                    .font(PantryTheme.Typography.title)
                     .foregroundStyle(PantryTheme.Colors.primaryText)
 
                 Text("Your dinner plan will appear here once it's ready.")
@@ -232,7 +249,6 @@ struct EmptyStateView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(PantryTheme.Colors.background)
     }
 }
 
@@ -259,7 +275,6 @@ struct ErrorStateView: View {
             .buttonStyle(.bordered)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(PantryTheme.Colors.background)
     }
 }
 

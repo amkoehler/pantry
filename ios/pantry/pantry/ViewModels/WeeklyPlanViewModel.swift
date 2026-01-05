@@ -277,6 +277,9 @@ class WeeklyPlanViewModel {
             try modelContext.save()
             await loadPlans()
 
+            // 8. Haptic feedback: tap once for each day in the plan
+            await playDraftGeneratedHaptics(dayCount: response.meals.count)
+
         } catch let error as APIError {
             generationError = error.userMessage
             viewState = .error(error.userMessage)
@@ -333,6 +336,9 @@ class WeeklyPlanViewModel {
             try modelContext.save()
             await loadPlans()
 
+            // Haptic feedback: tap once for each day in the plan
+            await playDraftGeneratedHaptics(dayCount: response.meals.count)
+
         } catch let error as APIError {
             generationError = error.userMessage
         } catch {
@@ -340,6 +346,21 @@ class WeeklyPlanViewModel {
         }
 
         isGeneratingDraft = false
+    }
+
+    /// Rapid-fire haptic taps, one for each day in the generated plan
+    private func playDraftGeneratedHaptics(dayCount: Int) async {
+        guard dayCount > 0 else { return }
+
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.prepare()
+
+        for i in 0..<dayCount {
+            generator.impactOccurred()
+            if i < dayCount - 1 {
+                try? await Task.sleep(for: .milliseconds(100))
+            }
+        }
     }
 
     // MARK: - Draft Generation Helpers

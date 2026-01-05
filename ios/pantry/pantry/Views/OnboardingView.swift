@@ -180,8 +180,7 @@ private struct WelcomeStepView: View {
                     .foregroundStyle(PantryTheme.Colors.accent)
 
                 Text("Pantry")
-                    .font(PantryTheme.Typography.largeTitle)
-                    .fontWeight(.bold)
+                    .font(PantryTheme.Typography.display)
                     .foregroundStyle(PantryTheme.Colors.primaryText)
             }
 

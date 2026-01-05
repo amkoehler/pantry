@@ -4,6 +4,8 @@ import UIKit
 /// A card displaying a single planned meal for a day in the weekly view.
 /// Tapping the card opens the swap sheet. Long-press to drag and swap with another day.
 struct DayCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     let plannedMeal: PlannedMeal
     @Binding var draggedMeal: PlannedMeal?
     let onTap: () -> Void
@@ -32,7 +34,7 @@ struct DayCardView: View {
                 } else if let meal = plannedMeal.meal {
                     HStack(alignment: .center) {
                         Text(meal.title)
-                            .font(PantryTheme.Typography.headline)
+                            .font(PantryTheme.Typography.title)
                             .foregroundStyle(PantryTheme.Colors.primaryText)
 
                         Spacer()
@@ -54,7 +56,13 @@ struct DayCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(PantryTheme.Colors.cardBackground)
             .clipShape(RoundedRectangle(cornerRadius: PantryTheme.Radius.card))
-            .shadow(color: PantryTheme.Colors.primaryText.opacity(0.06), radius: 3, x: 0, y: 2)
+            .shadow(
+                color: colorScheme == .dark
+                    ? Color.black.opacity(0.15)
+                    : Color.black.opacity(0.06),
+                radius: colorScheme == .dark ? 4 : 6,
+                y: 2
+            )
         }
         .buttonStyle(DayCardButtonStyle())
         // Drag source - long press to initiate
@@ -105,8 +113,7 @@ struct PrepBadge: View {
 
     var body: some View {
         Text(label)
-            .font(PantryTheme.Typography.caption)
-            .fontWeight(.medium)
+            .badgeStyle()
             .padding(.horizontal, 10)
             .padding(.vertical, 4)
             .background(PantryTheme.Colors.secondaryAccent.opacity(0.15))

@@ -13,11 +13,17 @@ enum PantryTheme {
         /// Card/surface background - clean white in light, warm gray in dark
         static let cardBackground = Color("Linen")
 
-        /// Primary accent - warm terracotta for buttons, selections
+        /// Primary accent - warm terracotta for selections, secondary buttons
         static let accent = Color("Terracotta")
+
+        /// CTA accent - deeper terracotta for primary action buttons
+        static let accentCTA = Color("TerracottaCTA")
 
         /// Secondary accent - muted sage for "Easy" badges, positive states
         static let secondaryAccent = Color("Sage")
+
+        /// Destructive/urgent accent - warm paprika for destructive actions
+        static let destructive = Color("Paprika")
 
         /// Primary text - rich espresso brown
         static let primaryText = Color("Espresso")
@@ -35,24 +41,28 @@ enum PantryTheme {
     // MARK: - Typography
 
     /// Typography scale using New York (serif) for warmth and SF Pro for readability.
+    /// Uses explicit sizes for precise control across devices.
     enum Typography {
-        /// Large titles - serif for editorial feel
-        static let largeTitle = Font.system(.largeTitle, design: .serif)
+        /// Display: Hero moments only (onboarding, empty states) - 34pt serif bold
+        static let display = Font.system(size: 34, weight: .bold, design: .serif)
 
-        /// Screen titles - serif with semibold weight
-        static let title = Font.system(.title2, design: .serif).weight(.semibold)
+        /// Title: Screen headers, meal names - 22pt serif semibold
+        static let title = Font.system(size: 22, weight: .semibold, design: .serif)
 
-        /// Section headlines - serif
-        static let headline = Font.system(.headline, design: .serif)
+        /// Headline: Section headers, day labels - 17pt sans semibold
+        static let headline = Font.system(size: 17, weight: .semibold, design: .default)
 
-        /// Body text - default sans-serif for readability
-        static let body = Font.system(.body)
+        /// Body: Descriptions, secondary info - 17pt sans regular
+        static let body = Font.system(size: 17, weight: .regular, design: .default)
 
-        /// Secondary labels - sans-serif
-        static let subheadline = Font.system(.subheadline)
+        /// Subheadline: Metadata, timestamps - 15pt sans regular
+        static let subheadline = Font.system(size: 15, weight: .regular, design: .default)
 
-        /// Small text - sans-serif
-        static let caption = Font.system(.caption)
+        /// Caption: Badges, tertiary info - 13pt sans medium
+        static let caption = Font.system(size: 13, weight: .medium, design: .default)
+
+        /// Badge: Prep time, tags - 12pt rounded semibold (friendlier feel)
+        static let badge = Font.system(size: 12, weight: .semibold, design: .rounded)
     }
 
     // MARK: - Dimensions
@@ -70,5 +80,55 @@ enum PantryTheme {
         static let cardSpacing: CGFloat = 16
         static let sectionSpacing: CGFloat = 24
         static let screenPadding: CGFloat = 20
+    }
+
+    // MARK: - Shadows
+
+    /// Shadow configurations for depth
+    enum Shadows {
+        /// Card shadow values - dark mode is subtle since cards have color separation
+        static func cardShadow(for colorScheme: ColorScheme) -> some View {
+            Group {
+                if colorScheme == .dark {
+                    // Dark mode: subtle, tight shadow
+                    Color.black.opacity(0.15)
+                        .blur(radius: 4)
+                        .offset(y: 2)
+                } else {
+                    // Light mode: soft, slightly diffuse shadow
+                    Color.black.opacity(0.06)
+                        .blur(radius: 6)
+                        .offset(y: 2)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - View Extensions
+
+extension View {
+    /// Applies themed card shadow based on color scheme
+    /// Dark mode: subtle, tight shadow - cards already have color separation
+    /// Light mode: soft, slightly diffuse shadow for depth
+    func pantryCardShadow(colorScheme: ColorScheme) -> some View {
+        self.background(
+            PantryTheme.Colors.cardBackground
+                .clipShape(RoundedRectangle(cornerRadius: PantryTheme.Radius.card))
+                .shadow(
+                    color: colorScheme == .dark
+                        ? Color.black.opacity(0.15)
+                        : Color.black.opacity(0.06),
+                    radius: colorScheme == .dark ? 4 : 6,
+                    y: 2
+                )
+        )
+    }
+
+    /// Applies badge text styling with subtle letter-spacing
+    func badgeStyle() -> some View {
+        self
+            .font(PantryTheme.Typography.badge)
+            .tracking(0.3)
     }
 }
