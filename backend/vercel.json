@@ -1,0 +1,11 @@
+{
+  "bunVersion": "1",
+  "buildCommand": "bun install",
+  "outputDirectory": ".",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "pantry.sqlite"
+    }
+  }
+}

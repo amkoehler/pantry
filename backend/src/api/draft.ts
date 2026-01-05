@@ -30,7 +30,7 @@ draftRoute.post('/', async (c) => {
 
     logger.info('draft.generate.success', {
       dinnerCount: request.dinnerCount,
-      mealsGenerated: draft.dinners.length,
+      mealsGenerated: draft.meals.length,
     });
 
     return c.json<DraftResponse>(draft);
