@@ -103,6 +103,7 @@ private struct WeekPlanScrollView: View {
                 plannedMeals: viewModel.currentWeekFilteredMeals,
                 weekPlan: viewModel.currentWeekPlan,
                 onMealTap: viewModel.selectMealForSwap,
+                onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
                     Task {
                         await viewModel.regenerateDraft(for: plan)
@@ -116,6 +117,7 @@ private struct WeekPlanScrollView: View {
                 plannedMeals: viewModel.nextWeekFilteredMeals,
                 weekPlan: viewModel.nextWeekPlan,
                 onMealTap: viewModel.selectMealForSwap,
+                onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
                     Task {
                         await viewModel.regenerateDraft(for: plan)
@@ -138,16 +140,22 @@ private struct WeekPageView: View {
     let plannedMeals: [PlannedMeal]
     let weekPlan: WeeklyPlan?
     let onMealTap: (PlannedMeal) -> Void
+    let onMealSwap: (PlannedMeal, PlannedMeal) -> Void
     let onRegenerate: (WeeklyPlan) -> Void
+
+    @State private var draggedMeal: PlannedMeal?
 
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
-                // Meal cards
+                // Meal cards (draggable to swap between days)
                 ForEach(plannedMeals) { plannedMeal in
-                    DayCardView(plannedMeal: plannedMeal) {
-                        onMealTap(plannedMeal)
-                    }
+                    DayCardView(
+                        plannedMeal: plannedMeal,
+                        draggedMeal: $draggedMeal,
+                        onTap: { onMealTap(plannedMeal) },
+                        onDrop: { source in onMealSwap(source, plannedMeal) }
+                    )
                 }
 
                 // Check-in section (only show if we have a plan)

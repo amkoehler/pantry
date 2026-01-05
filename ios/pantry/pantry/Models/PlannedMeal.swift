@@ -5,6 +5,8 @@
 
 import Foundation
 import SwiftData
+import UniformTypeIdentifiers
+import CoreTransferable
 
 /// Represents a meal assignment for a specific day within a weekly plan.
 @Model
@@ -48,5 +50,18 @@ class PlannedMeal {
         self.meal = meal
         self.weeklyPlan = weeklyPlan
         self.outcome = outcome
+    }
+}
+
+// MARK: - Drag and Drop Support
+
+extension UTType {
+    /// Custom UTType for internal drag/drop of planned meals
+    static var plannedMealID = UTType(exportedAs: "com.pantry.plannedmeal.id")
+}
+
+extension PlannedMeal: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.id.uuidString)
     }
 }

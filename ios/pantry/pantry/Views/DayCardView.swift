@@ -1,10 +1,15 @@
 import SwiftUI
+import UIKit
 
 /// A card displaying a single planned meal for a day in the weekly view.
-/// Tapping the card opens the swap sheet.
+/// Tapping the card opens the swap sheet. Long-press to drag and swap with another day.
 struct DayCardView: View {
     let plannedMeal: PlannedMeal
+    @Binding var draggedMeal: PlannedMeal?
     let onTap: () -> Void
+    let onDrop: (PlannedMeal) -> Void
+
+    @State private var isDropTargeted = false
 
     private var dayName: String {
         WeeklyPlanViewModel.dayName(for: plannedMeal.dayOfWeek)
@@ -52,6 +57,43 @@ struct DayCardView: View {
             .shadow(color: PantryTheme.Colors.primaryText.opacity(0.06), radius: 3, x: 0, y: 2)
         }
         .buttonStyle(DayCardButtonStyle())
+        // Drag source - long press to initiate
+        .onDrag {
+            draggedMeal = plannedMeal
+            return NSItemProvider(object: plannedMeal.id.uuidString as NSString)
+        } preview: {
+            DragPreviewCard(plannedMeal: plannedMeal)
+        }
+        // Drop target - accept String (the UUID from Transferable)
+        .dropDestination(for: String.self) { _, _ in
+            guard let source = draggedMeal,
+                  source.id != plannedMeal.id else { return false }
+            onDrop(source)
+            return true
+        } isTargeted: { targeted in
+            // Don't highlight if dropping on self
+            let shouldHighlight = targeted && draggedMeal?.id != plannedMeal.id
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isDropTargeted = shouldHighlight
+            }
+            if shouldHighlight {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            }
+        }
+        // Drop target visual feedback
+        .overlay {
+            if isDropTargeted {
+                RoundedRectangle(cornerRadius: PantryTheme.Radius.card)
+                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [8, 4]))
+                    .foregroundStyle(PantryTheme.Colors.accent)
+            }
+        }
+        .background {
+            if isDropTargeted {
+                RoundedRectangle(cornerRadius: PantryTheme.Radius.card)
+                    .fill(PantryTheme.Colors.highlight.opacity(0.3))
+            }
+        }
     }
 }
 
@@ -88,18 +130,20 @@ struct DayCardButtonStyle: ButtonStyle {
 // MARK: - Preview
 
 #Preview("Normal Meal") {
+    @Previewable @State var draggedMeal: PlannedMeal?
     let meal = Meal(title: "Chicken Stir Fry", prepRisk: .fast)
     let plannedMeal = PlannedMeal(dayOfWeek: 1, meal: meal)
 
-    DayCardView(plannedMeal: plannedMeal, onTap: {})
+    DayCardView(plannedMeal: plannedMeal, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
         .padding()
         .background(PantryTheme.Colors.background)
 }
 
 #Preview("Skipped Day") {
+    @Previewable @State var draggedMeal: PlannedMeal?
     let plannedMeal = PlannedMeal(dayOfWeek: 3, isSkipped: true)
 
-    DayCardView(plannedMeal: plannedMeal, onTap: {})
+    DayCardView(plannedMeal: plannedMeal, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
         .padding()
         .background(PantryTheme.Colors.background)
 }

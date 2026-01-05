@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 import Observation
+import UIKit
 
 /// ViewModel for the weekly plan view, managing state and data loading.
 @Observable
@@ -159,6 +160,32 @@ class WeeklyPlanViewModel {
     func selectMealForSwap(_ plannedMeal: PlannedMeal) {
         selectedPlannedMealForSwap = plannedMeal
         isSwapSheetPresented = true
+    }
+
+    // MARK: - Meal Reordering
+
+    /// Swap meal assignments between two planned meal slots (drag and drop)
+    func swapMeals(source: PlannedMeal, target: PlannedMeal) {
+        // Guard: same weekly plan (no cross-week swaps)
+        guard source.weeklyPlan?.id == target.weeklyPlan?.id else { return }
+        // Guard: not the same slot
+        guard source.id != target.id else { return }
+
+        // Swap meal references and skip status
+        let sourceMeal = source.meal
+        let sourceIsSkipped = source.isSkipped
+
+        source.meal = target.meal
+        source.isSkipped = target.isSkipped
+
+        target.meal = sourceMeal
+        target.isSkipped = sourceIsSkipped
+
+        // Haptic feedback on success
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+        // Save to SwiftData
+        try? modelContext.save()
     }
 
     /// Handle the result of a swap operation

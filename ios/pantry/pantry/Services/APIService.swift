@@ -95,6 +95,12 @@ actor APIService {
 
     // MARK: - Configuration
 
+    #if DEBUG
+    private static let defaultBaseURL = URL(string: "http://localhost:3000")!
+    #else
+    private static let defaultBaseURL = URL(string: "https://backend-six-silk-34.vercel.app")!
+    #endif
+
     private let baseURL: URL
     private let session: URLSession
     private let decoder: JSONDecoder
@@ -105,7 +111,7 @@ actor APIService {
 
     /// Initialize with configurable base URL (useful for testing)
     init(
-        baseURL: URL = URL(string: "http://localhost:3000")!,
+        baseURL: URL = defaultBaseURL,
         session: URLSession = .shared
     ) {
         self.baseURL = baseURL
