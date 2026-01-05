@@ -137,6 +137,19 @@
 
 ---
 
+## UI Enhancements (Future)
+
+### Interactions
+
+- [ ] Drag and drop days to reorder via long press (with haptic feedback)
+- [ ] Haptic feedback on draft generation (# of taps = # of days in plan)
+
+### Bugs
+
+- [ ] Tab indicator (This Week / Next Week) overlaps "Anything to use up?" text field - hard to tap
+
+---
+
 ## Parallelization Strategy
 
 ### Phase 1: Foundation ✅

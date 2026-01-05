@@ -12,7 +12,7 @@ struct ContentView: View {
         TabView {
             ThisWeekView()
                 .tabItem {
-                    Label("This Week", systemImage: "calendar")
+                    Label("This Week", systemImage: "fork.knife.circle")
                 }
 
             HistoryView()

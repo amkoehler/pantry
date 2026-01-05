@@ -33,8 +33,36 @@ struct PantryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .tint(PantryTheme.Colors.accent)
         }
         .modelContainer(sharedModelContainer)
+    }
+}
+
+// MARK: - Root View
+
+/// Routes between onboarding and main app based on user state.
+struct RootView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var preferences: [UserPreferences]
+
+    /// Track onboarding completion separately to force view updates
+    @State private var showMainApp = false
+
+    var body: some View {
+        Group {
+            if showMainApp {
+                ContentView()
+            } else {
+                OnboardingView(onComplete: {
+                    showMainApp = true
+                })
+            }
+        }
+        .onAppear {
+            // Check if already completed onboarding
+            showMainApp = preferences.first?.hasCompletedOnboarding == true
+        }
     }
 }
