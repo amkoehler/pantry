@@ -2,8 +2,11 @@ import { Database } from 'bun:sqlite';
 import { join } from 'path';
 import type { Meal, MealRow, DietaryFilters } from '../types';
 
-// Database is in backend root, src/db is two levels down
-const DB_PATH = join(import.meta.dir, '../../pantry.sqlite');
+// Use process.cwd() for Vercel compatibility (serverless context)
+// Falls back to import.meta.dir for local development
+const DB_PATH = process.env.VERCEL
+  ? join(process.cwd(), 'pantry.sqlite')
+  : join(import.meta.dir, '../../pantry.sqlite');
 
 let db: Database | null = null;
 
