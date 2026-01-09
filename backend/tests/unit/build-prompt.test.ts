@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { buildPrompt } from '../../src/ai/draft-generator';
+import { buildPrompt } from '../../src/ai/build-prompt';
 import type { DraftRequest, Meal } from '../../src/types';
 
 // Mock meals for testing - covers quick/normal/long complexity

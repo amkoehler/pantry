@@ -1,11 +1,11 @@
 import { describe, test, expect, mock } from 'bun:test';
 
-// Mock generateDraft BEFORE importing app to prevent real OpenAI calls
+// Mock only generateDraft to prevent real OpenAI calls
+// buildPrompt is in a separate module (build-prompt.ts) so it won't be affected
 mock.module('../../src/ai/draft-generator', () => ({
   generateDraft: async () => ({
     meals: [{ dayOfWeek: 1, mealId: 1, mealTitle: 'Mock Meal', reasoning: 'Mocked for testing' }],
   }),
-  buildPrompt: () => 'mock prompt',
 }));
 
 // Import app AFTER mock is set up
