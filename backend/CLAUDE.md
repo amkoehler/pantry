@@ -4,8 +4,10 @@
 
 ```
 backend/
+├── api/
+│   └── index.ts           # Vercel entry point (re-exports Hono app)
 ├── src/
-│   ├── index.ts           # Hono server entry point
+│   ├── index.ts           # Hono server entry point (local dev)
 │   ├── api/
 │   │   ├── meals.ts       # GET /api/meals
 │   │   └── draft.ts       # POST /api/draft
@@ -21,7 +23,8 @@ backend/
 │   └── validate-meals.ts  # Check for duplicates/quality issues
 ├── tests/
 │   └── draft.test.ts      # Draft generation tests (calls OpenAI)
-└── pantry.sqlite          # 150 curated meals
+├── pantry.sqlite          # 150 curated meals
+└── vercel.json            # Vercel config (Bun runtime)
 ```
 
 ## Scripts
@@ -56,6 +59,18 @@ SQLite with 150 meals. Schema fields:
 ## AI
 
 Uses `gpt-4.1-mini` via Vercel AI SDK for draft generation. Prompt in `src/ai/draft-generator.ts`.
+
+## Deployment
+
+Hosted on Vercel with Bun runtime. SQLite is bundled with the serverless function (read-only).
+
+```sh
+bunx vercel --prod   # Deploy to production
+```
+
+- Production URL: `https://backend-six-silk-34.vercel.app`
+- Config: `vercel.json` (Bun runtime, includes `pantry.sqlite`)
+- Entry point: `api/index.ts` (Vercel-specific, re-exports Hono app)
 
 ---
 

@@ -37,6 +37,10 @@ bun run seed         # Generate meals JSON (calls OpenAI)
 bun run import       # Import meals JSON to SQLite
 bun run validate     # Check meal quality/duplicates
 bun test tests/draft.test.ts  # Test draft generation
+
+# iOS
+cd ios/pantry
+xcodebuild -scheme pantry -destination 'platform=iOS Simulator,name=iPhone 17' build
 ```
 
 ## Backend Notes
@@ -49,3 +53,15 @@ bun test tests/draft.test.ts  # Test draft generation
 
 - `GET /api/meals` — Fetch meal database (supports dietary filters)
 - `POST /api/draft` — Generate weekly plan from history + constraints
+
+## Deployment
+
+**Backend**: Deployed to Vercel with Bun runtime. SQLite bundled with function (read-only).
+
+- Production: `https://backend-six-silk-34.vercel.app`
+- Deploy: `cd backend && bunx vercel --prod`
+
+**iOS API URL**: Configured via `#if DEBUG` in `APIService.swift`
+
+- Debug builds → `localhost:3000`
+- Release builds → production Vercel URL
