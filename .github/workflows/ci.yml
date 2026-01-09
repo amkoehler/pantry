@@ -42,3 +42,19 @@ jobs:
 
       - name: Check formatting
         run: bun run format:check
+
+  validate-ios:
+    name: iOS Validation
+    runs-on: macos-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Run iOS validation
+        run: ./scripts/validate-ios.sh --test
