@@ -105,6 +105,7 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.currentWeekFilteredMeals,
                 weekPlan: viewModel.currentWeekPlan,
+                isGenerating: viewModel.isGeneratingDraft,
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -119,6 +120,7 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.nextWeekFilteredMeals,
                 weekPlan: viewModel.nextWeekPlan,
+                isGenerating: viewModel.isGeneratingDraft,
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -142,6 +144,7 @@ private struct WeekPlanScrollView: View {
 private struct WeekPageView: View {
     let plannedMeals: [PlannedMeal]
     let weekPlan: WeeklyPlan?
+    let isGenerating: Bool
     let onMealTap: (PlannedMeal) -> Void
     let onMealSwap: (PlannedMeal, PlannedMeal) -> Void
     let onRegenerate: (WeeklyPlan) -> Void
@@ -150,36 +153,47 @@ private struct WeekPageView: View {
     @State private var hasAppeared = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                // Meal cards (draggable to swap between days)
-                ForEach(plannedMeals) { plannedMeal in
-                    DayCardView(
-                        plannedMeal: plannedMeal,
-                        draggedMeal: $draggedMeal,
-                        onTap: { onMealTap(plannedMeal) },
-                        onDrop: { source in onMealSwap(source, plannedMeal) }
-                    )
-                }
-                // Fade + gentle rise animation on the cards
-                .opacity(hasAppeared ? 1 : 0)
-                .offset(y: hasAppeared ? 0 : 12)
+        ZStack {
+            ScrollView {
+                VStack(spacing: 12) {
+                    // Meal cards (draggable to swap between days)
+                    ForEach(plannedMeals) { plannedMeal in
+                        DayCardView(
+                            plannedMeal: plannedMeal,
+                            draggedMeal: $draggedMeal,
+                            onTap: { onMealTap(plannedMeal) },
+                            onDrop: { source in onMealSwap(source, plannedMeal) }
+                        )
+                    }
+                    // Fade + gentle rise animation on the cards
+                    .opacity(hasAppeared ? 1 : 0)
+                    .offset(y: hasAppeared ? 0 : 12)
 
-                // Check-in section (only show if we have a plan)
-                if let plan = weekPlan {
-                    Divider()
-                        .padding(.vertical, 8)
+                    // Check-in section (only show if we have a plan)
+                    if let plan = weekPlan {
+                        Divider()
+                            .padding(.vertical, 8)
 
-                    CheckInView(weeklyPlan: plan) {
-                        onRegenerate(plan)
+                        CheckInView(
+                            weeklyPlan: plan,
+                            onRegenerateDraft: { onRegenerate(plan) },
+                            isCollapsed: isGenerating
+                        )
                     }
                 }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                // Extra bottom padding to prevent overlap with page indicator dots
+                .padding(.bottom, 40)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            // Extra bottom padding to prevent overlap with page indicator dots
-            .padding(.bottom, 40)
+
+            // Full-screen cooking spinner during regeneration
+            if isGenerating {
+                CookingSpinner()
+                    .transition(.opacity)
+            }
         }
+        .animation(.easeInOut(duration: 0.3), value: isGenerating)
         .task(id: plannedMeals.count) {
             // Reset and animate when meals appear/change
             guard !plannedMeals.isEmpty else { return }

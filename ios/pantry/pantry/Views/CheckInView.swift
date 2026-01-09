@@ -1,39 +1,76 @@
 import SwiftUI
 import SwiftData
 
-/// Section below the weekly draft for configuring dinner count, week shape, and constraints.
+/// Section below the weekly draft for configuring week shape and constraints.
 struct CheckInView: View {
     @Bindable var weeklyPlan: WeeklyPlan
     var onRegenerateDraft: () -> Void
+    var isCollapsed: Bool = false
 
     @State private var regenerateTask: Task<Void, Never>?
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            // Dinner count section
-            DinnerCountSection(
-                count: $weeklyPlan.dinnerCount,
-                onChange: scheduleRegeneration
-            )
+    // Track dirty state for explicit "Update Plan" button
+    @State private var localConstraints: String = ""
+    @State private var lastAppliedConstraints: String = ""
 
-            // Week shape section
-            WeekShapeSection(
-                shape: $weeklyPlan.weekShape,
-                onChange: scheduleRegeneration
-            )
-
-            // Constraints section
-            ConstraintsSection(
-                constraints: $weeklyPlan.constraints,
-                onSubmit: {
-                    onRegenerateDraft()
-                }
-            )
-        }
-        .padding(.vertical, 8)
+    var hasUnappliedChanges: Bool {
+        localConstraints != lastAppliedConstraints
     }
 
-    /// Debounce regeneration to avoid rapid API calls
+    var body: some View {
+        if isCollapsed {
+            // Minimal bar during regeneration
+            HStack {
+                ProgressView()
+                    .scaleEffect(0.8)
+                Text("Updating...")
+                    .font(PantryTheme.Typography.subheadline)
+                    .foregroundStyle(PantryTheme.Colors.secondaryText)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+        } else {
+            VStack(alignment: .leading, spacing: 24) {
+                // Week shape section
+                WeekShapeSection(
+                    shape: $weeklyPlan.weekShape,
+                    onChange: scheduleRegeneration
+                )
+
+                // Constraints section
+                ConstraintsSection(
+                    localText: $localConstraints
+                )
+
+                // Sticky footer with "Update Plan" button
+                if hasUnappliedChanges {
+                    Button(action: applyChanges) {
+                        Text("Update Plan")
+                            .font(PantryTheme.Typography.body)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(PantryTheme.Colors.accent)
+                }
+            }
+            .padding(.vertical, 8)
+            .onAppear {
+                // Initialize local state from model
+                localConstraints = weeklyPlan.constraints ?? ""
+                lastAppliedConstraints = localConstraints
+            }
+        }
+    }
+
+    /// Apply constraint changes and trigger regeneration
+    private func applyChanges() {
+        weeklyPlan.constraints = localConstraints.isEmpty ? nil : localConstraints
+        lastAppliedConstraints = localConstraints
+        onRegenerateDraft()
+    }
+
+    /// Debounce regeneration to avoid rapid API calls (for week shape changes)
     private func scheduleRegeneration() {
         regenerateTask?.cancel()
         regenerateTask = Task {
@@ -41,42 +78,6 @@ struct CheckInView: View {
             if !Task.isCancelled {
                 await MainActor.run {
                     onRegenerateDraft()
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Dinner Count Section
-
-private struct DinnerCountSection: View {
-    @Binding var count: Int
-    var onChange: () -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Planning for **\(count) dinner\(count == 1 ? "" : "s")** this week")
-                .font(PantryTheme.Typography.subheadline)
-                .foregroundStyle(PantryTheme.Colors.primaryText)
-
-            // Horizontal button strip: 1-7
-            HStack(spacing: 8) {
-                ForEach(1...7, id: \.self) { num in
-                    Button(action: {
-                        if count != num {
-                            count = num
-                            onChange()
-                        }
-                    }) {
-                        Text("\(num)")
-                            .font(PantryTheme.Typography.body)
-                            .fontWeight(count == num ? .semibold : .regular)
-                            .frame(width: 36, height: 36)
-                            .background(count == num ? PantryTheme.Colors.accent : PantryTheme.Colors.highlight)
-                            .foregroundColor(count == num ? .white : PantryTheme.Colors.primaryText)
-                            .clipShape(Circle())
-                    }
-                    .buttonStyle(.plain)
                 }
             }
         }
@@ -111,10 +112,7 @@ private struct WeekShapeSection: View {
 // MARK: - Constraints Section
 
 private struct ConstraintsSection: View {
-    @Binding var constraints: String?
-    var onSubmit: () -> Void
-
-    @State private var localText: String = ""
+    @Binding var localText: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -124,14 +122,7 @@ private struct ConstraintsSection: View {
 
             TextField("Chicken, frozen meals, etc.", text: $localText)
                 .textFieldStyle(.roundedBorder)
-                .onSubmit {
-                    constraints = localText.isEmpty ? nil : localText
-                    onSubmit()
-                }
                 .submitLabel(.done)
-        }
-        .onAppear {
-            localText = constraints ?? ""
         }
     }
 }
