@@ -51,12 +51,14 @@ const titleTokens = meals.map((m) => ({ id: m.id, title: m.title, tokens: tokeni
 
 for (let i = 0; i < titleTokens.length; i++) {
   for (let j = i + 1; j < titleTokens.length; j++) {
-    const sim = jaccardSimilarity(titleTokens[i].tokens, titleTokens[j].tokens);
+    const tokenA = titleTokens[i]!;
+    const tokenB = titleTokens[j]!;
+    const sim = jaccardSimilarity(tokenA.tokens, tokenB.tokens);
     if (sim > 0.7) {
       issues.push({
-        id: titleTokens[i].id,
-        title: titleTokens[i].title,
-        reason: `Near-duplicate of "${titleTokens[j].title}" (${(sim * 100).toFixed(0)}% similar)`,
+        id: tokenA.id,
+        title: tokenA.title,
+        reason: `Near-duplicate of "${tokenB.title}" (${(sim * 100).toFixed(0)}% similar)`,
         severity: sim > 0.85 ? 'high' : 'medium',
       });
     }
@@ -135,7 +137,8 @@ for (const m of meals) {
 // --- 4. Missing key components ---
 for (const m of meals) {
   const veg = JSON.parse(m.veg_or_fruit) as string[];
-  if (veg.length === 0 || (veg.length === 1 && veg[0].length < 3)) {
+  const firstVeg = veg[0];
+  if (veg.length === 0 || (veg.length === 1 && firstVeg && firstVeg.length < 3)) {
     issues.push({
       id: m.id,
       title: m.title,
