@@ -78,6 +78,7 @@ private struct WeekContentView: View {
                     plannedMeal: plannedMeal,
                     availableMeals: viewModel.fetchAvailableMeals(),
                     swapContext: viewModel.buildSwapContext(for: plannedMeal),
+                    cachedSuggestions: viewModel.getCachedSuggestions(for: plannedMeal),
                     onSwap: { newMeal in
                         viewModel.handleSwapResult(newMeal: newMeal, wasSkipped: false)
                     },

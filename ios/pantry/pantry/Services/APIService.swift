@@ -82,7 +82,8 @@ extension APIMeal {
             createdAt: Date(),
             protein: protein,
             cuisine: cuisine,
-            tags: tags
+            tags: tags,
+            onePotOrPan: onePotOrPan == "no" ? nil : onePotOrPan
         )
     }
 }

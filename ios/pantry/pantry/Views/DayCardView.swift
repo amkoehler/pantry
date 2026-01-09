@@ -32,16 +32,21 @@ struct DayCardView: View {
                         .foregroundStyle(PantryTheme.Colors.tertiaryText)
                         .italic()
                 } else if let meal = plannedMeal.meal {
-                    HStack(alignment: .center) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text(meal.title)
                             .font(PantryTheme.Typography.title)
                             .foregroundStyle(PantryTheme.Colors.primaryText)
 
-                        Spacer()
-
-                        // Prep risk tag (only show "Easy" for fast meals)
-                        if meal.prepRisk == .fast {
-                            PrepBadge(label: "Easy")
+                        // Badge row for Easy and One-Pot/One-Pan
+                        HStack(spacing: 6) {
+                            if meal.prepRisk == .fast {
+                                PrepBadge(label: "Easy")
+                            }
+                            if meal.onePotOrPan == "one-pot" {
+                                PrepBadge(label: "One-Pot")
+                            } else if meal.onePotOrPan == "one-pan" {
+                                PrepBadge(label: "One-Pan")
+                            }
                         }
                     }
                 } else {

@@ -9,6 +9,7 @@ struct SwapSheetView: View {
     let plannedMeal: PlannedMeal
     let availableMeals: [Meal]
     let swapContext: SwapContext?
+    let cachedSuggestions: [MealSuggestion]?
     let onSwap: (Meal) -> Void
     let onSkip: () -> Void
     let onDismiss: () -> Void
@@ -114,6 +115,14 @@ struct SwapSheetView: View {
     // MARK: - Actions
 
     private func loadSuggestions() async {
+        // Use cached suggestions if available (instant load)
+        if let cached = cachedSuggestions {
+            suggestions = cached
+            isLoadingSuggestions = false
+            return
+        }
+
+        // Fall back to loading with spinner
         isLoadingSuggestions = true
 
         guard let currentMeal = currentMeal,
@@ -227,13 +236,18 @@ private struct CurrentMealHeader: View {
                 .font(PantryTheme.Typography.subheadline)
                 .foregroundStyle(PantryTheme.Colors.secondaryText)
 
-            HStack {
-                Text(meal.title)
-                    .font(PantryTheme.Typography.title)
-                    .foregroundStyle(PantryTheme.Colors.primaryText)
+            Text(meal.title)
+                .font(PantryTheme.Typography.title)
+                .foregroundStyle(PantryTheme.Colors.primaryText)
 
+            HStack(spacing: 6) {
                 if meal.prepRisk == .fast {
                     PrepBadge(label: "Easy")
+                }
+                if meal.onePotOrPan == "one-pot" {
+                    PrepBadge(label: "One-Pot")
+                } else if meal.onePotOrPan == "one-pan" {
+                    PrepBadge(label: "One-Pan")
                 }
             }
         }
@@ -284,16 +298,19 @@ private struct AlternativeMealRow: View {
     var body: some View {
         Button(action: onSelect) {
             VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text(suggestion.meal.title)
-                        .font(PantryTheme.Typography.body)
-                        .fontWeight(.medium)
-                        .foregroundStyle(PantryTheme.Colors.primaryText)
+                Text(suggestion.meal.title)
+                    .font(PantryTheme.Typography.body)
+                    .fontWeight(.medium)
+                    .foregroundStyle(PantryTheme.Colors.primaryText)
 
-                    Spacer()
-
+                HStack(spacing: 6) {
                     if suggestion.meal.prepRisk == .fast {
                         PrepBadge(label: "Easy")
+                    }
+                    if suggestion.meal.onePotOrPan == "one-pot" {
+                        PrepBadge(label: "One-Pot")
+                    } else if suggestion.meal.onePotOrPan == "one-pan" {
+                        PrepBadge(label: "One-Pan")
                     }
                 }
 
@@ -351,6 +368,7 @@ private struct CustomMealSection: View {
             Meal(title: "Grilled Salmon", prepRisk: .normal)
         ],
         swapContext: nil,
+        cachedSuggestions: nil,
         onSwap: { _ in },
         onSkip: {},
         onDismiss: {}
