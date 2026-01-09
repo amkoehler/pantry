@@ -4,16 +4,7 @@ import Combine
 /// Full-screen cooking-themed loading spinner with rotating messages.
 /// Used during draft regeneration to provide whimsical feedback.
 struct CookingSpinner: View {
-    @State private var currentMessage = 0
-
-    private let messages = [
-        "Sautéing...",
-        "Simmering...",
-        "Toasting...",
-        "Chopping...",
-        "Whisking...",
-        "Seasoning..."
-    ]
+    @State private var messageCycler = MessageCycler.cooking()
 
     private let timer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
 
@@ -23,17 +14,17 @@ struct CookingSpinner: View {
                 .scaleEffect(1.5)
                 .tint(PantryTheme.Colors.accent)
 
-            Text(messages[currentMessage])
+            Text(messageCycler.currentMessage)
                 .font(PantryTheme.Typography.headline)
                 .foregroundStyle(PantryTheme.Colors.secondaryText)
                 .contentTransition(.numericText())
-                .animation(.easeInOut(duration: 0.3), value: currentMessage)
+                .animation(.easeInOut(duration: 0.3), value: messageCycler.currentIndex)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(PantryTheme.Colors.background.opacity(0.95))
         .onReceive(timer) { _ in
             withAnimation {
-                currentMessage = (currentMessage + 1) % messages.count
+                messageCycler.advance()
             }
         }
     }
