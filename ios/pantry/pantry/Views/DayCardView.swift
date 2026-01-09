@@ -1,12 +1,28 @@
 import SwiftUI
 import UIKit
 
+// MARK: - Conditional View Modifier
+
+extension View {
+    /// Applies a transformation if the condition is true
+    @ViewBuilder
+    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
+}
+
 /// A card displaying a single planned meal for a day in the weekly view.
 /// Tapping the card opens the swap sheet. Long-press to drag and swap with another day.
+/// Past days are shown with outline-only style and are non-interactive.
 struct DayCardView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     let plannedMeal: PlannedMeal
+    let isPastDay: Bool
     @Binding var draggedMeal: PlannedMeal?
     let onTap: () -> Void
     let onDrop: (PlannedMeal) -> Void
@@ -18,12 +34,17 @@ struct DayCardView: View {
     }
 
     var body: some View {
-        Button(action: onTap) {
+        Button(action: {
+            // Only allow interaction for non-past days
+            if !isPastDay {
+                onTap()
+            }
+        }) {
             VStack(alignment: .leading, spacing: 8) {
                 // Day label
                 Text(dayName)
                     .font(PantryTheme.Typography.subheadline)
-                    .foregroundStyle(PantryTheme.Colors.secondaryText)
+                    .foregroundStyle(isPastDay ? PantryTheme.Colors.tertiaryText : PantryTheme.Colors.secondaryText)
 
                 // Meal content or cleared state
                 if plannedMeal.isSkipped {
@@ -35,7 +56,7 @@ struct DayCardView: View {
                     HStack(alignment: .center) {
                         Text(meal.title)
                             .font(PantryTheme.Typography.title)
-                            .foregroundStyle(PantryTheme.Colors.primaryText)
+                            .foregroundStyle(isPastDay ? PantryTheme.Colors.secondaryText : PantryTheme.Colors.primaryText)
 
                         Spacer()
 
@@ -54,50 +75,65 @@ struct DayCardView: View {
             .padding(.vertical, 16)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(PantryTheme.Colors.cardBackground)
+            // Past day: outline-only, no fill. Active day: filled background
+            .background(isPastDay ? Color.clear : PantryTheme.Colors.cardBackground)
             .clipShape(RoundedRectangle(cornerRadius: PantryTheme.Radius.card))
+            .overlay {
+                // Past day outline border
+                if isPastDay {
+                    RoundedRectangle(cornerRadius: PantryTheme.Radius.card)
+                        .strokeBorder(PantryTheme.Colors.tertiaryText.opacity(0.3), lineWidth: 1)
+                }
+            }
             .shadow(
-                color: colorScheme == .dark
-                    ? Color.black.opacity(0.15)
-                    : Color.black.opacity(0.06),
+                color: isPastDay
+                    ? Color.clear  // No shadow for past days
+                    : (colorScheme == .dark
+                        ? Color.black.opacity(0.15)
+                        : Color.black.opacity(0.06)),
                 radius: colorScheme == .dark ? 4 : 6,
                 y: 2
             )
         }
-        .buttonStyle(DayCardButtonStyle())
-        // Drag source - long press to initiate
-        .onDrag {
-            draggedMeal = plannedMeal
-            return NSItemProvider(object: plannedMeal.id.uuidString as NSString)
-        } preview: {
-            DragPreviewCard(plannedMeal: plannedMeal)
-        }
-        // Drop target - accept String (the UUID from Transferable)
-        .dropDestination(for: String.self) { _, _ in
-            guard let source = draggedMeal,
-                  source.id != plannedMeal.id else { return false }
-            onDrop(source)
-            return true
-        } isTargeted: { targeted in
-            // Don't highlight if dropping on self
-            let shouldHighlight = targeted && draggedMeal?.id != plannedMeal.id
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isDropTargeted = shouldHighlight
+        .buttonStyle(DayCardButtonStyle(isPastDay: isPastDay))
+        .disabled(isPastDay)
+        // Drag source - only for non-past days
+        .if(!isPastDay) { view in
+            view.onDrag {
+                draggedMeal = plannedMeal
+                return NSItemProvider(object: plannedMeal.id.uuidString as NSString)
+            } preview: {
+                DragPreviewCard(plannedMeal: plannedMeal)
             }
-            if shouldHighlight {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
+        // Drop target - only for non-past days
+        .if(!isPastDay) { view in
+            view.dropDestination(for: String.self) { _, _ in
+                guard let source = draggedMeal,
+                      source.id != plannedMeal.id else { return false }
+                onDrop(source)
+                return true
+            } isTargeted: { targeted in
+                // Don't highlight if dropping on self
+                let shouldHighlight = targeted && draggedMeal?.id != plannedMeal.id
+                withAnimation(.easeInOut(duration: 0.15)) {
+                    isDropTargeted = shouldHighlight
+                }
+                if shouldHighlight {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                }
             }
         }
         // Drop target visual feedback
         .overlay {
-            if isDropTargeted {
+            if isDropTargeted && !isPastDay {
                 RoundedRectangle(cornerRadius: PantryTheme.Radius.card)
                     .stroke(style: StrokeStyle(lineWidth: 2, dash: [8, 4]))
                     .foregroundStyle(PantryTheme.Colors.accent)
             }
         }
         .background {
-            if isDropTargeted {
+            if isDropTargeted && !isPastDay {
                 RoundedRectangle(cornerRadius: PantryTheme.Radius.card)
                     .fill(PantryTheme.Colors.highlight.opacity(0.3))
             }
@@ -124,13 +160,15 @@ struct PrepBadge: View {
 
 // MARK: - Custom Button Style
 
-/// Subtle press animation for day cards
+/// Subtle press animation for day cards (disabled for past days)
 struct DayCardButtonStyle: ButtonStyle {
+    var isPastDay: Bool = false
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
-            .opacity(configuration.isPressed ? 0.9 : 1.0)
-            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
+            .scaleEffect(isPastDay ? 1.0 : (configuration.isPressed ? 0.98 : 1.0))
+            .opacity(isPastDay ? 1.0 : (configuration.isPressed ? 0.9 : 1.0))
+            .animation(isPastDay ? nil : .easeInOut(duration: 0.15), value: configuration.isPressed)
     }
 }
 
@@ -141,7 +179,17 @@ struct DayCardButtonStyle: ButtonStyle {
     let meal = Meal(title: "Chicken Stir Fry", prepRisk: .fast)
     let plannedMeal = PlannedMeal(dayOfWeek: 1, meal: meal)
 
-    DayCardView(plannedMeal: plannedMeal, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
+    DayCardView(plannedMeal: plannedMeal, isPastDay: false, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
+        .padding()
+        .background(PantryTheme.Colors.background)
+}
+
+#Preview("Past Day") {
+    @Previewable @State var draggedMeal: PlannedMeal?
+    let meal = Meal(title: "Chicken Stir Fry", prepRisk: .fast)
+    let plannedMeal = PlannedMeal(dayOfWeek: 1, meal: meal)
+
+    DayCardView(plannedMeal: plannedMeal, isPastDay: true, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
         .padding()
         .background(PantryTheme.Colors.background)
 }
@@ -150,7 +198,7 @@ struct DayCardButtonStyle: ButtonStyle {
     @Previewable @State var draggedMeal: PlannedMeal?
     let plannedMeal = PlannedMeal(dayOfWeek: 3, isSkipped: true)
 
-    DayCardView(plannedMeal: plannedMeal, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
+    DayCardView(plannedMeal: plannedMeal, isPastDay: false, draggedMeal: $draggedMeal, onTap: {}, onDrop: { _ in })
         .padding()
         .background(PantryTheme.Colors.background)
 }

@@ -58,22 +58,20 @@ class WeeklyPlanViewModel {
         }
     }
 
-    /// Filtered meals for current week (mid-week filtering applied)
+    /// Filtered meals for current week (shows all weekdays M-F, past days shown as non-interactive)
     var currentWeekFilteredMeals: [PlannedMeal] {
         guard let plan = currentWeekPlan,
               let meals = plan.plannedMeals else { return [] }
 
-        let todayDayOfWeek = currentDayOfWeek()
-
-        // On weekends (Sat=6, Sun=7), show the full week since weekdays are past
-        // During the week, filter to show only today onwards
-        if todayDayOfWeek >= 6 {
-            return meals.sorted { $0.dayOfWeek < $1.dayOfWeek }
-        }
-
+        // Show all weekdays M-F, no longer filtering past days
         return meals
-            .filter { $0.dayOfWeek >= todayDayOfWeek }
+            .filter { $0.dayOfWeek <= 5 }
             .sorted { $0.dayOfWeek < $1.dayOfWeek }
+    }
+
+    /// Check if a day is in the past (before today)
+    func isPastDay(_ dayOfWeek: Int) -> Bool {
+        return dayOfWeek < currentDayOfWeek()
     }
 
     /// All meals for next week (no mid-week filter)
@@ -291,22 +289,35 @@ class WeeklyPlanViewModel {
         isGeneratingDraft = false
     }
 
-    /// Regenerate draft for an existing plan (preserves week settings)
+    /// Regenerate draft for an existing plan (preserves past days, only regenerates today onwards)
     func regenerateDraft(for plan: WeeklyPlan) async {
         isGeneratingDraft = true
         generationError = nil
 
         do {
+            // Get current day of week
+            let today = currentDayOfWeek()
+
+            // Weekend: no regeneration needed (next week plan should be shown instead)
+            guard today <= 5 else {
+                isGeneratingDraft = false
+                return
+            }
+
             // Get preferences
             let preferences = fetchUserPreferences() ?? createDefaultPreferences()
 
             // Sync meals from API
             try await syncMealsFromAPI(preferences: preferences)
 
-            // Build request with plan's settings
+            // Build array of days to regenerate (today through Friday)
+            let daysToGenerate = Array(today...5)
+
+            // Build request with plan's settings, specifying which days to generate
             let history = fetchPlannedMealsForHistory()
             let request = APIService.buildDraftRequest(
                 dinnerCount: plan.dinnerCount,
+                days: daysToGenerate,
                 weekShape: plan.weekShape,
                 busyDays: [],
                 constraints: plan.constraints,
@@ -314,17 +325,17 @@ class WeeklyPlanViewModel {
                 preferences: preferences
             )
 
-            // Generate new draft
+            // Generate new draft (only for specified days)
             let response = try await APIService.shared.generateDraft(request: request)
 
-            // Clear existing planned meals
+            // Delete only future planned meals (today onwards), preserve past days
             if let existingMeals = plan.plannedMeals {
-                for meal in existingMeals {
+                for meal in existingMeals where meal.dayOfWeek >= today {
                     modelContext.delete(meal)
                 }
             }
 
-            // Create new planned meals
+            // Create new planned meals for the regenerated days
             for draftMeal in response.meals {
                 let meal = findMealByServerId(draftMeal.mealId) ?? findMealByTitle(draftMeal.mealTitle)
                 let plannedMeal = PlannedMeal(dayOfWeek: draftMeal.dayOfWeek, meal: meal)

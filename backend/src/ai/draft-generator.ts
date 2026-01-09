@@ -22,7 +22,13 @@ function dayName(day: number): string {
   return days[day] || `Day ${day}`;
 }
 
+function formatDaysList(days: number[]): string {
+  return days.map(dayName).join(', ');
+}
+
 export function buildPrompt(request: DraftRequest, availableMeals: Meal[]): string {
+  // Determine which days to generate
+  const daysToGenerate = request.days ?? Array.from({ length: request.dinnerCount }, (_, i) => i + 1);
   // Build meal list - group by complexity for clarity
   const quickMeals = availableMeals.filter((m) => m.complexity === 'quick');
   const normalMeals = availableMeals.filter((m) => m.complexity === 'normal');
@@ -76,7 +82,12 @@ export function buildPrompt(request: DraftRequest, availableMeals: Meal[]): stri
     ? `**User wants to use:** "${request.constraints}" - prioritize meals with these ingredients.`
     : '';
 
-  return `You are a meal planning assistant for a family household. Generate a dinner plan for ${request.dinnerCount} nights this week.
+  // Build days context for output instructions
+  const daysContext = daysToGenerate.length === request.dinnerCount
+    ? `Generate exactly ${request.dinnerCount} meals for days 1-${request.dinnerCount} (Monday=1, Tuesday=2, etc.)`
+    : `Generate exactly ${daysToGenerate.length} meals for these specific days: ${formatDaysList(daysToGenerate)} (${daysToGenerate.join(', ')})`;
+
+  return `You are a meal planning assistant for a family household. Generate a dinner plan for ${daysToGenerate.length} nights this week.
 
 ## Available Meals
 
@@ -105,7 +116,7 @@ ${constraintsSection}
 
 ## Output
 
-Generate exactly ${request.dinnerCount} meals for days 1-${request.dinnerCount} (Monday=1, Tuesday=2, etc.)
+${daysContext}
 For each meal:
 - dayOfWeek: the day number (1-7)
 - mealId: the ID from Available Meals (MUST be a valid ID from the list)
