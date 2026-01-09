@@ -135,9 +135,9 @@ describe('buildPrompt', () => {
       busyDays: [],
       constraints: null,
       mealHistory: [
-        { mealId: 1, mealTitle: 'Tacos', outcome: 'kept', weeksAgo: 2 },
-        { mealId: 2, mealTitle: 'Pasta', outcome: 'swapped', weeksAgo: 1 },
-        { mealId: 3, mealTitle: 'Chicken', outcome: 'skipped', weeksAgo: 3 },
+        { mealTitle: 'Tacos', outcome: 'kept', weeksAgo: 2 },
+        { mealTitle: 'Pasta', outcome: 'swapped', weeksAgo: 1 },
+        { mealTitle: 'Chicken', outcome: 'skipped', weeksAgo: 3 },
       ],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     };

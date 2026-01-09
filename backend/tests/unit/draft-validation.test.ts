@@ -27,15 +27,15 @@ describe('Draft meal ID validation', () => {
   test('valid meal IDs are preserved', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
     const validIds = new Set(meals.map((m) => m.id));
-    const validId = meals[0].id;
+    const validId = meals[0]!.id;
 
     const draft: DraftResponse = {
-      meals: [{ dayOfWeek: 1, mealId: validId, mealTitle: meals[0].title, reasoning: 'Test' }],
+      meals: [{ dayOfWeek: 1, mealId: validId, mealTitle: meals[0]!.title, reasoning: 'Test' }],
     };
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].mealId).toBe(validId);
+    expect(validated[0]!.mealId).toBe(validId);
   });
 
   test('invalid meal IDs are nullified', () => {
@@ -48,7 +48,7 @@ describe('Draft meal ID validation', () => {
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].mealId).toBeNull();
+    expect(validated[0]!.mealId).toBeNull();
   });
 
   test('null meal IDs remain null', () => {
@@ -61,20 +61,20 @@ describe('Draft meal ID validation', () => {
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].mealId).toBeNull();
+    expect(validated[0]!.mealId).toBeNull();
   });
 
   test('mixed valid and invalid IDs handled correctly', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
     const validIds = new Set(meals.map((m) => m.id));
-    const validId1 = meals[0].id;
-    const validId2 = meals[1].id;
+    const validId1 = meals[0]!.id;
+    const validId2 = meals[1]!.id;
 
     const draft: DraftResponse = {
       meals: [
-        { dayOfWeek: 1, mealId: validId1, mealTitle: meals[0].title, reasoning: 'Valid' },
+        { dayOfWeek: 1, mealId: validId1, mealTitle: meals[0]!.title, reasoning: 'Valid' },
         { dayOfWeek: 2, mealId: 999999, mealTitle: 'Invalid', reasoning: 'Invalid' },
-        { dayOfWeek: 3, mealId: validId2, mealTitle: meals[1].title, reasoning: 'Valid' },
+        { dayOfWeek: 3, mealId: validId2, mealTitle: meals[1]!.title, reasoning: 'Valid' },
         { dayOfWeek: 4, mealId: null, mealTitle: 'Null', reasoning: 'Null' },
         { dayOfWeek: 5, mealId: -1, mealTitle: 'Negative', reasoning: 'Invalid' },
       ],
@@ -82,11 +82,11 @@ describe('Draft meal ID validation', () => {
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].mealId).toBe(validId1);
-    expect(validated[1].mealId).toBeNull();
-    expect(validated[2].mealId).toBe(validId2);
-    expect(validated[3].mealId).toBeNull();
-    expect(validated[4].mealId).toBeNull();
+    expect(validated[0]!.mealId).toBe(validId1);
+    expect(validated[1]!.mealId).toBeNull();
+    expect(validated[2]!.mealId).toBe(validId2);
+    expect(validated[3]!.mealId).toBeNull();
+    expect(validated[4]!.mealId).toBeNull();
   });
 
   test('meal title is preserved regardless of ID validity', () => {
@@ -99,7 +99,7 @@ describe('Draft meal ID validation', () => {
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].mealTitle).toBe('AI Invented Meal');
+    expect(validated[0]!.mealTitle).toBe('AI Invented Meal');
   });
 
   test('dayOfWeek and reasoning preserved after validation', () => {
@@ -114,8 +114,8 @@ describe('Draft meal ID validation', () => {
 
     const validated = validateDraftMealIds(draft, validIds);
 
-    expect(validated[0].dayOfWeek).toBe(5);
-    expect(validated[0].reasoning).toBe('Friday is pizza night');
+    expect(validated[0]!.dayOfWeek).toBe(5);
+    expect(validated[0]!.reasoning).toBe('Friday is pizza night');
   });
 });
 
@@ -176,8 +176,8 @@ describe('Dietary filter validation for drafts', () => {
 describe('Meal lookup functions for draft building', () => {
   test('getMealById returns correct meal for building response', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const targetId = meals[0].id;
-    const targetTitle = meals[0].title;
+    const targetId = meals[0]!.id;
+    const targetTitle = meals[0]!.title;
 
     const meal = getMealById(targetId);
 
@@ -200,12 +200,12 @@ describe('Meal lookup functions for draft building', () => {
 
   test('getMealsByIds filters out invalid IDs automatically', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const validId = meals[0].id;
+    const validId = meals[0]!.id;
     const mixedIds = [validId, 999999, -1, 0];
 
     const fetchedMeals = getMealsByIds(mixedIds);
 
     expect(fetchedMeals.length).toBe(1);
-    expect(fetchedMeals[0].id).toBe(validId);
+    expect(fetchedMeals[0]!.id).toBe(validId);
   });
 });

@@ -197,13 +197,14 @@ describe('getMeals', () => {
     // Same query should return same order
     expect(meals1.length).toBe(meals2.length);
     for (let i = 0; i < meals1.length; i++) {
-      expect(meals1[i].id).toBe(meals2[i].id);
+      expect(meals1[i]!.id).toBe(meals2[i]!.id);
     }
   });
 
   test('returns properly transformed meal objects', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const meal = meals[0];
+    expect(meals.length).toBeGreaterThan(0);
+    const meal = meals[0]!;
 
     // Check camelCase properties exist (not snake_case)
     expect(meal).toHaveProperty('vegOrFruit');
@@ -222,7 +223,7 @@ describe('getMealById', () => {
   test('returns meal for valid ID', () => {
     // First get a valid ID from the database
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const validId = meals[0].id;
+    const validId = meals[0]!.id;
 
     const meal = getMealById(validId);
 
@@ -250,7 +251,7 @@ describe('getMealById', () => {
 
   test('returns properly transformed meal object', () => {
     const meals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const validId = meals[0].id;
+    const validId = meals[0]!.id;
 
     const meal = getMealById(validId);
 
@@ -282,24 +283,24 @@ describe('getMealsByIds', () => {
 
   test('returns single meal for single ID', () => {
     const allMeals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const singleId = allMeals[0].id;
+    const singleId = allMeals[0]!.id;
 
     const meals = getMealsByIds([singleId]);
 
     expect(meals.length).toBe(1);
-    expect(meals[0].id).toBe(singleId);
+    expect(meals[0]!.id).toBe(singleId);
   });
 
   test('ignores non-existent IDs', () => {
     const allMeals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const validId = allMeals[0].id;
+    const validId = allMeals[0]!.id;
     const mixedIds = [validId, 999999, 888888];
 
     const meals = getMealsByIds(mixedIds);
 
     // Should only return the valid one
     expect(meals.length).toBe(1);
-    expect(meals[0].id).toBe(validId);
+    expect(meals[0]!.id).toBe(validId);
   });
 
   test('returns empty array when all IDs are invalid', () => {
@@ -310,12 +311,12 @@ describe('getMealsByIds', () => {
 
   test('handles duplicate IDs', () => {
     const allMeals = getMeals({ glutenFree: false, dairyFree: false, nutFree: false });
-    const singleId = allMeals[0].id;
+    const singleId = allMeals[0]!.id;
 
     const meals = getMealsByIds([singleId, singleId, singleId]);
 
     // SQLite IN clause handles duplicates - returns unique rows
     expect(meals.length).toBe(1);
-    expect(meals[0].id).toBe(singleId);
+    expect(meals[0]!.id).toBe(singleId);
   });
 });

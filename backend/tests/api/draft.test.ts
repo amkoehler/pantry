@@ -11,6 +11,20 @@ mock.module('../../src/ai/draft-generator', () => ({
 // Import app AFTER mock is set up
 const { app } = await import('../../src/index');
 
+// Response types for type-safe JSON parsing
+interface ErrorResponse {
+  error: string;
+}
+
+interface DraftResponse {
+  meals: Array<{
+    dayOfWeek: number;
+    mealId: number | null;
+    mealTitle: string;
+    reasoning: string;
+  }>;
+}
+
 // Helper to make POST request with JSON body
 async function postDraft(body: unknown) {
   return app.request('/api/draft', {
@@ -28,7 +42,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dinnerCount');
@@ -42,7 +56,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dinnerCount');
@@ -57,7 +71,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dinnerCount');
@@ -71,7 +85,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dinnerCount');
@@ -86,7 +100,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dinnerCount');
@@ -99,7 +113,7 @@ describe('POST /api/draft validation', () => {
       constraints: null,
       mealHistory: [],
     });
-    const json = await res.json();
+    const json = (await res.json()) as ErrorResponse;
 
     expect(res.status).toBe(400);
     expect(json.error).toContain('dietaryFilters');
@@ -203,7 +217,7 @@ describe('POST /api/draft validation', () => {
       mealHistory: [],
       dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
     });
-    const json = await res.json();
+    const json = (await res.json()) as DraftResponse;
 
     expect(res.status).toBe(200);
     expect(json).toHaveProperty('meals');

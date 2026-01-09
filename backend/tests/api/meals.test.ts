@@ -1,10 +1,34 @@
 import { describe, test, expect } from 'bun:test';
 import { app } from '../../src/index';
 
+interface MealResponse {
+  id: number;
+  title: string;
+  protein: string;
+  starch: string | null;
+  vegOrFruit: string[];
+  cuisine: string;
+  method: string;
+  onePotOrPan: boolean;
+  complexity: string;
+  estimatedTotalMinutes: number;
+  seasonality: string;
+  containsGluten: boolean;
+  containsDairy: boolean;
+  containsNuts: boolean;
+  tags: string[];
+}
+
+interface MealsApiResponse {
+  version: string;
+  meals: MealResponse[];
+  count: number;
+}
+
 describe('GET /api/meals', () => {
   test('returns meals with correct response structure', async () => {
     const res = await app.request('/api/meals');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     expect(json).toHaveProperty('version');
@@ -16,7 +40,7 @@ describe('GET /api/meals', () => {
 
   test('returns version as ISO date string', async () => {
     const res = await app.request('/api/meals');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     // Should be a valid ISO date
     const date = new Date(json.version);
@@ -25,7 +49,7 @@ describe('GET /api/meals', () => {
 
   test('returns meal objects with all required properties', async () => {
     const res = await app.request('/api/meals');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
     const meal = json.meals[0];
 
     // Check all expected properties exist
@@ -48,7 +72,7 @@ describe('GET /api/meals', () => {
 
   test('filters gluten-free meals with query param', async () => {
     const res = await app.request('/api/meals?gluten_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     expect(json.meals.length).toBeGreaterThan(0);
@@ -59,7 +83,7 @@ describe('GET /api/meals', () => {
 
   test('filters dairy-free meals with query param', async () => {
     const res = await app.request('/api/meals?dairy_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     expect(json.meals.length).toBeGreaterThan(0);
@@ -70,7 +94,7 @@ describe('GET /api/meals', () => {
 
   test('filters nut-free meals with query param', async () => {
     const res = await app.request('/api/meals?nut_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     expect(json.meals.length).toBeGreaterThan(0);
@@ -81,7 +105,7 @@ describe('GET /api/meals', () => {
 
   test('combines multiple dietary filters', async () => {
     const res = await app.request('/api/meals?gluten_free=true&dairy_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     for (const meal of json.meals) {
@@ -92,7 +116,7 @@ describe('GET /api/meals', () => {
 
   test('applies all three dietary filters', async () => {
     const res = await app.request('/api/meals?gluten_free=true&dairy_free=true&nut_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     for (const meal of json.meals) {
@@ -104,18 +128,18 @@ describe('GET /api/meals', () => {
 
   test('ignores invalid query param values (treats as false)', async () => {
     const res = await app.request('/api/meals?gluten_free=yes');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     // "yes" !== "true", so filter not applied
     expect(res.status).toBe(200);
     // Should include some gluten-containing meals
-    const hasGluten = json.meals.some((m: { containsGluten: boolean }) => m.containsGluten);
+    const hasGluten = json.meals.some((m) => m.containsGluten);
     expect(hasGluten).toBe(true);
   });
 
   test('ignores unrecognized query params', async () => {
     const res = await app.request('/api/meals?foo=bar&unknown=param');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(res.status).toBe(200);
     expect(json.meals.length).toBeGreaterThan(0);
@@ -123,7 +147,7 @@ describe('GET /api/meals', () => {
 
   test('count matches actual meals returned with filters', async () => {
     const res = await app.request('/api/meals?gluten_free=true');
-    const json = await res.json();
+    const json = (await res.json()) as MealsApiResponse;
 
     expect(json.count).toBe(json.meals.length);
   });
