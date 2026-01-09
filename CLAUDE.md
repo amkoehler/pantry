@@ -40,7 +40,13 @@ bun test tests/draft.test.ts  # Test draft generation
 
 # iOS
 cd ios/pantry
-xcodebuild -scheme pantry -destination 'platform=iOS Simulator,name=iPhone 17' build
+xcodebuild -scheme pantry -destination 'platform=iOS Simulator,name=iPhone 16' -quiet build
+xcodebuild -scheme pantry -destination 'platform=iOS Simulator,name=iPhone 16' test
+swiftlint lint pantry --quiet          # Requires: brew install swiftlint
+
+# Full iOS validation (build + lint)
+./scripts/validate-ios.sh
+./scripts/validate-ios.sh --test   # Include tests (slower)
 ```
 
 ## Backend Notes
