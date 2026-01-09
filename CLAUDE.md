@@ -71,3 +71,7 @@ swiftlint lint pantry --quiet          # Requires: brew install swiftlint
 
 - Debug builds → `localhost:3000`
 - Release builds → production Vercel URL
+
+## Git and version control
+
+- Do not ever put "Co-Authored by" in commit messages, PR descriptions, or anywhere else
