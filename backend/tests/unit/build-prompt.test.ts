@@ -226,4 +226,56 @@ describe('buildPrompt', () => {
     expect(prompt).toContain('35min');
     expect(prompt).toContain('75min');
   });
+
+  // Tests for days array parameter (mid-week regeneration)
+  describe('days array parameter', () => {
+    test('includes specific days when days array is provided', () => {
+      const request: DraftRequest = {
+        dinnerCount: 5,
+        days: [3, 4, 5], // Wed, Thu, Fri only
+        busyDays: [],
+        constraints: null,
+        mealHistory: [],
+        dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
+      };
+
+      const prompt = buildPrompt(request, mockMeals);
+
+      expect(prompt).toContain('3 nights');
+      expect(prompt).toContain('Wednesday, Thursday, Friday');
+      expect(prompt).toContain('(3, 4, 5)');
+    });
+
+    test('generates days 1-N when days array is omitted', () => {
+      const request: DraftRequest = {
+        dinnerCount: 5,
+        busyDays: [],
+        constraints: null,
+        mealHistory: [],
+        dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
+      };
+
+      const prompt = buildPrompt(request, mockMeals);
+
+      expect(prompt).toContain('5 nights');
+      expect(prompt).toContain('days 1-5');
+    });
+
+    test('handles single day in days array', () => {
+      const request: DraftRequest = {
+        dinnerCount: 5,
+        days: [5], // Friday only
+        busyDays: [],
+        constraints: null,
+        mealHistory: [],
+        dietaryFilters: { glutenFree: false, dairyFree: false, nutFree: false },
+      };
+
+      const prompt = buildPrompt(request, mockMeals);
+
+      expect(prompt).toContain('1 nights');
+      expect(prompt).toContain('Friday');
+      expect(prompt).toContain('(5)');
+    });
+  });
 });
