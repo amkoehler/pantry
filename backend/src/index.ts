@@ -34,6 +34,9 @@ const port = Number(process.env.PORT) || 3000;
 
 logger.info('server.start', { port });
 
+// Export app for testing
+export { app };
+
 export default {
   port,
   fetch: app.fetch,

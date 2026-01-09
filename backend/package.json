@@ -9,6 +9,7 @@
     "seed": "bun scripts/seed-meals.ts",
     "import": "bun scripts/import-meals.ts",
     "validate": "bun scripts/validate-meals.ts",
+    "typecheck": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
