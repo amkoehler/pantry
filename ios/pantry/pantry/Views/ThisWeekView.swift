@@ -31,7 +31,6 @@ struct ThisWeekView: View {
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
         }
         .background(PantryTheme.Colors.background.ignoresSafeArea())
         .task {
@@ -105,6 +104,8 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.currentWeekFilteredMeals,
                 weekPlan: viewModel.currentWeekPlan,
+                isCurrentWeek: true,
+                isPastDay: viewModel.isPastDay,
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -119,6 +120,8 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.nextWeekFilteredMeals,
                 weekPlan: viewModel.nextWeekPlan,
+                isCurrentWeek: false,
+                isPastDay: { _ in false },  // Next week has no past days
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -142,6 +145,8 @@ private struct WeekPlanScrollView: View {
 private struct WeekPageView: View {
     let plannedMeals: [PlannedMeal]
     let weekPlan: WeeklyPlan?
+    let isCurrentWeek: Bool
+    let isPastDay: (Int) -> Bool
     let onMealTap: (PlannedMeal) -> Void
     let onMealSwap: (PlannedMeal, PlannedMeal) -> Void
     let onRegenerate: (WeeklyPlan) -> Void
@@ -156,6 +161,7 @@ private struct WeekPageView: View {
                 ForEach(plannedMeals) { plannedMeal in
                     DayCardView(
                         plannedMeal: plannedMeal,
+                        isPastDay: isCurrentWeek && isPastDay(plannedMeal.dayOfWeek),
                         draggedMeal: $draggedMeal,
                         onTap: { onMealTap(plannedMeal) },
                         onDrop: { source in onMealSwap(source, plannedMeal) }

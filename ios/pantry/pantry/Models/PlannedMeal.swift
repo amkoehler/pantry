@@ -51,6 +51,21 @@ class PlannedMeal {
         self.weeklyPlan = weeklyPlan
         self.outcome = outcome
     }
+
+    /// The actual calendar date for this planned meal (derived from week start + day of week)
+    var calendarDate: Date? {
+        guard let weekStart = weeklyPlan?.weekStartDate else { return nil }
+        // dayOfWeek is 1=Monday, so Monday is weekStart + 0 days
+        return Calendar.current.date(byAdding: .day, value: dayOfWeek - 1, to: weekStart)
+    }
+
+    /// Formatted date string like "1/6" for display
+    var formattedDate: String? {
+        guard let date = calendarDate else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: date)
+    }
 }
 
 // MARK: - Drag and Drop Support

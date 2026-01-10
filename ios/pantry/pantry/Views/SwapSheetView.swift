@@ -85,7 +85,7 @@ struct SwapSheetView: View {
                 .padding(20)
             }
             .background(PantryTheme.Colors.background)
-            .navigationTitle("Change meal")
+            .navigationTitle(dayName)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
