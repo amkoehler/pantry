@@ -3,6 +3,18 @@ import SwiftData
 import Observation
 import UIKit
 
+// MARK: - Date Provider Protocol
+
+/// Protocol for injecting date/time for testability
+protocol DateProviding {
+    func now() -> Date
+}
+
+/// Default implementation using system time
+struct SystemDateProvider: DateProviding {
+    func now() -> Date { Date() }
+}
+
 /// ViewModel for the weekly plan view, managing state and data loading.
 @Observable
 @MainActor
@@ -40,6 +52,7 @@ class WeeklyPlanViewModel {
     // MARK: - Dependencies
 
     private let modelContext: ModelContext
+    private let dateProvider: DateProviding
 
     // MARK: - Computed Properties
 
@@ -48,13 +61,34 @@ class WeeklyPlanViewModel {
         selectedWeek == .current ? currentWeekPlan : nextWeekPlan
     }
 
-    /// Title for the navigation bar
+    /// Title for the navigation bar - shows date range like "Jan 6 – 10"
     var weekDisplayTitle: String {
-        switch selectedWeek {
-        case .current:
-            return "This Week"
-        case .next:
-            return "Next Week"
+        let weekStart = selectedWeek == .current ? currentWeekStart() : nextWeekStart()
+        return formatWeekRange(from: weekStart)
+    }
+
+    /// Format a week range like "Jan 6 – 10" or "Jan 27 – Feb 2" if spanning months
+    private func formatWeekRange(from monday: Date) -> String {
+        let calendar = Calendar.current
+        guard let friday = calendar.date(byAdding: .day, value: 4, to: monday) else {
+            return ""
+        }
+
+        let mondayMonth = calendar.component(.month, from: monday)
+        let fridayMonth = calendar.component(.month, from: friday)
+
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MMM"
+
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "d"
+
+        if mondayMonth == fridayMonth {
+            // Same month: "Jan 6 – 10"
+            return "\(monthFormatter.string(from: monday)) \(dayFormatter.string(from: monday)) – \(dayFormatter.string(from: friday))"
+        } else {
+            // Different months: "Jan 27 – Feb 2"
+            return "\(monthFormatter.string(from: monday)) \(dayFormatter.string(from: monday)) – \(monthFormatter.string(from: friday)) \(dayFormatter.string(from: friday))"
         }
     }
 
@@ -89,8 +123,20 @@ class WeeklyPlanViewModel {
 
     // MARK: - Initialization
 
-    init(modelContext: ModelContext) {
+    init(modelContext: ModelContext, dateProvider: DateProviding = SystemDateProvider()) {
         self.modelContext = modelContext
+        self.dateProvider = dateProvider
+
+        // Default to next week on weekends (Sat=6, Sun=7)
+        // Note: Can't call currentDayOfWeek() before self is fully initialized,
+        // so we inline the calculation here
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: dateProvider.now())
+        let dayOfWeek = weekday == 1 ? 7 : weekday - 1  // Convert to Mon=1...Sun=7
+
+        if dayOfWeek >= 6 {
+            self.selectedWeek = .next
+        }
     }
 
     // MARK: - Public Methods
@@ -224,7 +270,7 @@ class WeeklyPlanViewModel {
 
     // MARK: - Draft Generation
 
-    /// Generate a new draft for the specified week (defaults to current week)
+    /// Generate a new draft for the specified week (defaults to selected week)
     func generateDraft(forWeek weekStart: Date? = nil) async {
         isGeneratingDraft = true
         generationError = nil
@@ -250,8 +296,8 @@ class WeeklyPlanViewModel {
             // 4. Call API
             let response = try await APIService.shared.generateDraft(request: request)
 
-            // 5. Create WeeklyPlan
-            let targetWeekStart = weekStart ?? currentWeekStart()
+            // 5. Create WeeklyPlan - use selected week if no explicit week provided
+            let targetWeekStart = weekStart ?? (selectedWeek == .next ? nextWeekStart() : currentWeekStart())
 
             // Delete existing plan for this week if any
             deleteExistingPlan(for: targetWeekStart)
@@ -427,7 +473,8 @@ class WeeklyPlanViewModel {
     }
 
     private func fetchPlannedMealsForHistory() -> [PlannedMeal] {
-        let eightWeeksAgo = Calendar.current.date(byAdding: .weekOfYear, value: -8, to: Date()) ?? Date()
+        let now = dateProvider.now()
+        let eightWeeksAgo = Calendar.current.date(byAdding: .weekOfYear, value: -8, to: now) ?? now
         let descriptor = FetchDescriptor<PlannedMeal>(
             predicate: #Predicate { $0.createdAt >= eightWeeksAgo }
         )
@@ -467,7 +514,7 @@ class WeeklyPlanViewModel {
     /// Get Monday 00:00 of the current week
     func currentWeekStart() -> Date {
         let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
+        let today = calendar.startOfDay(for: dateProvider.now())
 
         // Get current weekday (1=Sunday, 2=Monday, ..., 7=Saturday)
         let weekday = calendar.component(.weekday, from: today)
@@ -489,7 +536,7 @@ class WeeklyPlanViewModel {
     /// Get current day of week (1=Monday, 7=Sunday)
     func currentDayOfWeek() -> Int {
         let calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: Date())
+        let weekday = calendar.component(.weekday, from: dateProvider.now())
 
         // Convert from Sunday=1...Saturday=7 to Monday=1...Sunday=7
         return weekday == 1 ? 7 : weekday - 1
@@ -559,7 +606,8 @@ class WeeklyPlanViewModel {
     // MARK: - Private Helpers
 
     private func fetchRecentMealHistory() -> [SwapContext.MealHistoryContext] {
-        let eightWeeksAgo = Calendar.current.date(byAdding: .weekOfYear, value: -8, to: Date()) ?? Date()
+        let now = dateProvider.now()
+        let eightWeeksAgo = Calendar.current.date(byAdding: .weekOfYear, value: -8, to: now) ?? now
 
         let descriptor = FetchDescriptor<MealOutcome>(
             predicate: #Predicate { $0.recordedAt >= eightWeeksAgo },
@@ -578,7 +626,7 @@ class WeeklyPlanViewModel {
                 let weeksAgo = Calendar.current.dateComponents(
                     [.weekOfYear],
                     from: weeklyPlan.weekStartDate,
-                    to: Date()
+                    to: now
                 ).weekOfYear ?? 0
 
                 return SwapContext.MealHistoryContext(

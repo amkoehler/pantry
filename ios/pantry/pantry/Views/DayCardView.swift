@@ -41,10 +41,18 @@ struct DayCardView: View {
             }
         }) {
             VStack(alignment: .leading, spacing: 8) {
-                // Day label
-                Text(dayName)
-                    .font(PantryTheme.Typography.subheadline)
-                    .foregroundStyle(isPastDay ? PantryTheme.Colors.tertiaryText : PantryTheme.Colors.secondaryText)
+                // Day label with date
+                HStack(spacing: 6) {
+                    Text(dayName)
+                        .font(PantryTheme.Typography.subheadline)
+                        .foregroundStyle(isPastDay ? PantryTheme.Colors.tertiaryText : PantryTheme.Colors.secondaryText)
+
+                    if let dateStr = plannedMeal.formattedDate {
+                        Text(dateStr)
+                            .font(PantryTheme.Typography.subheadline)
+                            .foregroundStyle(PantryTheme.Colors.tertiaryText)
+                    }
+                }
 
                 // Meal content or cleared state
                 if plannedMeal.isSkipped {

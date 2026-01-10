@@ -31,7 +31,6 @@ struct ThisWeekView: View {
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
         }
         .background(PantryTheme.Colors.background.ignoresSafeArea())
         .task {
