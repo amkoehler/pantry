@@ -1,85 +1,60 @@
 import SwiftUI
 import SwiftData
 
-/// Section below the weekly draft for configuring dinner count, week shape, and constraints.
+/// Section below the weekly draft for configuring week shape and constraints.
 struct CheckInView: View {
     @Bindable var weeklyPlan: WeeklyPlan
     var onRegenerateDraft: () -> Void
 
-    @State private var regenerateTask: Task<Void, Never>?
+    // Track dirty state for explicit "Update Plan" button
+    @State private var localWeekShape: WeekShape = .normal
+    @State private var lastAppliedWeekShape: WeekShape = .normal
+    @State private var localConstraints: String = ""
+    @State private var lastAppliedConstraints: String = ""
+
+    var hasUnappliedChanges: Bool {
+        localWeekShape != lastAppliedWeekShape || localConstraints != lastAppliedConstraints
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            // Dinner count section
-            DinnerCountSection(
-                count: $weeklyPlan.dinnerCount,
-                onChange: scheduleRegeneration
-            )
-
             // Week shape section
-            WeekShapeSection(
-                shape: $weeklyPlan.weekShape,
-                onChange: scheduleRegeneration
-            )
+            WeekShapeSection(shape: $localWeekShape)
 
             // Constraints section
             ConstraintsSection(
-                constraints: $weeklyPlan.constraints,
-                onSubmit: {
-                    onRegenerateDraft()
-                }
+                localText: $localConstraints
             )
+
+            // Sticky footer with "Update Plan" button
+            if hasUnappliedChanges {
+                Button(action: applyChanges) {
+                    Text("Update Plan")
+                        .font(PantryTheme.Typography.body)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(PantryTheme.Colors.accent)
+            }
         }
         .padding(.vertical, 8)
-    }
-
-    /// Debounce regeneration to avoid rapid API calls
-    private func scheduleRegeneration() {
-        regenerateTask?.cancel()
-        regenerateTask = Task {
-            try? await Task.sleep(for: .milliseconds(500))
-            if !Task.isCancelled {
-                await MainActor.run {
-                    onRegenerateDraft()
-                }
-            }
+        .onAppear {
+            // Initialize local state from model
+            localWeekShape = weeklyPlan.weekShape
+            lastAppliedWeekShape = localWeekShape
+            localConstraints = weeklyPlan.constraints ?? ""
+            lastAppliedConstraints = localConstraints
         }
     }
-}
 
-// MARK: - Dinner Count Section
-
-private struct DinnerCountSection: View {
-    @Binding var count: Int
-    var onChange: () -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Planning for **\(count) dinner\(count == 1 ? "" : "s")** this week")
-                .font(PantryTheme.Typography.subheadline)
-                .foregroundStyle(PantryTheme.Colors.primaryText)
-
-            // Horizontal button strip: 1-7
-            HStack(spacing: 8) {
-                ForEach(1...7, id: \.self) { num in
-                    Button(action: {
-                        if count != num {
-                            count = num
-                            onChange()
-                        }
-                    }) {
-                        Text("\(num)")
-                            .font(PantryTheme.Typography.body)
-                            .fontWeight(count == num ? .semibold : .regular)
-                            .frame(width: 36, height: 36)
-                            .background(count == num ? PantryTheme.Colors.accent : PantryTheme.Colors.highlight)
-                            .foregroundColor(count == num ? .white : PantryTheme.Colors.primaryText)
-                            .clipShape(Circle())
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-        }
+    /// Apply changes and trigger regeneration
+    private func applyChanges() {
+        weeklyPlan.weekShape = localWeekShape
+        lastAppliedWeekShape = localWeekShape
+        weeklyPlan.constraints = localConstraints.isEmpty ? nil : localConstraints
+        lastAppliedConstraints = localConstraints
+        onRegenerateDraft()
     }
 }
 
@@ -87,7 +62,6 @@ private struct DinnerCountSection: View {
 
 private struct WeekShapeSection: View {
     @Binding var shape: WeekShape
-    var onChange: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -101,9 +75,6 @@ private struct WeekShapeSection: View {
                 Text("Chaotic").tag(WeekShape.chaotic)
             }
             .pickerStyle(.segmented)
-            .onChange(of: shape) { _, _ in
-                onChange()
-            }
         }
     }
 }
@@ -111,10 +82,7 @@ private struct WeekShapeSection: View {
 // MARK: - Constraints Section
 
 private struct ConstraintsSection: View {
-    @Binding var constraints: String?
-    var onSubmit: () -> Void
-
-    @State private var localText: String = ""
+    @Binding var localText: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -124,14 +92,7 @@ private struct ConstraintsSection: View {
 
             TextField("Chicken, frozen meals, etc.", text: $localText)
                 .textFieldStyle(.roundedBorder)
-                .onSubmit {
-                    constraints = localText.isEmpty ? nil : localText
-                    onSubmit()
-                }
                 .submitLabel(.done)
-        }
-        .onAppear {
-            localText = constraints ?? ""
         }
     }
 }
