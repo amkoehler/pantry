@@ -31,14 +31,14 @@ describe('getMeals', () => {
 
   test('one-pot meals have onePotOrPan set to one-pot', () => {
     const meals = getMeals(defaultFilters);
-    const onePotMeals = meals.filter(m => m.onePotOrPan === 'one-pot');
+    const onePotMeals = meals.filter((m) => m.onePotOrPan === 'one-pot');
 
     expect(onePotMeals.length).toBeGreaterThan(0);
   });
 
   test('one-pan meals have onePotOrPan set to one-pan', () => {
     const meals = getMeals(defaultFilters);
-    const onePanMeals = meals.filter(m => m.onePotOrPan === 'one-pan');
+    const onePanMeals = meals.filter((m) => m.onePotOrPan === 'one-pan');
 
     expect(onePanMeals.length).toBeGreaterThan(0);
   });

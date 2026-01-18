@@ -3,9 +3,7 @@
     "title": "Chicken Alfredo Pasta with Broccoli",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -17,21 +15,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "creamy",
-      "pasta"
-    ]
+    "tags": ["family-friendly", "creamy", "pasta"]
   },
   {
     "title": "Turkey Burgers with Oven Fries and Coleslaw",
     "protein": "ground turkey",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "potatoes",
-      "cabbage",
-      "carrots"
-    ],
+    "veg_or_fruit": ["potatoes", "cabbage", "carrots"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -43,19 +33,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "classic"
-    ]
+    "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
     "title": "Sheet Pan Salmon, Potatoes & Green Beans",
     "protein": "salmon fillet",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -67,21 +51,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "seafood",
-      "easy cleanup",
-      "balanced"
-    ]
+    "tags": ["seafood", "easy cleanup", "balanced"]
   },
   {
     "title": "Beef Chili with Cornbread",
     "protein": "ground beef",
     "starch": "cornbread",
-    "veg_or_fruit": [
-      "tomatoes",
-      "kidney beans",
-      "bell pepper"
-    ],
+    "veg_or_fruit": ["tomatoes", "kidney beans", "bell pepper"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "no",
@@ -93,20 +69,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "hearty",
-      "comfort food",
-      "winter"
-    ]
+    "tags": ["hearty", "comfort food", "winter"]
   },
   {
     "title": "Baked Italian Sausage, Peppers & Rice",
     "protein": "Italian sausage",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "bell peppers",
-      "onion"
-    ],
+    "veg_or_fruit": ["bell peppers", "onion"],
     "cuisine": "Italian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -118,21 +87,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy",
-      "family favorite"
-    ]
+    "tags": ["sheet pan", "easy", "family favorite"]
   },
   {
     "title": "Cheesy Taco Pasta with Bell Peppers",
     "protein": "ground beef",
     "starch": "pasta",
-    "veg_or_fruit": [
-      "bell peppers",
-      "onion",
-      "tomato"
-    ],
+    "veg_or_fruit": ["bell peppers", "onion", "tomato"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -144,20 +105,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "pasta"
-    ]
+    "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
     "title": "Lemon Herb Chicken, Roasted Potatoes & Asparagus",
     "protein": "chicken breast",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "asparagus",
-      "lemon"
-    ],
+    "veg_or_fruit": ["asparagus", "lemon"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -169,20 +123,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "spring"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "spring"]
   },
   {
     "title": "Classic Turkey Burgers with Sweet Potato Wedges and Apple Slices",
     "protein": "ground turkey",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "sweet potato",
-      "apple"
-    ],
+    "veg_or_fruit": ["sweet potato", "apple"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -194,20 +141,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "grilled"
-    ]
+    "tags": ["burgers", "kid-friendly", "grilled"]
   },
   {
     "title": "Creamy Chicken and Rice with Peas & Carrots",
     "protein": "chicken thighs",
     "starch": "rice",
-    "veg_or_fruit": [
-      "peas",
-      "carrots"
-    ],
+    "veg_or_fruit": ["peas", "carrots"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -219,20 +159,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "one-pot",
-      "comfort food",
-      "quick"
-    ]
+    "tags": ["one-pot", "comfort food", "quick"]
   },
   {
     "title": "Spaghetti and Meatballs with Garlic Green Beans",
     "protein": "ground beef",
     "starch": "spaghetti",
-    "veg_or_fruit": [
-      "green beans",
-      "tomato sauce"
-    ],
+    "veg_or_fruit": ["green beans", "tomato sauce"],
     "cuisine": "Italian",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -244,20 +177,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "classic",
-      "family dinner",
-      "pasta"
-    ]
+    "tags": ["classic", "family dinner", "pasta"]
   },
   {
     "title": "Chicken and Spinach Orzo with Tomatoes",
     "protein": "chicken breast",
     "starch": "orzo pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -269,19 +195,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "weeknight"
-    ]
+    "tags": ["family-friendly", "comfort food", "weeknight"]
   },
   {
     "title": "BBQ Pork Chops, Roasted Sweet Potatoes & Broccoli",
     "protein": "pork chops",
     "starch": "sweet potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -293,19 +213,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "balanced"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "balanced"]
   },
   {
     "title": "Classic Beef Burgers with Baked Potato Wedges and Carrot Sticks",
     "protein": "ground beef",
     "starch": "potato wedges",
-    "veg_or_fruit": [
-      "carrot sticks"
-    ],
+    "veg_or_fruit": ["carrot sticks"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -317,20 +231,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "classic"
-    ]
+    "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
     "title": "Creamy Sausage and Spinach Tortellini Soup",
     "protein": "Italian sausage",
     "starch": "cheese tortellini",
-    "veg_or_fruit": [
-      "spinach",
-      "diced tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "diced tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -342,19 +249,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "comfort food",
-      "hearty"
-    ]
+    "tags": ["soup", "comfort food", "hearty"]
   },
   {
     "title": "Teriyaki Chicken Thighs, Rice & Snap Peas",
     "protein": "chicken thighs",
     "starch": "rice",
-    "veg_or_fruit": [
-      "snap peas"
-    ],
+    "veg_or_fruit": ["snap peas"],
     "cuisine": "Asian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -366,20 +267,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "quick dinner",
-      "family favorite"
-    ]
+    "tags": ["sheet pan", "quick dinner", "family favorite"]
   },
   {
     "title": "Chicken Parmesan Pasta with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "crushed tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "crushed tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -391,19 +285,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "cheese"
-    ]
+    "tags": ["family-friendly", "pasta", "cheese"]
   },
   {
     "title": "Honey Mustard Pork Tenderloin, Roasted Baby Potatoes & Green Beans",
     "protein": "pork tenderloin",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -415,19 +303,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "pork",
-      "easy cleanup"
-    ]
+    "tags": ["sheet pan", "pork", "easy cleanup"]
   },
   {
     "title": "BBQ Beef Burgers with Tater Tots and Sliced Cucumbers",
     "protein": "ground beef",
     "starch": "tater tots",
-    "veg_or_fruit": [
-      "cucumbers"
-    ],
+    "veg_or_fruit": ["cucumbers"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -439,20 +321,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "grill or stovetop"
-    ]
+    "tags": ["burgers", "kid-friendly", "grill or stovetop"]
   },
   {
     "title": "Creamy Shrimp and Corn Chowder",
     "protein": "shrimp",
     "starch": "potatoes",
-    "veg_or_fruit": [
-      "corn",
-      "celery"
-    ],
+    "veg_or_fruit": ["corn", "celery"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -464,19 +339,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "seafood",
-      "comfort food"
-    ]
+    "tags": ["soup", "seafood", "comfort food"]
   },
   {
     "title": "Balsamic Glazed Chicken, Roasted Carrots & Wild Rice",
     "protein": "chicken thighs",
     "starch": "wild rice",
-    "veg_or_fruit": [
-      "carrots"
-    ],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "Mediterranean",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -488,21 +357,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "chicken",
-      "sheet pan",
-      "gluten-free option"
-    ]
+    "tags": ["chicken", "sheet pan", "gluten-free option"]
   },
   {
     "title": "Chicken and Vegetable Stew with Potatoes",
     "protein": "chicken breast",
     "starch": "potatoes",
-    "veg_or_fruit": [
-      "carrots",
-      "celery",
-      "peas"
-    ],
+    "veg_or_fruit": ["carrots", "celery", "peas"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -514,20 +375,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family",
-      "comfort food",
-      "stew"
-    ]
+    "tags": ["family", "comfort food", "stew"]
   },
   {
     "title": "Beef Burgers with Baked Fries and Lettuce Salad",
     "protein": "ground beef",
     "starch": "russet potatoes",
-    "veg_or_fruit": [
-      "lettuce",
-      "tomato"
-    ],
+    "veg_or_fruit": ["lettuce", "tomato"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -539,19 +393,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "classic",
-      "kid-friendly"
-    ]
+    "tags": ["burgers", "classic", "kid-friendly"]
   },
   {
     "title": "Maple Dijon Chicken, Roasted Butternut Squash & Brussels Sprouts",
     "protein": "chicken thighs",
     "starch": "butternut squash",
-    "veg_or_fruit": [
-      "brussels sprouts"
-    ],
+    "veg_or_fruit": ["brussels sprouts"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -563,19 +411,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "winter",
-      "chicken"
-    ]
+    "tags": ["sheet pan", "winter", "chicken"]
   },
   {
     "title": "Spaghetti Carbonara with Steamed Broccoli",
     "protein": "bacon",
     "starch": "spaghetti",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "no",
@@ -587,20 +429,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "pasta",
-      "classic",
-      "quick"
-    ]
+    "tags": ["pasta", "classic", "quick"]
   },
   {
     "title": "Creamy Chicken and Mushroom Wild Rice Soup",
     "protein": "chicken breast",
     "starch": "wild rice",
-    "veg_or_fruit": [
-      "mushrooms",
-      "spinach"
-    ],
+    "veg_or_fruit": ["mushrooms", "spinach"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -612,21 +447,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "comfort food",
-      "winter"
-    ]
+    "tags": ["soup", "comfort food", "winter"]
   },
   {
     "title": "Chicken Fajita Rice Skillet",
     "protein": "chicken breast",
     "starch": "rice",
-    "veg_or_fruit": [
-      "bell peppers",
-      "onions",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["bell peppers", "onions", "tomatoes"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -638,20 +465,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "skillet",
-      "easy cleanup"
-    ]
+    "tags": ["family-friendly", "skillet", "easy cleanup"]
   },
   {
     "title": "Cheeseburgers with Oven-Roasted Potato Wedges and Mixed Greens",
     "protein": "ground beef",
     "starch": "potato wedges",
-    "veg_or_fruit": [
-      "mixed greens",
-      "tomato slices"
-    ],
+    "veg_or_fruit": ["mixed greens", "tomato slices"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -663,19 +483,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "classic",
-      "kid-friendly"
-    ]
+    "tags": ["burgers", "classic", "kid-friendly"]
   },
   {
     "title": "Garlic Herb Chicken, Roasted Red Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -687,21 +501,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy",
-      "balanced"
-    ]
+    "tags": ["sheet pan", "easy", "balanced"]
   },
   {
     "title": "Pasta Primavera with Italian Sausage and Garlic Bread",
     "protein": "Italian sausage",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "zucchini",
-      "bell peppers",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["zucchini", "bell peppers", "cherry tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "no",
@@ -713,21 +519,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "pasta",
-      "sausage",
-      "vegetables"
-    ]
+    "tags": ["pasta", "sausage", "vegetables"]
   },
   {
     "title": "Hearty Beef Stew with Carrots and Potatoes",
     "protein": "beef stew meat",
     "starch": "potatoes",
-    "veg_or_fruit": [
-      "carrots",
-      "celery",
-      "peas"
-    ],
+    "veg_or_fruit": ["carrots", "celery", "peas"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -739,20 +537,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "stew",
-      "comfort food",
-      "winter"
-    ]
+    "tags": ["stew", "comfort food", "winter"]
   },
   {
     "title": "Creamy Tomato Basil Chicken Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -764,19 +555,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "comfort food"
-    ]
+    "tags": ["family-friendly", "pasta", "comfort food"]
   },
   {
     "title": "Ranch Pork Chops, Roasted Yukon Potatoes & Broccoli",
     "protein": "pork chops",
     "starch": "Yukon gold potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -788,19 +573,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "kid-friendly"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "kid-friendly"]
   },
   {
     "title": "Chicken Tenders with Mashed Potatoes and Steamed Green Beans",
     "protein": "chicken tenders",
     "starch": "mashed potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -812,20 +591,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "classic",
-      "kid favorite",
-      "balanced"
-    ]
+    "tags": ["classic", "kid favorite", "balanced"]
   },
   {
     "title": "Cheesy Beef Taco Rice Skillet",
     "protein": "ground beef",
     "starch": "rice",
-    "veg_or_fruit": [
-      "corn",
-      "diced tomatoes"
-    ],
+    "veg_or_fruit": ["corn", "diced tomatoes"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -837,19 +609,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "taco night",
-      "one-dish",
-      "family meal"
-    ]
+    "tags": ["taco night", "one-dish", "family meal"]
   },
   {
     "title": "Pesto Salmon, Roasted Baby Potatoes & Zucchini",
     "protein": "salmon fillets",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "Mediterranean",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -861,19 +627,13 @@
       "contains_dairy": true,
       "contains_nuts": true
     },
-    "tags": [
-      "seafood",
-      "fresh",
-      "summer meal"
-    ]
+    "tags": ["seafood", "fresh", "summer meal"]
   },
   {
     "title": "Creamy Chicken and Broccoli Rice Bake",
     "protein": "chicken breast",
     "starch": "rice",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pot",
@@ -885,19 +645,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "casserole"
-    ]
+    "tags": ["family-friendly", "comfort food", "casserole"]
   },
   {
     "title": "Roasted Sausage, Sweet Potatoes & Brussels Sprouts",
     "protein": "pork sausage",
     "starch": "sweet potatoes",
-    "veg_or_fruit": [
-      "Brussels sprouts"
-    ],
+    "veg_or_fruit": ["Brussels sprouts"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -909,19 +663,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "winter"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "winter"]
   },
   {
     "title": "Classic Beef Burgers with Macaroni Salad and Coleslaw",
     "protein": "ground beef",
     "starch": "macaroni salad",
-    "veg_or_fruit": [
-      "coleslaw"
-    ],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -933,20 +681,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "summer",
-      "family meal"
-    ]
+    "tags": ["burgers", "summer", "family meal"]
   },
   {
     "title": "Cheesy Chicken Enchilada Pasta",
     "protein": "chicken breast",
     "starch": "pasta",
-    "veg_or_fruit": [
-      "corn",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["corn", "tomatoes"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -958,19 +699,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "Tex-Mex",
-      "pasta",
-      "cheesy"
-    ]
+    "tags": ["Tex-Mex", "pasta", "cheesy"]
   },
   {
     "title": "Teriyaki Salmon, Jasmine Rice & Roasted Broccoli",
     "protein": "salmon",
     "starch": "jasmine rice",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "Asian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -982,21 +717,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "salmon",
-      "sheet pan",
-      "Asian-inspired"
-    ]
+    "tags": ["salmon", "sheet pan", "Asian-inspired"]
   },
   {
     "title": "Chicken and Vegetable Pasta Primavera",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "zucchini",
-      "bell pepper",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["zucchini", "bell pepper", "cherry tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1008,20 +735,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "chicken",
-      "vegetables"
-    ]
+    "tags": ["family-friendly", "pasta", "chicken", "vegetables"]
   },
   {
     "title": "BBQ Chicken Drumsticks, Roasted Corn & Potato Wedges",
     "protein": "chicken drumsticks",
     "starch": "potato wedges",
-    "veg_or_fruit": [
-      "corn on the cob"
-    ],
+    "veg_or_fruit": ["corn on the cob"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1033,20 +753,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "bbq",
-      "chicken",
-      "summer"
-    ]
+    "tags": ["sheet pan", "bbq", "chicken", "summer"]
   },
   {
     "title": "Turkey Burgers with Baked Sweet Potato Fries and Green Beans",
     "protein": "ground turkey",
     "starch": "sweet potato fries",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1058,20 +771,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "turkey",
-      "family-friendly"
-    ]
+    "tags": ["burgers", "turkey", "family-friendly"]
   },
   {
     "title": "Creamy Ham and Potato Chowder",
     "protein": "diced ham",
     "starch": "potatoes",
-    "veg_or_fruit": [
-      "carrots",
-      "celery"
-    ],
+    "veg_or_fruit": ["carrots", "celery"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1083,21 +789,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "ham",
-      "potato",
-      "winter"
-    ]
+    "tags": ["soup", "ham", "potato", "winter"]
   },
   {
     "title": "Grilled Beef Burgers with Corn on the Cob and Watermelon Slices",
     "protein": "ground beef",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "corn on the cob",
-      "watermelon"
-    ],
+    "veg_or_fruit": ["corn on the cob", "watermelon"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1109,22 +807,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "beef",
-      "grilled",
-      "summer"
-    ]
+    "tags": ["burgers", "beef", "grilled", "summer"]
   },
   {
     "title": "Chicken and Rice Burrito Bowl",
     "protein": "chicken breast",
     "starch": "rice",
-    "veg_or_fruit": [
-      "black beans",
-      "corn",
-      "diced tomatoes"
-    ],
+    "veg_or_fruit": ["black beans", "corn", "diced tomatoes"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1136,19 +825,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "burrito bowl",
-      "easy cleanup"
-    ]
+    "tags": ["family-friendly", "burrito bowl", "easy cleanup"]
   },
   {
     "title": "Herb Roasted Chicken Thighs, Baby Potatoes & Carrots",
     "protein": "chicken thighs",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "carrots"
-    ],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1160,19 +843,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "roast",
-      "comfort food"
-    ]
+    "tags": ["sheet pan", "roast", "comfort food"]
   },
   {
     "title": "Beef Burgers with Baked Sweet Potato Rounds and Steamed Broccoli",
     "protein": "ground beef",
     "starch": "sweet potato rounds",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1184,19 +861,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "classic"
-    ]
+    "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
     "title": "Creamy Chicken and Spinach Gnocchi",
     "protein": "chicken breast",
     "starch": "potato gnocchi",
-    "veg_or_fruit": [
-      "spinach"
-    ],
+    "veg_or_fruit": ["spinach"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1208,19 +879,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "comfort food",
-      "creamy",
-      "family meal"
-    ]
+    "tags": ["comfort food", "creamy", "family meal"]
   },
   {
     "title": "Maple Glazed Salmon, Roasted Red Potatoes & Broccoli",
     "protein": "salmon fillet",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1232,21 +897,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "salmon",
-      "easy"
-    ]
+    "tags": ["sheet pan", "salmon", "easy"]
   },
   {
     "title": "Chicken and Vegetable Noodle Soup",
     "protein": "chicken breast",
     "starch": "egg noodles",
-    "veg_or_fruit": [
-      "carrots",
-      "celery",
-      "peas"
-    ],
+    "veg_or_fruit": ["carrots", "celery", "peas"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1258,21 +915,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "family-friendly",
-      "comfort food"
-    ]
+    "tags": ["soup", "family-friendly", "comfort food"]
   },
   {
     "title": "Beef Burgers with Baked Potato Chips and Orange Slices",
     "protein": "ground beef",
     "starch": "potato chips (homemade, baked)",
-    "veg_or_fruit": [
-      "orange slices",
-      "lettuce",
-      "tomato"
-    ],
+    "veg_or_fruit": ["orange slices", "lettuce", "tomato"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -1284,19 +933,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "family favorite",
-      "kid-friendly"
-    ]
+    "tags": ["burgers", "family favorite", "kid-friendly"]
   },
   {
     "title": "Roasted Chicken Sausage, Red Potatoes & Broccoli",
     "protein": "chicken sausage",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1308,21 +951,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "balanced"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "balanced"]
   },
   {
     "title": "Creamy Tomato Basil Tortellini Soup",
     "protein": "cheese tortellini",
     "starch": "cheese tortellini",
-    "veg_or_fruit": [
-      "tomatoes",
-      "spinach",
-      "basil"
-    ],
+    "veg_or_fruit": ["tomatoes", "spinach", "basil"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1334,20 +969,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "vegetarian",
-      "comfort food",
-      "soup"
-    ]
+    "tags": ["vegetarian", "comfort food", "soup"]
   },
   {
     "title": "BBQ Chicken Sandwiches with Coleslaw and Baked Beans",
     "protein": "shredded chicken",
     "starch": "sandwich buns",
-    "veg_or_fruit": [
-      "coleslaw (cabbage, carrots)",
-      "baked beans"
-    ],
+    "veg_or_fruit": ["coleslaw (cabbage, carrots)", "baked beans"],
     "cuisine": "American",
     "method": "slow-cooker",
     "one_pot_or_pan": "no",
@@ -1359,20 +987,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "bbq",
-      "family meal",
-      "classic"
-    ]
+    "tags": ["bbq", "family meal", "classic"]
   },
   {
     "title": "Creamy Chicken and Spinach Penne",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1384,19 +1005,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "pasta"
-    ]
+    "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
     "title": "Cajun Shrimp, Roasted Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1408,19 +1023,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "seafood",
-      "sheet pan",
-      "easy cleanup"
-    ]
+    "tags": ["seafood", "sheet pan", "easy cleanup"]
   },
   {
     "title": "BBQ Chicken Drumsticks with Macaroni and Steamed Green Beans",
     "protein": "chicken drumsticks",
     "starch": "macaroni",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1432,21 +1041,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "bbq",
-      "classic",
-      "family"
-    ]
+    "tags": ["bbq", "classic", "family"]
   },
   {
     "title": "Turkey and Vegetable Chili",
     "protein": "ground turkey",
     "starch": null,
-    "veg_or_fruit": [
-      "kidney beans",
-      "bell peppers",
-      "corn"
-    ],
+    "veg_or_fruit": ["kidney beans", "bell peppers", "corn"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1458,21 +1059,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "chili",
-      "hearty",
-      "comfort food"
-    ]
+    "tags": ["chili", "hearty", "comfort food"]
   },
   {
     "title": "Classic Beef Burgers with Pasta Salad and Sliced Oranges",
     "protein": "ground beef",
     "starch": "rotini pasta",
-    "veg_or_fruit": [
-      "oranges",
-      "cherry tomatoes",
-      "cucumber"
-    ],
+    "veg_or_fruit": ["oranges", "cherry tomatoes", "cucumber"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1484,21 +1077,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "summer meal",
-      "family favorite"
-    ]
+    "tags": ["burgers", "summer meal", "family favorite"]
   },
   {
     "title": "Southwest Chicken, Rice & Black Beans",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "black beans",
-      "corn",
-      "diced tomatoes"
-    ],
+    "veg_or_fruit": ["black beans", "corn", "diced tomatoes"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1510,20 +1095,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "gluten-free option",
-      "one-pot",
-      "Tex-Mex"
-    ]
+    "tags": ["family-friendly", "gluten-free option", "one-pot", "Tex-Mex"]
   },
   {
     "title": "Roasted Pork Loin, Baby Potatoes & Green Beans",
     "protein": "pork loin",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1535,21 +1113,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "family dinner",
-      "easy cleanup"
-    ]
+    "tags": ["sheet pan", "family dinner", "easy cleanup"]
   },
   {
     "title": "Classic Chicken Burgers with Potato Chips and Apple Slices",
     "protein": "ground chicken",
     "starch": "potato chips",
-    "veg_or_fruit": [
-      "apple slices",
-      "lettuce",
-      "tomato"
-    ],
+    "veg_or_fruit": ["apple slices", "lettuce", "tomato"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1561,21 +1131,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "summer meal"
-    ]
+    "tags": ["burgers", "kid-friendly", "summer meal"]
   },
   {
     "title": "Creamy Beef Stroganoff with Mushrooms & Egg Noodles",
     "protein": "ground beef",
     "starch": "egg noodles",
-    "veg_or_fruit": [
-      "mushrooms",
-      "onion",
-      "parsley"
-    ],
+    "veg_or_fruit": ["mushrooms", "onion", "parsley"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1587,20 +1149,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "comfort food",
-      "family meal",
-      "winter"
-    ]
+    "tags": ["comfort food", "family meal", "winter"]
   },
   {
     "title": "Italian Chicken Sausage, Roasted Bell Peppers & Polenta",
     "protein": "chicken sausage",
     "starch": "polenta",
-    "veg_or_fruit": [
-      "bell peppers",
-      "zucchini"
-    ],
+    "veg_or_fruit": ["bell peppers", "zucchini"],
     "cuisine": "Italian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1612,20 +1167,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "Italian-inspired",
-      "easy dinner"
-    ]
+    "tags": ["sheet pan", "Italian-inspired", "easy dinner"]
   },
   {
     "title": "Creamy Chicken and Spinach Farfalle",
     "protein": "chicken breast",
     "starch": "farfalle pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1637,19 +1185,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "comfort food"
-    ]
+    "tags": ["family-friendly", "pasta", "comfort food"]
   },
   {
     "title": "Roasted Lemon Garlic Shrimp, Baby Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "Mediterranean",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1661,20 +1203,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "seafood",
-      "sheet pan",
-      "easy cleanup"
-    ]
+    "tags": ["seafood", "sheet pan", "easy cleanup"]
   },
   {
     "title": "BBQ Turkey Burgers with Corn on the Cob and Sliced Peaches",
     "protein": "ground turkey",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "corn on the cob",
-      "peach slices"
-    ],
+    "veg_or_fruit": ["corn on the cob", "peach slices"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1686,20 +1221,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "summer",
-      "grilled"
-    ]
+    "tags": ["burgers", "summer", "grilled"]
   },
   {
     "title": "Cheesy Beef and Vegetable Macaroni",
     "protein": "ground beef",
     "starch": "elbow macaroni",
-    "veg_or_fruit": [
-      "carrots",
-      "peas"
-    ],
+    "veg_or_fruit": ["carrots", "peas"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1711,19 +1239,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "beef",
-      "pasta",
-      "one-pot"
-    ]
+    "tags": ["beef", "pasta", "one-pot"]
   },
   {
     "title": "Chicken Parmesan with Spaghetti and Roasted Zucchini",
     "protein": "chicken breast",
     "starch": "spaghetti",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "Italian",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1735,19 +1257,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "classic",
-      "Italian",
-      "family dinner"
-    ]
+    "tags": ["classic", "Italian", "family dinner"]
   },
   {
     "title": "Chicken and Rice with Green Beans",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1759,19 +1275,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "easy cleanup",
-      "balanced"
-    ]
+    "tags": ["family-friendly", "easy cleanup", "balanced"]
   },
   {
     "title": "Sheet Pan BBQ Meatloaf, Roasted Potatoes & Broccoli",
     "protein": "ground beef",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1783,19 +1293,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "comfort food",
-      "vegetables"
-    ]
+    "tags": ["sheet pan", "comfort food", "vegetables"]
   },
   {
     "title": "Turkey Burgers with Rice Pilaf and Steamed Carrots",
     "protein": "ground turkey",
     "starch": "rice pilaf",
-    "veg_or_fruit": [
-      "carrots"
-    ],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1807,20 +1311,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "family meal",
-      "classic"
-    ]
+    "tags": ["burgers", "family meal", "classic"]
   },
   {
     "title": "Beef and Vegetable Curry with Jasmine Rice",
     "protein": "beef stew meat",
     "starch": "jasmine rice",
-    "veg_or_fruit": [
-      "bell peppers",
-      "peas"
-    ],
+    "veg_or_fruit": ["bell peppers", "peas"],
     "cuisine": "Asian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1832,20 +1329,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "curry",
-      "hearty",
-      "comfort food"
-    ]
+    "tags": ["curry", "hearty", "comfort food"]
   },
   {
     "title": "Grilled Chicken Sandwiches with Potato Salad and Pickles",
     "protein": "chicken breast",
     "starch": "potato salad",
-    "veg_or_fruit": [
-      "pickles",
-      "lettuce"
-    ],
+    "veg_or_fruit": ["pickles", "lettuce"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1857,20 +1347,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "sandwiches",
-      "summer meal",
-      "fresh fruit"
-    ]
+    "tags": ["sandwiches", "summer meal", "fresh fruit"]
   },
   {
     "title": "Creamy Chicken and Sun-Dried Tomato Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "sun-dried tomatoes",
-      "spinach"
-    ],
+    "veg_or_fruit": ["sun-dried tomatoes", "spinach"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1882,19 +1365,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "pasta"
-    ]
+    "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
     "title": "Sheet Pan BBQ Chicken, Roasted Sweet Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -1906,19 +1383,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "family dinner"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "family dinner"]
   },
   {
     "title": "Turkey Burgers with Garlic Parmesan Potato Wedges and Sliced Cucumbers",
     "protein": "ground turkey",
     "starch": "potato wedges",
-    "veg_or_fruit": [
-      "cucumbers"
-    ],
+    "veg_or_fruit": ["cucumbers"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -1930,21 +1401,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "summer meal"
-    ]
+    "tags": ["burgers", "kid-friendly", "summer meal"]
   },
   {
     "title": "Hearty Vegetable Beef Minestrone",
     "protein": "ground beef",
     "starch": "ditalini pasta",
-    "veg_or_fruit": [
-      "carrots",
-      "celery",
-      "zucchini"
-    ],
+    "veg_or_fruit": ["carrots", "celery", "zucchini"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -1956,20 +1419,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "comfort food",
-      "winter"
-    ]
+    "tags": ["soup", "comfort food", "winter"]
   },
   {
     "title": "Grilled Chicken Fajitas with Spanish Rice and Sautéed Peppers",
     "protein": "chicken breast",
     "starch": "Spanish rice",
-    "veg_or_fruit": [
-      "bell peppers",
-      "onions"
-    ],
+    "veg_or_fruit": ["bell peppers", "onions"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -1981,20 +1437,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "fajitas",
-      "quick meal",
-      "family favorite"
-    ]
+    "tags": ["fajitas", "quick meal", "family favorite"]
   },
   {
     "title": "Creamy Chicken and Broccoli Rotini",
     "protein": "chicken breast",
     "starch": "rotini pasta",
-    "veg_or_fruit": [
-      "broccoli",
-      "carrots"
-    ],
+    "veg_or_fruit": ["broccoli", "carrots"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2006,19 +1455,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "pasta"
-    ]
+    "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
     "title": "Sheet Pan BBQ Chicken Thighs, Roasted Red Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2030,19 +1473,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "easy cleanup",
-      "family dinner"
-    ]
+    "tags": ["sheet pan", "easy cleanup", "family dinner"]
   },
   {
     "title": "Classic Beef Burgers with Baked Potato Coins and Carrot Sticks",
     "protein": "ground beef",
     "starch": "potato coins",
-    "veg_or_fruit": [
-      "carrots"
-    ],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2054,20 +1491,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "classic"
-    ]
+    "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
     "title": "Cheesy Chicken and Spinach Penne",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2079,19 +1509,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "one-pot",
-      "cheesy",
-      "pasta"
-    ]
+    "tags": ["one-pot", "cheesy", "pasta"]
   },
   {
     "title": "Roasted Pork Chops, Yukon Potatoes & Roasted Brussels Sprouts",
     "protein": "pork chops",
     "starch": "Yukon potatoes",
-    "veg_or_fruit": [
-      "Brussels sprouts"
-    ],
+    "veg_or_fruit": ["Brussels sprouts"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2103,20 +1527,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "hearty",
-      "winter",
-      "sheet pan"
-    ]
+    "tags": ["hearty", "winter", "sheet pan"]
   },
   {
     "title": "Chicken and Rice Casserole with Peas",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "peas",
-      "carrots"
-    ],
+    "veg_or_fruit": ["peas", "carrots"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pot",
@@ -2128,19 +1545,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "casserole"
-    ]
+    "tags": ["family-friendly", "comfort food", "casserole"]
   },
   {
     "title": "Sheet Pan BBQ Chicken, Corn & Zucchini",
     "protein": "chicken thighs",
     "starch": "corn on the cob",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2152,19 +1563,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "summer",
-      "easy cleanup"
-    ]
+    "tags": ["sheet pan", "summer", "easy cleanup"]
   },
   {
     "title": "Turkey Burgers with Roasted Potato Cubes and Green Beans",
     "protein": "ground turkey",
     "starch": "roasted potato cubes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -2176,21 +1581,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "family meal",
-      "kid-friendly"
-    ]
+    "tags": ["burgers", "family meal", "kid-friendly"]
   },
   {
     "title": "Creamy Pasta Primavera with Chicken and Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "bell peppers",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "bell peppers", "cherry tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2202,19 +1599,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "pasta",
-      "vegetables",
-      "comfort food"
-    ]
+    "tags": ["pasta", "vegetables", "comfort food"]
   },
   {
     "title": "Classic Beef Burgers with Baked Onion Rings and Coleslaw",
     "protein": "ground beef",
     "starch": "baked onion rings",
-    "veg_or_fruit": [
-      "coleslaw"
-    ],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -2226,20 +1617,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "summer",
-      "family favorite"
-    ]
+    "tags": ["burgers", "summer", "family favorite"]
   },
   {
     "title": "Chicken and Rice Pilaf with Peas",
     "protein": "chicken breast",
     "starch": "rice",
-    "veg_or_fruit": [
-      "peas",
-      "carrots"
-    ],
+    "veg_or_fruit": ["peas", "carrots"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2251,19 +1635,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "balanced"
-    ]
+    "tags": ["family-friendly", "comfort food", "balanced"]
   },
   {
     "title": "Herb Roasted Pork Chops, Baby Carrots & Red Potatoes",
     "protein": "pork chops",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "baby carrots"
-    ],
+    "veg_or_fruit": ["baby carrots"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2275,20 +1653,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "easy clean-up",
-      "oven meal",
-      "hearty"
-    ]
+    "tags": ["easy clean-up", "oven meal", "hearty"]
   },
   {
     "title": "Beef Tacos with Spanish Rice and Sliced Avocado",
     "protein": "ground beef",
     "starch": "corn tortillas",
-    "veg_or_fruit": [
-      "avocado",
-      "tomato salsa"
-    ],
+    "veg_or_fruit": ["avocado", "tomato salsa"],
     "cuisine": "Mexican/Tex-Mex",
     "method": "stovetop",
     "one_pot_or_pan": "no",
@@ -2300,20 +1671,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "taco night",
-      "kid-friendly",
-      "customizable"
-    ]
+    "tags": ["taco night", "kid-friendly", "customizable"]
   },
   {
     "title": "Creamy Chicken and Spinach Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2325,19 +1689,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "creamy",
-      "comfort food",
-      "family favorite"
-    ]
+    "tags": ["creamy", "comfort food", "family favorite"]
   },
   {
     "title": "Turkey Burgers with Brown Rice Pilaf and Roasted Zucchini",
     "protein": "ground turkey",
     "starch": "brown rice",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2349,21 +1707,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "grilled",
-      "healthy",
-      "summer meal"
-    ]
+    "tags": ["grilled", "healthy", "summer meal"]
   },
   {
     "title": "Chicken and Vegetable Couscous",
     "protein": "chicken breast",
     "starch": "couscous",
-    "veg_or_fruit": [
-      "zucchini",
-      "carrots",
-      "peas"
-    ],
+    "veg_or_fruit": ["zucchini", "carrots", "peas"],
     "cuisine": "Mediterranean",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2375,20 +1725,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "chicken",
-      "one-pot",
-      "vegetables"
-    ]
+    "tags": ["family-friendly", "chicken", "one-pot", "vegetables"]
   },
   {
     "title": "Beef Burgers with Roasted Potato Cubes and Steamed Broccoli",
     "protein": "ground beef",
     "starch": "potato cubes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -2400,20 +1743,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "beef",
-      "family",
-      "classic"
-    ]
+    "tags": ["burgers", "beef", "family", "classic"]
   },
   {
     "title": "Sheet Pan Chicken, Sweet Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2425,20 +1761,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "chicken",
-      "vegetables",
-      "family"
-    ]
+    "tags": ["sheet pan", "chicken", "vegetables", "family"]
   },
   {
     "title": "Pasta with Meat Sauce and Roasted Green Beans",
     "protein": "ground turkey",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "Italian",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2450,22 +1779,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "pasta",
-      "meat sauce",
-      "turkey",
-      "vegetables"
-    ]
+    "tags": ["pasta", "meat sauce", "turkey", "vegetables"]
   },
   {
     "title": "Hearty Chicken and Barley Soup",
     "protein": "chicken breast",
     "starch": "barley",
-    "veg_or_fruit": [
-      "carrots",
-      "celery",
-      "spinach"
-    ],
+    "veg_or_fruit": ["carrots", "celery", "spinach"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2477,22 +1797,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "soup",
-      "chicken",
-      "barley",
-      "comfort food"
-    ]
+    "tags": ["soup", "chicken", "barley", "comfort food"]
   },
   {
     "title": "Chicken and Vegetable Penne with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "carrots",
-      "zucchini"
-    ],
+    "veg_or_fruit": ["spinach", "carrots", "zucchini"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2504,20 +1815,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "one-pot",
-      "chicken"
-    ]
+    "tags": ["family-friendly", "pasta", "one-pot", "chicken"]
   },
   {
     "title": "Sheet Pan BBQ Meatballs, Roasted Potatoes & Broccoli",
     "protein": "ground beef",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2529,20 +1833,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "meatballs",
-      "family",
-      "bbq"
-    ]
+    "tags": ["sheet pan", "meatballs", "family", "bbq"]
   },
   {
     "title": "Turkey Burgers with Roasted Red Potatoes and Steamed Green Beans",
     "protein": "ground turkey",
     "starch": "red potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2554,21 +1851,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "turkey",
-      "family",
-      "grill"
-    ]
+    "tags": ["burgers", "turkey", "family", "grill"]
   },
   {
     "title": "Beef and Bean Chili with Cheddar",
     "protein": "ground beef",
     "starch": "kidney beans",
-    "veg_or_fruit": [
-      "diced tomatoes",
-      "onion"
-    ],
+    "veg_or_fruit": ["diced tomatoes", "onion"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2580,20 +1869,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "chili",
-      "beef",
-      "one-pot",
-      "comfort food"
-    ]
+    "tags": ["chili", "beef", "one-pot", "comfort food"]
   },
   {
     "title": "Lemon Garlic Chicken with Rice Pilaf and Steamed Broccoli",
     "protein": "chicken breast",
     "starch": "rice pilaf",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "Mediterranean",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2605,21 +1887,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "chicken",
-      "rice",
-      "family",
-      "broccoli"
-    ]
+    "tags": ["chicken", "rice", "family", "broccoli"]
   },
   {
     "title": "Creamy Chicken Pesto Pasta with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2631,19 +1905,13 @@
       "contains_dairy": true,
       "contains_nuts": true
     },
-    "tags": [
-      "family-friendly",
-      "pasta",
-      "one-pot"
-    ]
+    "tags": ["family-friendly", "pasta", "one-pot"]
   },
   {
     "title": "Sheet Pan BBQ Chicken Thighs, Roasted Sweet Potatoes & Green Beans",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2655,20 +1923,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet-pan",
-      "family-friendly",
-      "chicken"
-    ]
+    "tags": ["sheet-pan", "family-friendly", "chicken"]
   },
   {
     "title": "Classic Beef Burgers with Baked Curly Fries and Pickles",
     "protein": "ground beef",
     "starch": "curly fries",
-    "veg_or_fruit": [
-      "pickles",
-      "lettuce"
-    ],
+    "veg_or_fruit": ["pickles", "lettuce"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2680,20 +1941,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "family-friendly",
-      "quick"
-    ]
+    "tags": ["burgers", "family-friendly", "quick"]
   },
   {
     "title": "Creamy Tomato Basil Tortellini with Spinach",
     "protein": "cheese tortellini",
     "starch": "cheese tortellini",
-    "veg_or_fruit": [
-      "spinach",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2705,19 +1959,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "vegetarian",
-      "one-pot",
-      "pasta"
-    ]
+    "tags": ["vegetarian", "one-pot", "pasta"]
   },
   {
     "title": "Chicken and Brown Rice with Green Beans",
     "protein": "chicken breast",
     "starch": "brown rice",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2729,21 +1977,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "balanced",
-      "simple"
-    ]
+    "tags": ["family-friendly", "balanced", "simple"]
   },
   {
     "title": "Chicken and Vegetable Rice Skillet",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "carrots",
-      "peas",
-      "red bell pepper"
-    ],
+    "veg_or_fruit": ["carrots", "peas", "red bell pepper"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2755,19 +1995,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "easy cleanup",
-      "balanced"
-    ]
+    "tags": ["family-friendly", "easy cleanup", "balanced"]
   },
   {
     "title": "Sheet Pan BBQ Meatballs, Roasted Potatoes & Green Beans",
     "protein": "ground beef",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2779,19 +2013,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "kid-friendly",
-      "comfort food"
-    ]
+    "tags": ["sheet pan", "kid-friendly", "comfort food"]
   },
   {
     "title": "Turkey Burgers with Baked Zucchini Fries",
     "protein": "ground turkey",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -2803,20 +2031,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "summer",
-      "family meal"
-    ]
+    "tags": ["burgers", "summer", "family meal"]
   },
   {
     "title": "Creamy Chicken and Corn Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "corn",
-      "spinach"
-    ],
+    "veg_or_fruit": ["corn", "spinach"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2828,19 +2049,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "one-pot",
-      "creamy",
-      "easy"
-    ]
+    "tags": ["one-pot", "creamy", "easy"]
   },
   {
     "title": "Classic Beef Burgers with Baked Zucchini Chips",
     "protein": "ground beef",
     "starch": "burger buns",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2852,20 +2067,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "quick",
-      "summer"
-    ]
+    "tags": ["burgers", "quick", "summer"]
   },
   {
     "title": "Chicken and Spinach Rice Skillet",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2877,19 +2085,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "easy cleanup",
-      "comfort food"
-    ]
+    "tags": ["family-friendly", "easy cleanup", "comfort food"]
   },
   {
     "title": "Sheet Pan Teriyaki Salmon, Brown Rice & Broccoli",
     "protein": "salmon fillet",
     "starch": "brown rice",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "Asian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2901,19 +2103,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "fish",
-      "weeknight"
-    ]
+    "tags": ["sheet pan", "fish", "weeknight"]
   },
   {
     "title": "Classic Beef Burgers with Baked Sweet Potato Fries and Broccoli",
     "protein": "ground beef",
     "starch": "sweet potato fries",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "grill",
     "one_pot_or_pan": "no",
@@ -2925,19 +2121,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "kid-friendly",
-      "classic"
-    ]
+    "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
     "title": "Creamy Chicken and Broccoli Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2949,19 +2139,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "one-pot",
-      "pasta",
-      "creamy"
-    ]
+    "tags": ["one-pot", "pasta", "creamy"]
   },
   {
     "title": "Roasted Italian Sausage, Baby Potatoes & Zucchini",
     "protein": "Italian sausage",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "zucchini"
-    ],
+    "veg_or_fruit": ["zucchini"],
     "cuisine": "Italian",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -2973,21 +2157,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "sausage",
-      "easy"
-    ]
+    "tags": ["sheet pan", "sausage", "easy"]
   },
   {
     "title": "Chicken and Vegetable Brown Rice Skillet",
     "protein": "chicken breast",
     "starch": "brown rice",
-    "veg_or_fruit": [
-      "carrots",
-      "peas",
-      "red bell pepper"
-    ],
+    "veg_or_fruit": ["carrots", "peas", "red bell pepper"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -2999,20 +2175,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "skillet",
-      "chicken",
-      "vegetables"
-    ]
+    "tags": ["family-friendly", "skillet", "chicken", "vegetables"]
   },
   {
     "title": "Sheet Pan BBQ Chicken, Roasted Potatoes & Carrots",
     "protein": "chicken thighs",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "carrots"
-    ],
+    "veg_or_fruit": ["carrots"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -3024,20 +2193,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sheet pan",
-      "bbq",
-      "chicken",
-      "easy cleanup"
-    ]
+    "tags": ["sheet pan", "bbq", "chicken", "easy cleanup"]
   },
   {
     "title": "Classic Turkey Burgers with Baked Potato Rounds and Sliced Cucumbers",
     "protein": "ground turkey",
     "starch": "potato rounds",
-    "veg_or_fruit": [
-      "cucumbers"
-    ],
+    "veg_or_fruit": ["cucumbers"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -3049,20 +2211,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "turkey",
-      "family classic"
-    ]
+    "tags": ["burgers", "turkey", "family classic"]
   },
   {
     "title": "Cheesy Beef and Rotini Pasta with Spinach",
     "protein": "ground beef",
     "starch": "rotini pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "tomatoes"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -3074,20 +2229,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "beef",
-      "pasta",
-      "cheesy",
-      "quick"
-    ]
+    "tags": ["beef", "pasta", "cheesy", "quick"]
   },
   {
     "title": "Homestyle Meatloaf with Mashed Potatoes and Steamed Green Beans",
     "protein": "ground beef",
     "starch": "mashed potatoes",
-    "veg_or_fruit": [
-      "green beans"
-    ],
+    "veg_or_fruit": ["green beans"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "no",
@@ -3099,20 +2247,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "comfort food",
-      "meatloaf",
-      "family dinner"
-    ]
+    "tags": ["comfort food", "meatloaf", "family dinner"]
   },
   {
     "title": "Chicken and Rice with Roasted Red Peppers",
     "protein": "chicken breast",
     "starch": "white rice",
-    "veg_or_fruit": [
-      "roasted red peppers",
-      "peas"
-    ],
+    "veg_or_fruit": ["roasted red peppers", "peas"],
     "cuisine": "American",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -3124,19 +2265,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "family-friendly",
-      "comfort food",
-      "easy cleanup"
-    ]
+    "tags": ["family-friendly", "comfort food", "easy cleanup"]
   },
   {
     "title": "Garlic Butter Shrimp, Roasted Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "oven",
     "one_pot_or_pan": "one-pan",
@@ -3148,19 +2283,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "seafood",
-      "sheet pan",
-      "weeknight"
-    ]
+    "tags": ["seafood", "sheet pan", "weeknight"]
   },
   {
     "title": "BBQ Chicken Sandwiches with Potato Wedges and Coleslaw",
     "protein": "shredded chicken",
     "starch": "potato wedges",
-    "veg_or_fruit": [
-      "coleslaw"
-    ],
+    "veg_or_fruit": ["coleslaw"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -3172,20 +2301,13 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "sandwich",
-      "bbq",
-      "kid-friendly"
-    ]
+    "tags": ["sandwich", "bbq", "kid-friendly"]
   },
   {
     "title": "Creamy Spinach and Sausage Pasta",
     "protein": "Italian sausage",
     "starch": "penne pasta",
-    "veg_or_fruit": [
-      "spinach",
-      "cherry tomatoes"
-    ],
+    "veg_or_fruit": ["spinach", "cherry tomatoes"],
     "cuisine": "Italian",
     "method": "stovetop",
     "one_pot_or_pan": "one-pot",
@@ -3197,19 +2319,13 @@
       "contains_dairy": true,
       "contains_nuts": false
     },
-    "tags": [
-      "pasta",
-      "hearty",
-      "family dinner"
-    ]
+    "tags": ["pasta", "hearty", "family dinner"]
   },
   {
     "title": "Turkey Burgers with Garlic Roasted Potatoes and Steamed Broccoli",
     "protein": "ground turkey",
     "starch": "roasted potatoes",
-    "veg_or_fruit": [
-      "broccoli"
-    ],
+    "veg_or_fruit": ["broccoli"],
     "cuisine": "American",
     "method": "mixed",
     "one_pot_or_pan": "no",
@@ -3221,10 +2337,6 @@
       "contains_dairy": false,
       "contains_nuts": false
     },
-    "tags": [
-      "burgers",
-      "classic",
-      "balanced meal"
-    ]
+    "tags": ["burgers", "classic", "balanced meal"]
   }
 ]
