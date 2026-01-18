@@ -54,11 +54,8 @@ class WeeklyPlanViewModel {
 
     // MARK: - Swap Suggestion Cache
 
-    /// Cached swap suggestions keyed by PlannedMeal UUID
+    /// Cached swap suggestions keyed by PlannedMeal UUID (populated on-demand when swap sheet opens)
     private var cachedSuggestions: [UUID: [MealSuggestion]] = [:]
-
-    /// In-flight cache loading tasks
-    private var cacheLoadingTasks: [UUID: Task<Void, Never>] = [:]
 
     // MARK: - Dependencies
 
@@ -195,10 +192,6 @@ class WeeklyPlanViewModel {
                 viewState = .empty
             }
 
-            // Pre-cache swap suggestions for loaded plans
-            if let plan = currentWeekPlan {
-                preCacheSuggestions(for: plan)
-            }
         } catch {
             viewState = .error("Unable to load your plan")
         }
@@ -273,13 +266,8 @@ class WeeklyPlanViewModel {
         // Save context
         try? modelContext.save()
 
-        // Clear the suggestion cache since plan changed
-        clearSuggestionCache()
-
-        // Re-cache suggestions for the updated plan
-        if let plan = plannedMeal.weeklyPlan {
-            preCacheSuggestions(for: plan)
-        }
+        // Clear the suggestion cache for the swapped meal (it's no longer valid)
+        cachedSuggestions.removeValue(forKey: plannedMeal.id)
 
         // Reset swap sheet state
         selectedPlannedMealForSwap = nil
@@ -292,62 +280,20 @@ class WeeklyPlanViewModel {
         isSwapSheetPresented = false
     }
 
-    // MARK: - Swap Suggestion Pre-Caching
-
-    /// Pre-cache swap suggestions for all meals in a plan
-    private func preCacheSuggestions(for plan: WeeklyPlan) {
-        guard let meals = plan.plannedMeals else { return }
-
-        // Clear existing cache for this plan
-        for meal in meals {
-            cacheLoadingTasks[meal.id]?.cancel()
-        }
-
-        let availableMeals = fetchAvailableMeals()
-
-        // Launch parallel cache tasks for all meals
-        for plannedMeal in meals where !plannedMeal.isSkipped && plannedMeal.meal != nil {
-            cacheLoadingTasks[plannedMeal.id] = Task {
-                guard let context = buildSwapContext(for: plannedMeal),
-                      let currentMeal = plannedMeal.meal else { return }
-
-                if #available(iOS 26.0, *) {
-                    do {
-                        let suggestions = try await FoundationModelsService.shared.suggestSwaps(
-                            for: currentMeal,
-                            context: context,
-                            availableMeals: availableMeals
-                        )
-                        // Store in cache on main actor
-                        await MainActor.run {
-                            self.cachedSuggestions[plannedMeal.id] = suggestions
-                        }
-                    } catch {
-                        // Cache miss is acceptable - will load on demand
-                        print("[ViewModel] Pre-cache failed for \(plannedMeal.id): \(error)")
-                    }
-                }
-            }
-        }
-    }
+    // MARK: - Swap Suggestion Cache
 
     /// Get cached suggestions for a planned meal (nil if not cached)
     func getCachedSuggestions(for plannedMeal: PlannedMeal) -> [MealSuggestion]? {
         cachedSuggestions[plannedMeal.id]
     }
 
-    /// Check if suggestions are currently being loaded for a planned meal
-    func isCacheLoading(for plannedMeal: PlannedMeal) -> Bool {
-        guard let task = cacheLoadingTasks[plannedMeal.id] else { return false }
-        return !task.isCancelled
+    /// Cache suggestions after loading them in the swap sheet (on-demand caching)
+    func cacheSuggestions(for plannedMeal: PlannedMeal, suggestions: [MealSuggestion]) {
+        cachedSuggestions[plannedMeal.id] = suggestions
     }
 
-    /// Clear the suggestion cache (call after meal swaps or regeneration)
+    /// Clear the entire suggestion cache (call after plan regeneration)
     func clearSuggestionCache() {
-        for task in cacheLoadingTasks.values {
-            task.cancel()
-        }
-        cacheLoadingTasks.removeAll()
         cachedSuggestions.removeAll()
     }
 

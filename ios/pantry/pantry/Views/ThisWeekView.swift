@@ -86,6 +86,9 @@ private struct WeekContentView: View {
                     },
                     onDismiss: {
                         viewModel.dismissSwapSheet()
+                    },
+                    onSuggestionsLoaded: { suggestions in
+                        viewModel.cacheSuggestions(for: plannedMeal, suggestions: suggestions)
                     }
                 )
             }

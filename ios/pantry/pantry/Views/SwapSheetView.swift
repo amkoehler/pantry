@@ -13,6 +13,7 @@ struct SwapSheetView: View {
     let onSwap: (Meal) -> Void
     let onSkip: () -> Void
     let onDismiss: () -> Void
+    let onSuggestionsLoaded: ([MealSuggestion]) -> Void
 
     @State private var suggestions: [MealSuggestion] = []
     @State private var isLoadingSuggestions = true
@@ -128,33 +129,40 @@ struct SwapSheetView: View {
         guard let currentMeal = currentMeal,
               let context = swapContext else {
             // No current meal or context - show random suggestions
-            suggestions = availableMeals
+            let fallbackSuggestions = availableMeals
                 .filter { !$0.isHidden }
                 .shuffled()
                 .prefix(3)
                 .map { MealSuggestion(meal: $0, reason: "Available option") }
+            suggestions = fallbackSuggestions
             isLoadingSuggestions = false
+            onSuggestionsLoaded(fallbackSuggestions)
             return
         }
 
         // Use Foundation Models for smart suggestions
+        var loadedSuggestions: [MealSuggestion]
         if #available(iOS 26.0, *) {
             do {
                 let service = FoundationModelsService.shared
-                suggestions = try await service.suggestSwaps(
+                loadedSuggestions = try await service.suggestSwaps(
                     for: currentMeal,
                     context: context,
                     availableMeals: availableMeals
                 )
             } catch {
                 // Fallback to simple filtering
-                suggestions = simpleSuggestions(excluding: currentMeal)
+                loadedSuggestions = simpleSuggestions(excluding: currentMeal)
             }
         } else {
-            suggestions = simpleSuggestions(excluding: currentMeal)
+            loadedSuggestions = simpleSuggestions(excluding: currentMeal)
         }
 
+        suggestions = loadedSuggestions
         isLoadingSuggestions = false
+
+        // Cache for future opens
+        onSuggestionsLoaded(loadedSuggestions)
     }
 
     private func simpleSuggestions(excluding currentMeal: Meal) -> [MealSuggestion] {
@@ -371,6 +379,7 @@ private struct CustomMealSection: View {
         cachedSuggestions: nil,
         onSwap: { _ in },
         onSkip: {},
-        onDismiss: {}
+        onDismiss: {},
+        onSuggestionsLoaded: { _ in }
     )
 }
