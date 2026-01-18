@@ -6,23 +6,20 @@ struct CheckInView: View {
     @Bindable var weeklyPlan: WeeklyPlan
     var onRegenerateDraft: () -> Void
 
-    @State private var regenerateTask: Task<Void, Never>?
-
     // Track dirty state for explicit "Update Plan" button
+    @State private var localWeekShape: WeekShape = .normal
+    @State private var lastAppliedWeekShape: WeekShape = .normal
     @State private var localConstraints: String = ""
     @State private var lastAppliedConstraints: String = ""
 
     var hasUnappliedChanges: Bool {
-        localConstraints != lastAppliedConstraints
+        localWeekShape != lastAppliedWeekShape || localConstraints != lastAppliedConstraints
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             // Week shape section
-            WeekShapeSection(
-                shape: $weeklyPlan.weekShape,
-                onChange: scheduleRegeneration
-            )
+            WeekShapeSection(shape: $localWeekShape)
 
             // Constraints section
             ConstraintsSection(
@@ -44,29 +41,20 @@ struct CheckInView: View {
         .padding(.vertical, 8)
         .onAppear {
             // Initialize local state from model
+            localWeekShape = weeklyPlan.weekShape
+            lastAppliedWeekShape = localWeekShape
             localConstraints = weeklyPlan.constraints ?? ""
             lastAppliedConstraints = localConstraints
         }
     }
 
-    /// Apply constraint changes and trigger regeneration
+    /// Apply changes and trigger regeneration
     private func applyChanges() {
+        weeklyPlan.weekShape = localWeekShape
+        lastAppliedWeekShape = localWeekShape
         weeklyPlan.constraints = localConstraints.isEmpty ? nil : localConstraints
         lastAppliedConstraints = localConstraints
         onRegenerateDraft()
-    }
-
-    /// Debounce regeneration to avoid rapid API calls (for week shape changes)
-    private func scheduleRegeneration() {
-        regenerateTask?.cancel()
-        regenerateTask = Task {
-            try? await Task.sleep(for: .milliseconds(500))
-            if !Task.isCancelled {
-                await MainActor.run {
-                    onRegenerateDraft()
-                }
-            }
-        }
     }
 }
 
@@ -74,7 +62,6 @@ struct CheckInView: View {
 
 private struct WeekShapeSection: View {
     @Binding var shape: WeekShape
-    var onChange: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -88,9 +75,6 @@ private struct WeekShapeSection: View {
                 Text("Chaotic").tag(WeekShape.chaotic)
             }
             .pickerStyle(.segmented)
-            .onChange(of: shape) { _, _ in
-                onChange()
-            }
         }
     }
 }
