@@ -74,6 +74,9 @@ class Meal {
     /// Tags for keyword search and constraint matching
     var tags: [String]
 
+    /// One-pot or one-pan indicator (e.g., "one-pot", "one-pan", or nil)
+    var onePotOrPan: String?
+
     init(
         id: UUID = UUID(),
         serverId: Int? = nil,
@@ -87,7 +90,8 @@ class Meal {
         createdAt: Date = Date(),
         protein: String? = nil,
         cuisine: String? = nil,
-        tags: [String] = []
+        tags: [String] = [],
+        onePotOrPan: String? = nil
     ) {
         self.id = id
         self.serverId = serverId
@@ -102,5 +106,6 @@ class Meal {
         self.protein = protein
         self.cuisine = cuisine
         self.tags = tags
+        self.onePotOrPan = onePotOrPan
     }
 }

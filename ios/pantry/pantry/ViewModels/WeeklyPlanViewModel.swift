@@ -52,6 +52,11 @@ class WeeklyPlanViewModel {
     var isGeneratingDraft: Bool = false
     var generationError: String?
 
+    // MARK: - Swap Suggestion Cache
+
+    /// Cached swap suggestions keyed by PlannedMeal UUID (populated on-demand when swap sheet opens)
+    private var cachedSuggestions: [UUID: [MealSuggestion]] = [:]
+
     // MARK: - Dependencies
 
     private let modelContext: ModelContext
@@ -186,6 +191,7 @@ class WeeklyPlanViewModel {
             } else {
                 viewState = .empty
             }
+
         } catch {
             viewState = .error("Unable to load your plan")
         }
@@ -260,6 +266,9 @@ class WeeklyPlanViewModel {
         // Save context
         try? modelContext.save()
 
+        // Clear the suggestion cache for the swapped meal (it's no longer valid)
+        cachedSuggestions.removeValue(forKey: plannedMeal.id)
+
         // Reset swap sheet state
         selectedPlannedMealForSwap = nil
         isSwapSheetPresented = false
@@ -269,6 +278,23 @@ class WeeklyPlanViewModel {
     func dismissSwapSheet() {
         selectedPlannedMealForSwap = nil
         isSwapSheetPresented = false
+    }
+
+    // MARK: - Swap Suggestion Cache
+
+    /// Get cached suggestions for a planned meal (nil if not cached)
+    func getCachedSuggestions(for plannedMeal: PlannedMeal) -> [MealSuggestion]? {
+        cachedSuggestions[plannedMeal.id]
+    }
+
+    /// Cache suggestions after loading them in the swap sheet (on-demand caching)
+    func cacheSuggestions(for plannedMeal: PlannedMeal, suggestions: [MealSuggestion]) {
+        cachedSuggestions[plannedMeal.id] = suggestions
+    }
+
+    /// Clear the entire suggestion cache (call after plan regeneration)
+    func clearSuggestionCache() {
+        cachedSuggestions.removeAll()
     }
 
     // MARK: - Draft Generation
@@ -305,6 +331,9 @@ class WeeklyPlanViewModel {
             // 5. Create WeeklyPlan - use selected week if no explicit week provided
             let targetWeekStart = weekStart ?? (selectedWeek == .next ? nextWeekStart() : currentWeekStart())
             logger.info("Creating plan for week starting \(targetWeekStart, privacy: .public)")
+
+            // Clear suggestion cache since plan is being generated
+            clearSuggestionCache()
 
             // Delete existing plan for this week if any
             deleteExistingPlan(for: targetWeekStart)
@@ -403,6 +432,9 @@ class WeeklyPlanViewModel {
             let response = try await APIService.shared.generateDraft(request: request)
             logger.info("API returned \(response.meals.count) meals")
 
+            // Clear suggestion cache since plan is being regenerated
+            clearSuggestionCache()
+
             // Delete planned meals for days being regenerated
             if let existingMeals = plan.plannedMeals {
                 for meal in existingMeals where meal.dayOfWeek >= firstDayToRegenerate {
@@ -486,6 +518,7 @@ class WeeklyPlanViewModel {
                 existingMeal.protein = apiMeal.protein
                 existingMeal.cuisine = apiMeal.cuisine
                 existingMeal.tags = apiMeal.tags
+                existingMeal.onePotOrPan = apiMeal.onePotOrPan == "no" ? nil : apiMeal.onePotOrPan
             } else {
                 // Insert new
                 let newMeal = apiMeal.toMeal()

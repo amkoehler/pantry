@@ -1,6 +1,6 @@
 [
   {
-    "title": "One-Pot: Chicken Alfredo Pasta with Broccoli",
+    "title": "Chicken Alfredo Pasta with Broccoli",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["broccoli"],
@@ -36,7 +36,7 @@
     "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
-    "title": "One-Pan: Sheet Pan Salmon, Potatoes & Green Beans",
+    "title": "Sheet Pan Salmon, Potatoes & Green Beans",
     "protein": "salmon fillet",
     "starch": "baby potatoes",
     "veg_or_fruit": ["green beans"],
@@ -72,7 +72,7 @@
     "tags": ["hearty", "comfort food", "winter"]
   },
   {
-    "title": "One-Pan: Baked Italian Sausage, Peppers & Rice",
+    "title": "Baked Italian Sausage, Peppers & Rice",
     "protein": "Italian sausage",
     "starch": "white rice",
     "veg_or_fruit": ["bell peppers", "onion"],
@@ -90,7 +90,7 @@
     "tags": ["sheet pan", "easy", "family favorite"]
   },
   {
-    "title": "One-Pot: Cheesy Taco Pasta with Bell Peppers",
+    "title": "Cheesy Taco Pasta with Bell Peppers",
     "protein": "ground beef",
     "starch": "pasta",
     "veg_or_fruit": ["bell peppers", "onion", "tomato"],
@@ -108,7 +108,7 @@
     "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
-    "title": "One-Pan: Lemon Herb Chicken, Roasted Potatoes & Asparagus",
+    "title": "Lemon Herb Chicken, Roasted Potatoes & Asparagus",
     "protein": "chicken breast",
     "starch": "baby potatoes",
     "veg_or_fruit": ["asparagus", "lemon"],
@@ -144,7 +144,7 @@
     "tags": ["burgers", "kid-friendly", "grilled"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Rice with Peas & Carrots",
+    "title": "Creamy Chicken and Rice with Peas & Carrots",
     "protein": "chicken thighs",
     "starch": "rice",
     "veg_or_fruit": ["peas", "carrots"],
@@ -180,7 +180,7 @@
     "tags": ["classic", "family dinner", "pasta"]
   },
   {
-    "title": "One-Pot: Chicken and Spinach Orzo with Tomatoes",
+    "title": "Chicken and Spinach Orzo with Tomatoes",
     "protein": "chicken breast",
     "starch": "orzo pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -198,7 +198,7 @@
     "tags": ["family-friendly", "comfort food", "weeknight"]
   },
   {
-    "title": "One-Pan: BBQ Pork Chops, Roasted Sweet Potatoes & Broccoli",
+    "title": "BBQ Pork Chops, Roasted Sweet Potatoes & Broccoli",
     "protein": "pork chops",
     "starch": "sweet potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -234,7 +234,7 @@
     "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
-    "title": "One-Pot: Creamy Sausage and Spinach Tortellini Soup",
+    "title": "Creamy Sausage and Spinach Tortellini Soup",
     "protein": "Italian sausage",
     "starch": "cheese tortellini",
     "veg_or_fruit": ["spinach", "diced tomatoes"],
@@ -252,7 +252,7 @@
     "tags": ["soup", "comfort food", "hearty"]
   },
   {
-    "title": "One-Pan: Teriyaki Chicken Thighs, Rice & Snap Peas",
+    "title": "Teriyaki Chicken Thighs, Rice & Snap Peas",
     "protein": "chicken thighs",
     "starch": "rice",
     "veg_or_fruit": ["snap peas"],
@@ -270,7 +270,7 @@
     "tags": ["sheet pan", "quick dinner", "family favorite"]
   },
   {
-    "title": "One-Pot: Chicken Parmesan Pasta with Spinach",
+    "title": "Chicken Parmesan Pasta with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "crushed tomatoes"],
@@ -288,7 +288,7 @@
     "tags": ["family-friendly", "pasta", "cheese"]
   },
   {
-    "title": "One-Pan: Honey Mustard Pork Tenderloin, Roasted Baby Potatoes & Green Beans",
+    "title": "Honey Mustard Pork Tenderloin, Roasted Baby Potatoes & Green Beans",
     "protein": "pork tenderloin",
     "starch": "baby potatoes",
     "veg_or_fruit": ["green beans"],
@@ -324,7 +324,7 @@
     "tags": ["burgers", "kid-friendly", "grill or stovetop"]
   },
   {
-    "title": "One-Pot: Creamy Shrimp and Corn Chowder",
+    "title": "Creamy Shrimp and Corn Chowder",
     "protein": "shrimp",
     "starch": "potatoes",
     "veg_or_fruit": ["corn", "celery"],
@@ -342,7 +342,7 @@
     "tags": ["soup", "seafood", "comfort food"]
   },
   {
-    "title": "One-Pan: Balsamic Glazed Chicken, Roasted Carrots & Wild Rice",
+    "title": "Balsamic Glazed Chicken, Roasted Carrots & Wild Rice",
     "protein": "chicken thighs",
     "starch": "wild rice",
     "veg_or_fruit": ["carrots"],
@@ -360,7 +360,7 @@
     "tags": ["chicken", "sheet pan", "gluten-free option"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Stew with Potatoes",
+    "title": "Chicken and Vegetable Stew with Potatoes",
     "protein": "chicken breast",
     "starch": "potatoes",
     "veg_or_fruit": ["carrots", "celery", "peas"],
@@ -396,7 +396,7 @@
     "tags": ["burgers", "classic", "kid-friendly"]
   },
   {
-    "title": "One-Pan: Maple Dijon Chicken, Roasted Butternut Squash & Brussels Sprouts",
+    "title": "Maple Dijon Chicken, Roasted Butternut Squash & Brussels Sprouts",
     "protein": "chicken thighs",
     "starch": "butternut squash",
     "veg_or_fruit": ["brussels sprouts"],
@@ -432,7 +432,7 @@
     "tags": ["pasta", "classic", "quick"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Mushroom Wild Rice Soup",
+    "title": "Creamy Chicken and Mushroom Wild Rice Soup",
     "protein": "chicken breast",
     "starch": "wild rice",
     "veg_or_fruit": ["mushrooms", "spinach"],
@@ -450,7 +450,7 @@
     "tags": ["soup", "comfort food", "winter"]
   },
   {
-    "title": "One-Pot: Chicken Fajita Rice Skillet",
+    "title": "Chicken Fajita Rice Skillet",
     "protein": "chicken breast",
     "starch": "rice",
     "veg_or_fruit": ["bell peppers", "onions", "tomatoes"],
@@ -486,7 +486,7 @@
     "tags": ["burgers", "classic", "kid-friendly"]
   },
   {
-    "title": "One-Pan: Garlic Herb Chicken, Roasted Red Potatoes & Broccoli",
+    "title": "Garlic Herb Chicken, Roasted Red Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "red potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -522,7 +522,7 @@
     "tags": ["pasta", "sausage", "vegetables"]
   },
   {
-    "title": "One-Pot: Hearty Beef Stew with Carrots and Potatoes",
+    "title": "Hearty Beef Stew with Carrots and Potatoes",
     "protein": "beef stew meat",
     "starch": "potatoes",
     "veg_or_fruit": ["carrots", "celery", "peas"],
@@ -540,7 +540,7 @@
     "tags": ["stew", "comfort food", "winter"]
   },
   {
-    "title": "One-Pot: Creamy Tomato Basil Chicken Pasta",
+    "title": "Creamy Tomato Basil Chicken Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "tomatoes"],
@@ -558,7 +558,7 @@
     "tags": ["family-friendly", "pasta", "comfort food"]
   },
   {
-    "title": "One-Pan: Ranch Pork Chops, Roasted Yukon Potatoes & Broccoli",
+    "title": "Ranch Pork Chops, Roasted Yukon Potatoes & Broccoli",
     "protein": "pork chops",
     "starch": "Yukon gold potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -594,7 +594,7 @@
     "tags": ["classic", "kid favorite", "balanced"]
   },
   {
-    "title": "One-Pot: Cheesy Beef Taco Rice Skillet",
+    "title": "Cheesy Beef Taco Rice Skillet",
     "protein": "ground beef",
     "starch": "rice",
     "veg_or_fruit": ["corn", "diced tomatoes"],
@@ -612,7 +612,7 @@
     "tags": ["taco night", "one-dish", "family meal"]
   },
   {
-    "title": "One-Pan: Pesto Salmon, Roasted Baby Potatoes & Zucchini",
+    "title": "Pesto Salmon, Roasted Baby Potatoes & Zucchini",
     "protein": "salmon fillets",
     "starch": "baby potatoes",
     "veg_or_fruit": ["zucchini"],
@@ -630,7 +630,7 @@
     "tags": ["seafood", "fresh", "summer meal"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Broccoli Rice Bake",
+    "title": "Creamy Chicken and Broccoli Rice Bake",
     "protein": "chicken breast",
     "starch": "rice",
     "veg_or_fruit": ["broccoli"],
@@ -648,7 +648,7 @@
     "tags": ["family-friendly", "comfort food", "casserole"]
   },
   {
-    "title": "One-Pan: Roasted Sausage, Sweet Potatoes & Brussels Sprouts",
+    "title": "Roasted Sausage, Sweet Potatoes & Brussels Sprouts",
     "protein": "pork sausage",
     "starch": "sweet potatoes",
     "veg_or_fruit": ["Brussels sprouts"],
@@ -684,7 +684,7 @@
     "tags": ["burgers", "summer", "family meal"]
   },
   {
-    "title": "One-Pot: Cheesy Chicken Enchilada Pasta",
+    "title": "Cheesy Chicken Enchilada Pasta",
     "protein": "chicken breast",
     "starch": "pasta",
     "veg_or_fruit": ["corn", "tomatoes"],
@@ -702,7 +702,7 @@
     "tags": ["Tex-Mex", "pasta", "cheesy"]
   },
   {
-    "title": "One-Pan: Teriyaki Salmon, Jasmine Rice & Roasted Broccoli",
+    "title": "Teriyaki Salmon, Jasmine Rice & Roasted Broccoli",
     "protein": "salmon",
     "starch": "jasmine rice",
     "veg_or_fruit": ["broccoli"],
@@ -720,7 +720,7 @@
     "tags": ["salmon", "sheet pan", "Asian-inspired"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Pasta Primavera",
+    "title": "Chicken and Vegetable Pasta Primavera",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["zucchini", "bell pepper", "cherry tomatoes"],
@@ -738,7 +738,7 @@
     "tags": ["family-friendly", "pasta", "chicken", "vegetables"]
   },
   {
-    "title": "One-Pan: BBQ Chicken Drumsticks, Roasted Corn & Potato Wedges",
+    "title": "BBQ Chicken Drumsticks, Roasted Corn & Potato Wedges",
     "protein": "chicken drumsticks",
     "starch": "potato wedges",
     "veg_or_fruit": ["corn on the cob"],
@@ -774,7 +774,7 @@
     "tags": ["burgers", "turkey", "family-friendly"]
   },
   {
-    "title": "One-Pot: Creamy Ham and Potato Chowder",
+    "title": "Creamy Ham and Potato Chowder",
     "protein": "diced ham",
     "starch": "potatoes",
     "veg_or_fruit": ["carrots", "celery"],
@@ -810,7 +810,7 @@
     "tags": ["burgers", "beef", "grilled", "summer"]
   },
   {
-    "title": "One-Pot: Chicken and Rice Burrito Bowl",
+    "title": "Chicken and Rice Burrito Bowl",
     "protein": "chicken breast",
     "starch": "rice",
     "veg_or_fruit": ["black beans", "corn", "diced tomatoes"],
@@ -828,7 +828,7 @@
     "tags": ["family-friendly", "burrito bowl", "easy cleanup"]
   },
   {
-    "title": "One-Pan: Herb Roasted Chicken Thighs, Baby Potatoes & Carrots",
+    "title": "Herb Roasted Chicken Thighs, Baby Potatoes & Carrots",
     "protein": "chicken thighs",
     "starch": "baby potatoes",
     "veg_or_fruit": ["carrots"],
@@ -864,7 +864,7 @@
     "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Spinach Gnocchi",
+    "title": "Creamy Chicken and Spinach Gnocchi",
     "protein": "chicken breast",
     "starch": "potato gnocchi",
     "veg_or_fruit": ["spinach"],
@@ -882,7 +882,7 @@
     "tags": ["comfort food", "creamy", "family meal"]
   },
   {
-    "title": "One-Pan: Maple Glazed Salmon, Roasted Red Potatoes & Broccoli",
+    "title": "Maple Glazed Salmon, Roasted Red Potatoes & Broccoli",
     "protein": "salmon fillet",
     "starch": "red potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -900,7 +900,7 @@
     "tags": ["sheet pan", "salmon", "easy"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Noodle Soup",
+    "title": "Chicken and Vegetable Noodle Soup",
     "protein": "chicken breast",
     "starch": "egg noodles",
     "veg_or_fruit": ["carrots", "celery", "peas"],
@@ -936,7 +936,7 @@
     "tags": ["burgers", "family favorite", "kid-friendly"]
   },
   {
-    "title": "One-Pan: Roasted Chicken Sausage, Red Potatoes & Broccoli",
+    "title": "Roasted Chicken Sausage, Red Potatoes & Broccoli",
     "protein": "chicken sausage",
     "starch": "red potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -954,7 +954,7 @@
     "tags": ["sheet pan", "easy cleanup", "balanced"]
   },
   {
-    "title": "One-Pot: Creamy Tomato Basil Tortellini Soup",
+    "title": "Creamy Tomato Basil Tortellini Soup",
     "protein": "cheese tortellini",
     "starch": "cheese tortellini",
     "veg_or_fruit": ["tomatoes", "spinach", "basil"],
@@ -990,7 +990,7 @@
     "tags": ["bbq", "family meal", "classic"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Spinach Penne",
+    "title": "Creamy Chicken and Spinach Penne",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -1008,7 +1008,7 @@
     "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
-    "title": "One-Pan: Cajun Shrimp, Roasted Potatoes & Broccoli",
+    "title": "Cajun Shrimp, Roasted Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1044,7 +1044,7 @@
     "tags": ["bbq", "classic", "family"]
   },
   {
-    "title": "One-Pot: Turkey and Vegetable Chili",
+    "title": "Turkey and Vegetable Chili",
     "protein": "ground turkey",
     "starch": null,
     "veg_or_fruit": ["kidney beans", "bell peppers", "corn"],
@@ -1080,7 +1080,7 @@
     "tags": ["burgers", "summer meal", "family favorite"]
   },
   {
-    "title": "One-Pot: Southwest Chicken, Rice & Black Beans",
+    "title": "Southwest Chicken, Rice & Black Beans",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["black beans", "corn", "diced tomatoes"],
@@ -1098,7 +1098,7 @@
     "tags": ["family-friendly", "gluten-free option", "one-pot", "Tex-Mex"]
   },
   {
-    "title": "One-Pan: Roasted Pork Loin, Baby Potatoes & Green Beans",
+    "title": "Roasted Pork Loin, Baby Potatoes & Green Beans",
     "protein": "pork loin",
     "starch": "baby potatoes",
     "veg_or_fruit": ["green beans"],
@@ -1134,7 +1134,7 @@
     "tags": ["burgers", "kid-friendly", "summer meal"]
   },
   {
-    "title": "One-Pot: Creamy Beef Stroganoff with Mushrooms & Egg Noodles",
+    "title": "Creamy Beef Stroganoff with Mushrooms & Egg Noodles",
     "protein": "ground beef",
     "starch": "egg noodles",
     "veg_or_fruit": ["mushrooms", "onion", "parsley"],
@@ -1152,7 +1152,7 @@
     "tags": ["comfort food", "family meal", "winter"]
   },
   {
-    "title": "One-Pan: Italian Chicken Sausage, Roasted Bell Peppers & Polenta",
+    "title": "Italian Chicken Sausage, Roasted Bell Peppers & Polenta",
     "protein": "chicken sausage",
     "starch": "polenta",
     "veg_or_fruit": ["bell peppers", "zucchini"],
@@ -1170,7 +1170,7 @@
     "tags": ["sheet pan", "Italian-inspired", "easy dinner"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Spinach Farfalle",
+    "title": "Creamy Chicken and Spinach Farfalle",
     "protein": "chicken breast",
     "starch": "farfalle pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -1188,7 +1188,7 @@
     "tags": ["family-friendly", "pasta", "comfort food"]
   },
   {
-    "title": "One-Pan: Roasted Lemon Garlic Shrimp, Baby Potatoes & Broccoli",
+    "title": "Roasted Lemon Garlic Shrimp, Baby Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1224,7 +1224,7 @@
     "tags": ["burgers", "summer", "grilled"]
   },
   {
-    "title": "One-Pot: Cheesy Beef and Vegetable Macaroni",
+    "title": "Cheesy Beef and Vegetable Macaroni",
     "protein": "ground beef",
     "starch": "elbow macaroni",
     "veg_or_fruit": ["carrots", "peas"],
@@ -1260,7 +1260,7 @@
     "tags": ["classic", "Italian", "family dinner"]
   },
   {
-    "title": "One-Pot: Chicken and Rice with Green Beans",
+    "title": "Chicken and Rice with Green Beans",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["green beans"],
@@ -1278,7 +1278,7 @@
     "tags": ["family-friendly", "easy cleanup", "balanced"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Meatloaf, Roasted Potatoes & Broccoli",
+    "title": "Sheet Pan BBQ Meatloaf, Roasted Potatoes & Broccoli",
     "protein": "ground beef",
     "starch": "baby potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1314,7 +1314,7 @@
     "tags": ["burgers", "family meal", "classic"]
   },
   {
-    "title": "One-Pot: Beef and Vegetable Curry with Jasmine Rice",
+    "title": "Beef and Vegetable Curry with Jasmine Rice",
     "protein": "beef stew meat",
     "starch": "jasmine rice",
     "veg_or_fruit": ["bell peppers", "peas"],
@@ -1350,7 +1350,7 @@
     "tags": ["sandwiches", "summer meal", "fresh fruit"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Sun-Dried Tomato Pasta",
+    "title": "Creamy Chicken and Sun-Dried Tomato Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["sun-dried tomatoes", "spinach"],
@@ -1368,7 +1368,7 @@
     "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Chicken, Roasted Sweet Potatoes & Broccoli",
+    "title": "Sheet Pan BBQ Chicken, Roasted Sweet Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1404,7 +1404,7 @@
     "tags": ["burgers", "kid-friendly", "summer meal"]
   },
   {
-    "title": "One-Pot: Hearty Vegetable Beef Minestrone",
+    "title": "Hearty Vegetable Beef Minestrone",
     "protein": "ground beef",
     "starch": "ditalini pasta",
     "veg_or_fruit": ["carrots", "celery", "zucchini"],
@@ -1440,7 +1440,7 @@
     "tags": ["fajitas", "quick meal", "family favorite"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Broccoli Rotini",
+    "title": "Creamy Chicken and Broccoli Rotini",
     "protein": "chicken breast",
     "starch": "rotini pasta",
     "veg_or_fruit": ["broccoli", "carrots"],
@@ -1458,7 +1458,7 @@
     "tags": ["family-friendly", "comfort food", "pasta"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Chicken Thighs, Roasted Red Potatoes & Broccoli",
+    "title": "Sheet Pan BBQ Chicken Thighs, Roasted Red Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "red potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1494,7 +1494,7 @@
     "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
-    "title": "One-Pot: Cheesy Chicken and Spinach Penne",
+    "title": "Cheesy Chicken and Spinach Penne",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "tomatoes"],
@@ -1512,7 +1512,7 @@
     "tags": ["one-pot", "cheesy", "pasta"]
   },
   {
-    "title": "One-Pan: Roasted Pork Chops, Yukon Potatoes & Roasted Brussels Sprouts",
+    "title": "Roasted Pork Chops, Yukon Potatoes & Roasted Brussels Sprouts",
     "protein": "pork chops",
     "starch": "Yukon potatoes",
     "veg_or_fruit": ["Brussels sprouts"],
@@ -1530,7 +1530,7 @@
     "tags": ["hearty", "winter", "sheet pan"]
   },
   {
-    "title": "One-Pot: Chicken and Rice Casserole with Peas",
+    "title": "Chicken and Rice Casserole with Peas",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["peas", "carrots"],
@@ -1548,7 +1548,7 @@
     "tags": ["family-friendly", "comfort food", "casserole"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Chicken, Corn & Zucchini",
+    "title": "Sheet Pan BBQ Chicken, Corn & Zucchini",
     "protein": "chicken thighs",
     "starch": "corn on the cob",
     "veg_or_fruit": ["zucchini"],
@@ -1584,7 +1584,7 @@
     "tags": ["burgers", "family meal", "kid-friendly"]
   },
   {
-    "title": "One-Pot: Creamy Pasta Primavera with Chicken and Spinach",
+    "title": "Creamy Pasta Primavera with Chicken and Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "bell peppers", "cherry tomatoes"],
@@ -1620,7 +1620,7 @@
     "tags": ["burgers", "summer", "family favorite"]
   },
   {
-    "title": "One-Pot: Chicken and Rice Pilaf with Peas",
+    "title": "Chicken and Rice Pilaf with Peas",
     "protein": "chicken breast",
     "starch": "rice",
     "veg_or_fruit": ["peas", "carrots"],
@@ -1638,7 +1638,7 @@
     "tags": ["family-friendly", "comfort food", "balanced"]
   },
   {
-    "title": "One-Pan: Herb Roasted Pork Chops, Baby Carrots & Red Potatoes",
+    "title": "Herb Roasted Pork Chops, Baby Carrots & Red Potatoes",
     "protein": "pork chops",
     "starch": "red potatoes",
     "veg_or_fruit": ["baby carrots"],
@@ -1674,7 +1674,7 @@
     "tags": ["taco night", "kid-friendly", "customizable"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Spinach Pasta",
+    "title": "Creamy Chicken and Spinach Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -1710,7 +1710,7 @@
     "tags": ["grilled", "healthy", "summer meal"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Couscous",
+    "title": "Chicken and Vegetable Couscous",
     "protein": "chicken breast",
     "starch": "couscous",
     "veg_or_fruit": ["zucchini", "carrots", "peas"],
@@ -1746,7 +1746,7 @@
     "tags": ["burgers", "beef", "family", "classic"]
   },
   {
-    "title": "One-Pan: Sheet Pan Chicken, Sweet Potatoes & Broccoli",
+    "title": "Sheet Pan Chicken, Sweet Potatoes & Broccoli",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1782,7 +1782,7 @@
     "tags": ["pasta", "meat sauce", "turkey", "vegetables"]
   },
   {
-    "title": "One-Pot: Hearty Chicken and Barley Soup",
+    "title": "Hearty Chicken and Barley Soup",
     "protein": "chicken breast",
     "starch": "barley",
     "veg_or_fruit": ["carrots", "celery", "spinach"],
@@ -1800,7 +1800,7 @@
     "tags": ["soup", "chicken", "barley", "comfort food"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Penne with Spinach",
+    "title": "Chicken and Vegetable Penne with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "carrots", "zucchini"],
@@ -1818,7 +1818,7 @@
     "tags": ["family-friendly", "pasta", "one-pot", "chicken"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Meatballs, Roasted Potatoes & Broccoli",
+    "title": "Sheet Pan BBQ Meatballs, Roasted Potatoes & Broccoli",
     "protein": "ground beef",
     "starch": "baby potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -1854,7 +1854,7 @@
     "tags": ["burgers", "turkey", "family", "grill"]
   },
   {
-    "title": "One-Pot: Beef and Bean Chili with Cheddar",
+    "title": "Beef and Bean Chili with Cheddar",
     "protein": "ground beef",
     "starch": "kidney beans",
     "veg_or_fruit": ["diced tomatoes", "onion"],
@@ -1890,7 +1890,7 @@
     "tags": ["chicken", "rice", "family", "broccoli"]
   },
   {
-    "title": "One-Pot: Creamy Chicken Pesto Pasta with Spinach",
+    "title": "Creamy Chicken Pesto Pasta with Spinach",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -1908,7 +1908,7 @@
     "tags": ["family-friendly", "pasta", "one-pot"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Chicken Thighs, Roasted Sweet Potatoes & Green Beans",
+    "title": "Sheet Pan BBQ Chicken Thighs, Roasted Sweet Potatoes & Green Beans",
     "protein": "chicken thighs",
     "starch": "sweet potatoes",
     "veg_or_fruit": ["green beans"],
@@ -1944,7 +1944,7 @@
     "tags": ["burgers", "family-friendly", "quick"]
   },
   {
-    "title": "One-Pot: Creamy Tomato Basil Tortellini with Spinach",
+    "title": "Creamy Tomato Basil Tortellini with Spinach",
     "protein": "cheese tortellini",
     "starch": "cheese tortellini",
     "veg_or_fruit": ["spinach", "tomatoes"],
@@ -1962,7 +1962,7 @@
     "tags": ["vegetarian", "one-pot", "pasta"]
   },
   {
-    "title": "One-Pot: Chicken and Brown Rice with Green Beans",
+    "title": "Chicken and Brown Rice with Green Beans",
     "protein": "chicken breast",
     "starch": "brown rice",
     "veg_or_fruit": ["green beans"],
@@ -1980,7 +1980,7 @@
     "tags": ["family-friendly", "balanced", "simple"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Rice Skillet",
+    "title": "Chicken and Vegetable Rice Skillet",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["carrots", "peas", "red bell pepper"],
@@ -1998,7 +1998,7 @@
     "tags": ["family-friendly", "easy cleanup", "balanced"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Meatballs, Roasted Potatoes & Green Beans",
+    "title": "Sheet Pan BBQ Meatballs, Roasted Potatoes & Green Beans",
     "protein": "ground beef",
     "starch": "baby potatoes",
     "veg_or_fruit": ["green beans"],
@@ -2034,7 +2034,7 @@
     "tags": ["burgers", "summer", "family meal"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Corn Pasta",
+    "title": "Creamy Chicken and Corn Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["corn", "spinach"],
@@ -2070,7 +2070,7 @@
     "tags": ["burgers", "quick", "summer"]
   },
   {
-    "title": "One-Pot: Chicken and Spinach Rice Skillet",
+    "title": "Chicken and Spinach Rice Skillet",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
@@ -2088,7 +2088,7 @@
     "tags": ["family-friendly", "easy cleanup", "comfort food"]
   },
   {
-    "title": "One-Pan: Sheet Pan Teriyaki Salmon, Brown Rice & Broccoli",
+    "title": "Sheet Pan Teriyaki Salmon, Brown Rice & Broccoli",
     "protein": "salmon fillet",
     "starch": "brown rice",
     "veg_or_fruit": ["broccoli"],
@@ -2124,7 +2124,7 @@
     "tags": ["burgers", "kid-friendly", "classic"]
   },
   {
-    "title": "One-Pot: Creamy Chicken and Broccoli Pasta",
+    "title": "Creamy Chicken and Broccoli Pasta",
     "protein": "chicken breast",
     "starch": "penne pasta",
     "veg_or_fruit": ["broccoli"],
@@ -2142,7 +2142,7 @@
     "tags": ["one-pot", "pasta", "creamy"]
   },
   {
-    "title": "One-Pan: Roasted Italian Sausage, Baby Potatoes & Zucchini",
+    "title": "Roasted Italian Sausage, Baby Potatoes & Zucchini",
     "protein": "Italian sausage",
     "starch": "baby potatoes",
     "veg_or_fruit": ["zucchini"],
@@ -2160,7 +2160,7 @@
     "tags": ["sheet pan", "sausage", "easy"]
   },
   {
-    "title": "One-Pot: Chicken and Vegetable Brown Rice Skillet",
+    "title": "Chicken and Vegetable Brown Rice Skillet",
     "protein": "chicken breast",
     "starch": "brown rice",
     "veg_or_fruit": ["carrots", "peas", "red bell pepper"],
@@ -2178,7 +2178,7 @@
     "tags": ["family-friendly", "skillet", "chicken", "vegetables"]
   },
   {
-    "title": "One-Pan: Sheet Pan BBQ Chicken, Roasted Potatoes & Carrots",
+    "title": "Sheet Pan BBQ Chicken, Roasted Potatoes & Carrots",
     "protein": "chicken thighs",
     "starch": "baby potatoes",
     "veg_or_fruit": ["carrots"],
@@ -2214,7 +2214,7 @@
     "tags": ["burgers", "turkey", "family classic"]
   },
   {
-    "title": "One-Pot: Cheesy Beef and Rotini Pasta with Spinach",
+    "title": "Cheesy Beef and Rotini Pasta with Spinach",
     "protein": "ground beef",
     "starch": "rotini pasta",
     "veg_or_fruit": ["spinach", "tomatoes"],
@@ -2250,7 +2250,7 @@
     "tags": ["comfort food", "meatloaf", "family dinner"]
   },
   {
-    "title": "One-Pot: Chicken and Rice with Roasted Red Peppers",
+    "title": "Chicken and Rice with Roasted Red Peppers",
     "protein": "chicken breast",
     "starch": "white rice",
     "veg_or_fruit": ["roasted red peppers", "peas"],
@@ -2268,7 +2268,7 @@
     "tags": ["family-friendly", "comfort food", "easy cleanup"]
   },
   {
-    "title": "One-Pan: Garlic Butter Shrimp, Roasted Potatoes & Broccoli",
+    "title": "Garlic Butter Shrimp, Roasted Potatoes & Broccoli",
     "protein": "shrimp",
     "starch": "baby potatoes",
     "veg_or_fruit": ["broccoli"],
@@ -2304,7 +2304,7 @@
     "tags": ["sandwich", "bbq", "kid-friendly"]
   },
   {
-    "title": "One-Pot: Creamy Spinach and Sausage Pasta",
+    "title": "Creamy Spinach and Sausage Pasta",
     "protein": "Italian sausage",
     "starch": "penne pasta",
     "veg_or_fruit": ["spinach", "cherry tomatoes"],
