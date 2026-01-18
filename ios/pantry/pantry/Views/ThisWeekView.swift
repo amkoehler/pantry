@@ -31,7 +31,6 @@ struct ThisWeekView: View {
                 }
             }
             .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
         }
         .background(PantryTheme.Colors.background.ignoresSafeArea())
         .task {
@@ -106,6 +105,9 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.currentWeekFilteredMeals,
                 weekPlan: viewModel.currentWeekPlan,
+                isGenerating: viewModel.isGeneratingDraft,
+                isCurrentWeek: true,
+                isPastDay: viewModel.isPastDay,
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -120,6 +122,9 @@ private struct WeekPlanScrollView: View {
             WeekPageView(
                 plannedMeals: viewModel.nextWeekFilteredMeals,
                 weekPlan: viewModel.nextWeekPlan,
+                isGenerating: viewModel.isGeneratingDraft,
+                isCurrentWeek: false,
+                isPastDay: { _ in false },  // Next week has no past days
                 onMealTap: viewModel.selectMealForSwap,
                 onMealSwap: viewModel.swapMeals,
                 onRegenerate: { plan in
@@ -143,37 +148,62 @@ private struct WeekPlanScrollView: View {
 private struct WeekPageView: View {
     let plannedMeals: [PlannedMeal]
     let weekPlan: WeeklyPlan?
+    let isGenerating: Bool
+    let isCurrentWeek: Bool
+    let isPastDay: (Int) -> Bool
     let onMealTap: (PlannedMeal) -> Void
     let onMealSwap: (PlannedMeal, PlannedMeal) -> Void
     let onRegenerate: (WeeklyPlan) -> Void
 
     @State private var draggedMeal: PlannedMeal?
     @State private var hasAppeared = false
+    @State private var showSpinner = false
 
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
-                // Meal cards (draggable to swap between days)
-                ForEach(plannedMeals) { plannedMeal in
-                    DayCardView(
-                        plannedMeal: plannedMeal,
-                        draggedMeal: $draggedMeal,
-                        onTap: { onMealTap(plannedMeal) },
-                        onDrop: { source in onMealSwap(source, plannedMeal) }
-                    )
+                // Meal cards and spinner in ZStack for smooth transitions
+                ZStack {
+                    // Cards layer
+                    if !showSpinner {
+                        VStack(spacing: 12) {
+                            ForEach(Array(plannedMeals.enumerated()), id: \.element.id) { index, plannedMeal in
+                                DayCardView(
+                                    plannedMeal: plannedMeal,
+                                    isPastDay: isCurrentWeek && isPastDay(plannedMeal.dayOfWeek),
+                                    draggedMeal: $draggedMeal,
+                                    onTap: { onMealTap(plannedMeal) },
+                                    onDrop: { source in onMealSwap(source, plannedMeal) }
+                                )
+                                .opacity(hasAppeared ? 1 : 0)
+                                .offset(y: hasAppeared ? 0 : 20)
+                                .scaleEffect(hasAppeared ? 1 : 0.95)
+                                .animation(
+                                    .spring(duration: 0.25, bounce: 0.3)
+                                    .delay(Double(index) * 0.08),
+                                    value: hasAppeared
+                                )
+                            }
+                        }
+                    }
+
+                    // Spinner layer
+                    if showSpinner {
+                        CookingSpinner()
+                            .frame(height: 300)
+                            .transition(.opacity.combined(with: .scale(scale: 0.9)))
+                    }
                 }
-                // Fade + gentle rise animation on the cards
-                .opacity(hasAppeared ? 1 : 0)
-                .offset(y: hasAppeared ? 0 : 12)
 
                 // Check-in section (only show if we have a plan)
                 if let plan = weekPlan {
                     Divider()
                         .padding(.vertical, 8)
 
-                    CheckInView(weeklyPlan: plan) {
-                        onRegenerate(plan)
-                    }
+                    CheckInView(
+                        weeklyPlan: plan,
+                        onRegenerateDraft: { onRegenerate(plan) }
+                    )
                 }
             }
             .padding(.horizontal, 16)
@@ -181,14 +211,42 @@ private struct WeekPageView: View {
             // Extra bottom padding to prevent overlap with page indicator dots
             .padding(.bottom, 40)
         }
-        .task(id: plannedMeals.count) {
-            // Reset and animate when meals appear/change
-            guard !plannedMeals.isEmpty else { return }
+        .onChange(of: isGenerating) { wasGenerating, isNowGenerating in
+            if isNowGenerating {
+                // Step 1: Trigger exit animation on cards
+                withAnimation {
+                    hasAppeared = false
+                }
+                // Step 2: After cards animate out, show spinner
+                Task {
+                    try? await Task.sleep(for: .milliseconds(300))
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        showSpinner = true
+                    }
+                }
+            } else if wasGenerating && !isNowGenerating {
+                // Generation finished - hide spinner, reveal cards
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    showSpinner = false
+                }
+                Task {
+                    try? await Task.sleep(for: .milliseconds(250))
+                    withAnimation {
+                        hasAppeared = true
+                    }
+                }
+            }
+        }
+        .onAppear {
+            // Initial appearance - animate if we have meals
+            showSpinner = false
+            guard !plannedMeals.isEmpty && !isGenerating else { return }
             hasAppeared = false
-            // Small delay ensures the "before" state renders first
-            try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeOut(duration: 0.35)) {
-                hasAppeared = true
+            Task {
+                try? await Task.sleep(for: .milliseconds(50))
+                withAnimation {
+                    hasAppeared = true
+                }
             }
         }
     }

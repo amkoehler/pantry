@@ -17,6 +17,7 @@ struct MealHistoryItem: Codable {
 
 struct DraftRequest: Codable {
     let dinnerCount: Int
+    let days: [Int]?  // Specific days to generate (1=Monday, 7=Sunday). If nil, generates days 1 through dinnerCount
     let busyDays: [Int]
     let constraints: String?
     let mealHistory: [MealHistoryItem]
@@ -295,8 +296,10 @@ extension APIService {
 extension APIService {
 
     /// Build a DraftRequest from SwiftData models and user input.
+    /// - Parameter days: Specific days to generate (1=Monday, 7=Sunday). If nil, generates days 1 through dinnerCount.
     static func buildDraftRequest(
         dinnerCount: Int,
+        days: [Int]? = nil,
         weekShape: WeekShape,
         busyDays: [Int],
         constraints: String?,
@@ -344,6 +347,7 @@ extension APIService {
 
         return DraftRequest(
             dinnerCount: dinnerCount,
+            days: days,
             busyDays: effectiveBusyDays,
             constraints: constraints,
             mealHistory: historyItems,
