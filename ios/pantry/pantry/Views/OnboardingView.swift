@@ -89,6 +89,7 @@ struct OnboardingView: View {
             print("[Onboarding] Generating draft...")
             let request = DraftRequest(
                 dinnerCount: 5,
+                days: nil,  // Generate full week (days 1-5)
                 busyDays: [],
                 constraints: nil,
                 mealHistory: [],

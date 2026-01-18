@@ -51,6 +51,7 @@ export interface MealHistoryItem {
 
 export interface DraftRequest {
   dinnerCount: number;
+  days?: number[]; // Specific days to generate (1=Monday, 7=Sunday). If omitted, generates days 1 through dinnerCount
   busyDays: number[]; // 1=Monday, 7=Sunday
   constraints: string | null;
   mealHistory: MealHistoryItem[];
