@@ -5,7 +5,6 @@ import SwiftData
 struct CheckInView: View {
     @Bindable var weeklyPlan: WeeklyPlan
     var onRegenerateDraft: () -> Void
-    var isCollapsed: Bool = false
 
     @State private var regenerateTask: Task<Void, Never>?
 
@@ -18,48 +17,35 @@ struct CheckInView: View {
     }
 
     var body: some View {
-        if isCollapsed {
-            // Minimal bar during regeneration
-            HStack {
-                ProgressView()
-                    .scaleEffect(0.8)
-                Text("Updating...")
-                    .font(PantryTheme.Typography.subheadline)
-                    .foregroundStyle(PantryTheme.Colors.secondaryText)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-        } else {
-            VStack(alignment: .leading, spacing: 24) {
-                // Week shape section
-                WeekShapeSection(
-                    shape: $weeklyPlan.weekShape,
-                    onChange: scheduleRegeneration
-                )
+        VStack(alignment: .leading, spacing: 24) {
+            // Week shape section
+            WeekShapeSection(
+                shape: $weeklyPlan.weekShape,
+                onChange: scheduleRegeneration
+            )
 
-                // Constraints section
-                ConstraintsSection(
-                    localText: $localConstraints
-                )
+            // Constraints section
+            ConstraintsSection(
+                localText: $localConstraints
+            )
 
-                // Sticky footer with "Update Plan" button
-                if hasUnappliedChanges {
-                    Button(action: applyChanges) {
-                        Text("Update Plan")
-                            .font(PantryTheme.Typography.body)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(PantryTheme.Colors.accent)
+            // Sticky footer with "Update Plan" button
+            if hasUnappliedChanges {
+                Button(action: applyChanges) {
+                    Text("Update Plan")
+                        .font(PantryTheme.Typography.body)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(PantryTheme.Colors.accent)
             }
-            .padding(.vertical, 8)
-            .onAppear {
-                // Initialize local state from model
-                localConstraints = weeklyPlan.constraints ?? ""
-                lastAppliedConstraints = localConstraints
-            }
+        }
+        .padding(.vertical, 8)
+        .onAppear {
+            // Initialize local state from model
+            localConstraints = weeklyPlan.constraints ?? ""
+            lastAppliedConstraints = localConstraints
         }
     }
 

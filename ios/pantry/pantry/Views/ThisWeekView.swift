@@ -158,10 +158,14 @@ private struct WeekPageView: View {
     @State private var hasAppeared = false
 
     var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(spacing: 12) {
-                    // Meal cards (draggable to swap between days)
+        ScrollView {
+            VStack(spacing: 12) {
+                // Meal cards or spinner
+                if isGenerating {
+                    CookingSpinner()
+                        .frame(height: 300)
+                        .transition(.opacity)
+                } else {
                     ForEach(plannedMeals) { plannedMeal in
                         DayCardView(
                             plannedMeal: plannedMeal,
@@ -174,30 +178,23 @@ private struct WeekPageView: View {
                     // Fade + gentle rise animation on the cards
                     .opacity(hasAppeared ? 1 : 0)
                     .offset(y: hasAppeared ? 0 : 12)
-
-                    // Check-in section (only show if we have a plan)
-                    if let plan = weekPlan {
-                        Divider()
-                            .padding(.vertical, 8)
-
-                        CheckInView(
-                            weeklyPlan: plan,
-                            onRegenerateDraft: { onRegenerate(plan) },
-                            isCollapsed: isGenerating
-                        )
-                    }
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-                // Extra bottom padding to prevent overlap with page indicator dots
-                .padding(.bottom, 40)
-            }
 
-            // Full-screen cooking spinner during regeneration
-            if isGenerating {
-                CookingSpinner()
-                    .transition(.opacity)
+                // Check-in section (only show if we have a plan)
+                if let plan = weekPlan {
+                    Divider()
+                        .padding(.vertical, 8)
+
+                    CheckInView(
+                        weeklyPlan: plan,
+                        onRegenerateDraft: { onRegenerate(plan) }
+                    )
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            // Extra bottom padding to prevent overlap with page indicator dots
+            .padding(.bottom, 40)
         }
         .animation(.easeInOut(duration: 0.3), value: isGenerating)
         .task(id: plannedMeals.count) {

@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-/// Full-screen cooking-themed loading spinner with rotating messages.
+/// Cooking-themed loading spinner with rotating messages.
 /// Used during draft regeneration to provide whimsical feedback.
 struct CookingSpinner: View {
     @State private var messageCycler = MessageCycler.cooking()
@@ -20,8 +20,7 @@ struct CookingSpinner: View {
                 .contentTransition(.numericText())
                 .animation(.easeInOut(duration: 0.3), value: messageCycler.currentIndex)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(PantryTheme.Colors.background.opacity(0.95))
+        .frame(maxWidth: .infinity)
         .onReceive(timer) { _ in
             withAnimation {
                 messageCycler.advance()

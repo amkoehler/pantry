@@ -2,6 +2,9 @@ import Foundation
 import SwiftData
 import Observation
 import UIKit
+import os.log
+
+private let logger = Logger(subsystem: "com.pantry", category: "WeeklyPlanViewModel")
 
 // MARK: - Date Provider Protocol
 
@@ -272,6 +275,7 @@ class WeeklyPlanViewModel {
 
     /// Generate a new draft for the specified week (defaults to selected week)
     func generateDraft(forWeek weekStart: Date? = nil) async {
+        logger.info("generateDraft called, weekStart: \(weekStart?.description ?? "nil", privacy: .public)")
         isGeneratingDraft = true
         generationError = nil
 
@@ -294,10 +298,13 @@ class WeeklyPlanViewModel {
             )
 
             // 4. Call API
+            logger.info("Calling API to generate draft...")
             let response = try await APIService.shared.generateDraft(request: request)
+            logger.info("API returned \(response.meals.count) meals")
 
             // 5. Create WeeklyPlan - use selected week if no explicit week provided
             let targetWeekStart = weekStart ?? (selectedWeek == .next ? nextWeekStart() : currentWeekStart())
+            logger.info("Creating plan for week starting \(targetWeekStart, privacy: .public)")
 
             // Delete existing plan for this week if any
             deleteExistingPlan(for: targetWeekStart)
@@ -320,14 +327,17 @@ class WeeklyPlanViewModel {
             // 7. Save and reload
             try modelContext.save()
             await loadPlans()
+            logger.info("Draft generation completed successfully")
 
             // 8. Haptic feedback: tap once for each day in the plan
             await playDraftGeneratedHaptics(dayCount: response.meals.count)
 
         } catch let error as APIError {
+            logger.error("Draft generation failed with API error: \(error.userMessage, privacy: .public)")
             generationError = error.userMessage
             viewState = .error(error.userMessage)
         } catch {
+            logger.error("Draft generation failed: \(error.localizedDescription, privacy: .public)")
             generationError = "Unable to generate plan. Check your connection."
             viewState = .error("Unable to generate plan. Check your connection.")
         }
@@ -337,27 +347,44 @@ class WeeklyPlanViewModel {
 
     /// Regenerate draft for an existing plan (preserves past days, only regenerates today onwards)
     func regenerateDraft(for plan: WeeklyPlan) async {
+        logger.info("regenerateDraft called for plan starting \(plan.weekStartDate, privacy: .public)")
         isGeneratingDraft = true
         generationError = nil
 
         do {
+            // Determine if this is current week or a future week
+            let currentWeek = currentWeekStart()
+            let isCurrentWeekPlan = Calendar.current.isDate(plan.weekStartDate, inSameDayAs: currentWeek)
+
             // Get current day of week
             let today = currentDayOfWeek()
+            logger.info("Today is day \(today), isCurrentWeekPlan: \(isCurrentWeekPlan)")
 
-            // Weekend: no regeneration needed (next week plan should be shown instead)
-            guard today <= 5 else {
-                isGeneratingDraft = false
-                return
+            // Determine which days to regenerate
+            let daysToGenerate: [Int]
+            let firstDayToRegenerate: Int
+
+            if isCurrentWeekPlan {
+                // Current week: only regenerate from today onwards (skip if weekend)
+                guard today <= 5 else {
+                    logger.info("Skipping regeneration: current week plan on weekend (day \(today))")
+                    isGeneratingDraft = false
+                    return
+                }
+                daysToGenerate = Array(today...5)
+                firstDayToRegenerate = today
+            } else {
+                // Future week: regenerate all weekdays
+                daysToGenerate = Array(1...5)
+                firstDayToRegenerate = 1
             }
+            logger.info("Will regenerate days: \(daysToGenerate, privacy: .public)")
 
             // Get preferences
             let preferences = fetchUserPreferences() ?? createDefaultPreferences()
 
             // Sync meals from API
             try await syncMealsFromAPI(preferences: preferences)
-
-            // Build array of days to regenerate (today through Friday)
-            let daysToGenerate = Array(today...5)
 
             // Build request with plan's settings, specifying which days to generate
             let history = fetchPlannedMealsForHistory()
@@ -372,11 +399,13 @@ class WeeklyPlanViewModel {
             )
 
             // Generate new draft (only for specified days)
+            logger.info("Calling API to generate draft...")
             let response = try await APIService.shared.generateDraft(request: request)
+            logger.info("API returned \(response.meals.count) meals")
 
-            // Delete only future planned meals (today onwards), preserve past days
+            // Delete planned meals for days being regenerated
             if let existingMeals = plan.plannedMeals {
-                for meal in existingMeals where meal.dayOfWeek >= today {
+                for meal in existingMeals where meal.dayOfWeek >= firstDayToRegenerate {
                     modelContext.delete(meal)
                 }
             }
@@ -392,13 +421,16 @@ class WeeklyPlanViewModel {
             // Save and reload
             try modelContext.save()
             await loadPlans()
+            logger.info("Draft regeneration completed successfully")
 
             // Haptic feedback: tap once for each day in the plan
             await playDraftGeneratedHaptics(dayCount: response.meals.count)
 
         } catch let error as APIError {
+            logger.error("Draft regeneration failed with API error: \(error.userMessage, privacy: .public)")
             generationError = error.userMessage
         } catch {
+            logger.error("Draft regeneration failed: \(error.localizedDescription, privacy: .public)")
             generationError = "Unable to regenerate plan. Check your connection."
         }
 
