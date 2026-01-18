@@ -166,7 +166,7 @@ private struct WeekPageView: View {
                         .frame(height: 300)
                         .transition(.opacity)
                 } else {
-                    ForEach(plannedMeals) { plannedMeal in
+                    ForEach(Array(plannedMeals.enumerated()), id: \.element.id) { index, plannedMeal in
                         DayCardView(
                             plannedMeal: plannedMeal,
                             isPastDay: isCurrentWeek && isPastDay(plannedMeal.dayOfWeek),
@@ -174,10 +174,15 @@ private struct WeekPageView: View {
                             onTap: { onMealTap(plannedMeal) },
                             onDrop: { source in onMealSwap(source, plannedMeal) }
                         )
+                        .opacity(hasAppeared ? 1 : 0)
+                        .offset(y: hasAppeared ? 0 : 20)
+                        .scaleEffect(hasAppeared ? 1 : 0.95)
+                        .animation(
+                            .spring(duration: 0.5, bounce: 0.3)
+                            .delay(Double(index) * 0.08),
+                            value: hasAppeared
+                        )
                     }
-                    // Fade + gentle rise animation on the cards
-                    .opacity(hasAppeared ? 1 : 0)
-                    .offset(y: hasAppeared ? 0 : 12)
                 }
 
                 // Check-in section (only show if we have a plan)
@@ -197,14 +202,30 @@ private struct WeekPageView: View {
             .padding(.bottom, 40)
         }
         .animation(.easeInOut(duration: 0.3), value: isGenerating)
-        .task(id: plannedMeals.count) {
-            // Reset and animate when meals appear/change
-            guard !plannedMeals.isEmpty else { return }
+        .onChange(of: isGenerating) { wasGenerating, isNowGenerating in
+            if isNowGenerating {
+                // Reset to hidden state when generation starts
+                hasAppeared = false
+            } else if wasGenerating && !isNowGenerating {
+                // Generation just finished - trigger staggered reveal
+                Task {
+                    // Small delay ensures the cards render in hidden state first
+                    try? await Task.sleep(for: .milliseconds(50))
+                    withAnimation {
+                        hasAppeared = true
+                    }
+                }
+            }
+        }
+        .onAppear {
+            // Initial appearance - animate if we have meals
+            guard !plannedMeals.isEmpty && !isGenerating else { return }
             hasAppeared = false
-            // Small delay ensures the "before" state renders first
-            try? await Task.sleep(for: .milliseconds(50))
-            withAnimation(.easeOut(duration: 0.35)) {
-                hasAppeared = true
+            Task {
+                try? await Task.sleep(for: .milliseconds(50))
+                withAnimation {
+                    hasAppeared = true
+                }
             }
         }
     }
